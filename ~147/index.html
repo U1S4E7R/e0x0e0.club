@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USER147</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+        /* RESET */
+        :is(html, body) {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font);
+            color: var(--fg);
+        }
+        
+        /* FRAME SCROLLBAR */
+
+        :is(iframe, embed, object)::-webkit-scrollbar {
+            width: 7px !important;
+        }
+
+        :is(iframe, embed, object)::-webkit-scrollbar-thumb {
+            width: 7px !important;
+            border-radius: 0px;
+            background-color: rgba(0, 0, 0, .5);
+            -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+        }
+
+        :is(iframe, embed, object)::-webkit-scrollbar-thumb:hover {
+            background: rgba(200, 200, 0, .5);
+        }
+
+        :is(iframe, embed, object)::-webkit-scrollbar-track {
+            background: #eee;
+        }
+
+        :root {
+            --bg: #fff;
+            /*1F1F1F*/
+            /* general background */
+            --fg: #000;
+            /*A1A1A1*/
+            /* general foreground */
+            --prim: #00aaaadd;
+            /* general primary */
+            --font: "Roboto Mono", "Menlo", "Monaco", "Lucida Console", monospace;
+            --code: "Roboto Mono", "Monaco", "Lucida Console", monospace;
+            --fs: 17px;
+            /* default font-size & line-height*/
+            --lh: 25px;
+            --op: 0.5;
+            /* level 1 opacity */
+            background: #000;
+        }
+
+        /* MAIN STYLING */
+        main {
+            font-size: var(--fs);
+            line-height: var(--lh);
+            width: 100vw;
+            overflow-x: auto;
+            height: auto;
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--fg);
+            /*transition: background-color 1s linear;*/
+        }
+
+        /*main * { transition: color 0.2s linear, filter 1s linear; }*/
+
+        nav * {
+            font-size: 24px;
+            text-decoration: none;
+            color: var(--fg) !important;
+        }
+
+        nav {
+            line-height: 30px;
+            width: 24px;
+            padding: 5px;
+            position: fixed !important;
+            right: 0.5em;
+            text-align: center;
+        }
+
+        article {
+            margin: 0 3em 0 .5em;
+            padding: 5px 0 1em 1em;
+            max-width: 45em;
+            /*margin: auto;*/
+        }
+
+        article::before {
+            content: "~147"attr(id);
+            /*background: #aaaaaa55 ;*/
+            display: block;
+            opacity: 0.5;
+            margin-bottom: 1em;
+            border-bottom: 1px solid;
+            text-align: left;
+        }
+
+        /*.nav a::after,
+        a.nav::after {
+            content: attr(href);
+        }
+        [target="_blank"], :not(nav) > label:not(.popup, .popup-bg) {
+              opacity: 0.6 !important;
+          }*/
+
+
+        /* NORMALIZE */
+        label {
+            cursor: pointer
+        }
+
+        [target="_blank"] {
+            cursor: ne-resize;
+            font-weight: bold;
+        }
+
+        a:any-link {
+            color: var(--fg);
+            /*text-decoration: none;*/
+        }
+        
+        a:hover {
+            background: #aaaaaa55;
+        }
+        
+        :is(a:any-link, [for="soon"], nav > label):hover {
+            text-decoration: underline
+        }
+
+        [for="soon"] {
+            opacity: 0.5
+        }
+
+        input:not(.nt-check),
+        article:not(:target) {
+            display: none;
+        }
+
+        :is(pre, code) {
+            font-family: var(--code);
+            font-size: 14px !important;
+        }
+
+        :not(pre)>code,
+        pre:not([role="img"]) {
+            padding: 2px;
+            border-radius: 5px;
+            font-size: 0.95em;
+            white-space: pre-wrap;
+            border: 1px solid;
+        }
+
+        /* CUSTOM CLASSES */
+        .rounds {
+            text-align: right;
+        }
+
+        .rounds img {
+            width: 4em;
+            opacity: 0.5
+        }
+
+        /* CSS POPUP */
+        input:checked+.popup,
+        [name="popup"]:not(#close):checked~.popup-bg {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .popup-bg {
+            opacity: 0;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.2);
+            transition: opacity 0.2s;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .popup {
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            position: fixed;
+            width: 20em;
+            height: auto;
+            top: 20vh;
+            left: calc(50vw - 11em);
+            background: var(--bg);
+            padding: 1em;
+            border-radius: 3px;
+            border: 1px solid;
+            z-index: 999 !important;
+        }
+
+        /* DARK MODE SWITCH */
+        /* Fixed Chrome position: fixed error 
+        #toggle-dark-mode:checked~main {
+            --bg: #161616;
+        }
+        
+        #toggle-dark-mode:checked~main :is(article, nav, #not-found) {
+            filter: invert(0.8) brightness(0.75);
+        }*/
+        
+        /* DARK MODE AUTO */
+        @media (prefers-color-scheme: dark) {
+            main {
+                --bg: #161616;
+            }
+        
+            main :is(article, nav, #not-found) {
+                filter: invert(0.8) brightness(0.75);
+            }
+        }
+
+        /* MOBILE & TOUCH SCREENS */        
+        /* BUTTONS */
+        #font-L:checked~main {
+            --fs: 18px;
+            --lh: 30px;
+        }
+
+        #font-M:checked~main {
+            --fs: 18px;
+            --lh: 23px;
+        }
+
+        #font-S:checked~main {
+            --fs: 14px;
+            --lh: 23px;
+        }
+
+        #nav-expand:not(:checked)~[for*="font"] {
+            display: none;
+        }
+
+        [for="nav-expand"]:after {
+            content: "–"
+        }
+
+        #nav-expand:not(:checked)~[for="nav-expand"]:after {
+            content: "+"
+        }
+
+        .stripe> :nth-child(2n) {
+            background: #aaaaaa55;
+        }
+        
+        
+        @media screen and (max-width: 650px) {
+            pre[data-size="over"] {
+                font-size: 2.5vw !important;
+            }
+        }
+
+        @media screen and (min-width: 650px) {
+            .mobile {
+                display: none
+            }
+
+            /*GRID*/
+            .grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 2em;
+            }
+
+            .grid> :last-child {
+                padding: 1em;
+                border-left: 1px solid
+            }
+        }
+
+    </style>
+    <style>
+        /*IMAGE POPUP MACRO*/
+        .img-popup+img {
+            cursor: zoom-in;
+        }
+
+        .img-popup:checked+img {
+            position: fixed;
+            cursor: zoom-out;
+            top: 0vh;
+            left: 0vw;
+            object-fit: scale-down;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99999;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- design note: scale images in "em" so that it grows/shrink with text size-->
+
+    <input type="checkbox" id="toggle-dark-mode">
+    <input type="radio" name="font-size" id="font-L">
+    <input type="radio" name="font-size" id="font-M">
+    <input checked type="radio" name="font-size" id="font-S">
+    <main>
+        <!-- preload the other logo--><img src="./1.1.2.png" style="position: absolute; left: -10em; width: 0; height: 0;">
+
+        <nav title="navigation bar">
+            <label for="toggle-dark-mode" title="toggle dark mode"><span style="display: inline-block;width: 12px; height: 12px; background: #88df80"> </span></label>
+            <a href="#/" title="index">#</a>
+            <!--&#128880;-->
+            <span class="mobile">
+                <input id="nav-expand" type="checkbox">
+                <label for="font-L" style="font-size: 20px" title="change font size to 18 pixels">a<br></label>
+                <label for="font-M" style="font-size: 14px" title="change font size to 16 pixels">a<br></label>
+                <label for="font-S" style="font-size: 10px" title="change font size to 14 pixels">a<br></label>
+                <label for="nav-expand" title="expand the navigation bar"></label></span>
+        </nav>
+
+        <article id="/">
+            <style>
+                .dir>a {
+                    position: relative;
+                    display: flex;
+                    flex-flow: row wrap;
+                    align-items: center;
+                    padding: 1em 0;
+                    margin-left: calc(24px + 1em);
+                    opacity: 1!important;
+                    text-decoration: none;
+                }
+
+                .dir>a::after {
+                    content: attr(href);
+                    display: block;
+                    width: 100%;
+                    font-size: 0.9em;
+                }
+
+                .dir>a:not([href*="http"], .noprefix)::after {
+                    content: attr(href);
+                }
+
+                .dir>a::before {
+                    position: absolute;
+                    margin-left: calc(-24px - 1em);
+                }
+
+                .dir>a[href$=".txt"]::before {
+                    content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAOAgMAAABWXwReAAAADFBMVEUAAAAAAAAAAAAAAAA16TeWAAAAA3RSTlMADgkdKVH0AAAAG0lEQVQI12P4DwIfYBQeAFbiAKEaGAioPICgABZlGgsewYeTAAAAAElFTkSuQmCC);
+                }
+
+                .dir>a[href$="/"]::before {
+                    content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAARAQMAAAAMvaX+AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAAB9JREFUCNdjsD/AwFD/gIHh/wcg/v8HiP+RhOv//wEAmTQtkn2gQYIAAAAASUVORK5CYII=);
+                }
+
+                .dir>a[href*="http"]::before {
+                    content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAWAQMAAAAVTUV7AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAAEhJREFUCNclxLENgCAAALAaB0Y/0DccTHyLwURP8xROwA0XkYShJSSmzFLYIuuKbsjRWLLwJtN4m8Nlq8SPfJDoWk9Tb86LnR/BDReoSX2EgQAAAABJRU5ErkJggg==)
+                }
+            </style>
+
+            <pre role="img" aria-hidden="true" class="note" style="line-height: 1em">       __     _  _      ______
+      /_ |   | || |    |____  |
+  _   _| |___| || |_ ___   / / __
+ | | | | / __|__   _/ _ \ / / '__|
+ | |_| | \__ \  | ||  __/  /| |
+  \__,_|_|___/  |_| \___/_/ |_|</pre>
+
+            <div class="dir" style="">
+                <a href="#/about.txt">About</a>
+                <a href="#/checklist.txt">Site checklist</a>
+                <a href="#/devnote/">Developer's Note</a>
+                <a href="#/ethos/">Ethos</a>
+                <a href="#/musick/">Music</a>
+                <p class="note">Elsewhere</p>
+                <a href="#/links/tools.txt">Web Tools</a>
+                <a href="#/links/">All bookmarks</a>
+                <a href="https://e0x0e0.club/dump/pastebin.txt">pastebin</a>
+                <p class="note">Test</p>
+                <a href="#/test.txt">Playground</a>
+            </div>
+
+        </article>
+
+        <article id="/checklist.txt">
+            <dt>Accessibility</dt>
+            <dd>
+                <p>[ ] put <code>role=&quot;img&quot; aria-hidden=&quot;true&quot;</code> to all the images, banners, ASCII art etc... on the page</p>
+                <p>[ ] give alt text to all images </p>
+            </dd>
+            <dt>Update problems</dt>
+            <dd>
+                <p>[ ] fix the link rot &amp; deprecated widgets in Devnotes</p>
+            </dd>
+        </article>
+
+        <article id="index2" class="nav" style="text-align: center;">
+            webbed site i made with my puter,<br>it's on the line.
+            <div style=" width: fit-content; margin: auto;">
+                <p class="link-list" style="column-count: 3; column-rule: 1px solid #e0e0e0;">
+                    #index
+                    <a href="#about"></a>
+
+                    <a href="#ethos"></a>
+                    <a href="#links"></a>
+                    <a href="#test"></a>
+                    <a href="#%20">#_̵̪͌̽̋̀̓̓͛͝_̵̢̡̥̪̗̺̓͒̓̾̿͑̽̕_̸̝͐_̶̦̍̐̉͋̑</a>
+                    <label for="soon">#copywrong</label><br>
+                    <label for="soon">#manifesto</label><br>
+                    <label for="soon">#soon</label>
+                </p>
+                <!--<dd><label for="soon">#ethos/more</label></dd>
+<dd><label for="soon">#ethos/noscript</label></dd>-->
+                <a href="#devnote"></a>
+                <p class="link-list" style=" margin-top: 0; margin-bottom: 0; column-count: 2; column-rule: 1px solid #e0e0e0;">
+                    <a href="#devnote/230217"></a>
+                    <a href="#devnote/221115"></a>
+                    <a href="#devnote/221029"></a>
+                    <a href="#devnote/221027"></a>
+                    <a href="#devnote/220917"></a>
+                    <a href="#devnote/220428"></a>
+                    <a href="#devnote/220427"></a>
+                    <a href="#devnote/220425"></a>
+                    <a href="#devnote/220424"></a>
+                    <a href="#devnote/220417"></a>
+                    <a href="#devnote/220413"></a>
+                    <a href="#devnote/220402"></a>
+                    <a href="#devnote/220222"></a>
+                    <a href="#devnote/220121"></a>
+                    <a href="#devnote/211203"></a>
+                    <a href="#devnote/211126"></a>
+                    <a href="#devnote/211121"></a>
+                    <a href="#devnote/210925"></a>
+                </p>
+            </div>
+        </article>
+
+        <article id=" ">
+            fuck it <em style="position: absolute; bottom: 1em; right: 3em">nothing</em>
+        </article>
+
+        <article id="/about.txt">
+            <!--<p class="note">What's this?</p>
+            <p class="note">Who are you?</p>
+            <p class="note">about this page</p>
+            <p>best viewed in chrome</p>
+            <p class="note">about me</p>
+-->
+            <pre role="img" aria-hidden="true" class="note" data-size="over" style="line-height: 1em">    _
+   | |
+   | |===( )  |/////
+   |_|   |||  | o o|
+          ||| C   >                   ____
+           ||| \= /                  ||   \_
+            ||||||                   ||     |
+            ||||||                ...||__/|-"
+            ||||||             __|________|__
+              |||             |______________|
+              |||             || ||      || ||
+              |||             || ||      || ||
+--------------|||-------------||-||------||-||-------
+              |__>            || ||      || ||
+
+     hit any key to continue</pre>
+            <p>i'm tệ, the webmastệr at e0x0e0.club. i mostly go by "147" or "user147" on the web, if you see an account named "u1s4e7r" it's most likely mine. </p>
+            <p>i am now a permanent residence at e0x0e0.club, but you could <a href="#/find-me/">find me</a> elsewhere on the Web (or <em>beyond</em> the Web, even).</p>
+        </article>
+        
+        <article id="/find-me/">
+            <p class="dir" style="">
+                <a href="https://e0x0e0.club/~147/"><span class="note">permanent residence</span></a>
+                <a class="noprefix" href="mailto:147@e0x0e0.club"><span class="note">send me bug pics</span></a>
+                <a href="https://codepen.io/u1s4e7r"><span class="note">steal my code</span></a>
+                <a href="https://github.com/U1S4E7R"><span class="note">fork my code</span></a>
+                <a href="https://multiverse.plus/e0x0e0"><span class="note">bullshit with me on the multiverse</span></a>
+            </p>
+            <p class="note">What is tệnạnt?</p>
+        </article>
+
+        <article id="about-old">
+            <section class="">
+                <div>
+                    <label for="test-1" class="note">Go to new main</label>
+                    <p>&#128879; About</p>
+                    <!--<p>user147 is an environmental engineering undergrad based in Tampere, Finland. They make webbed sites on their machines - a Mid 2012 MacBook Pro - using mostly <del>TextEdit</del> <a target="_blank" href="https://www.barebones.com/products/bbedit/"><ins datetime="2022-12-11T1:32:23+02:00">BBEdit</ins></a>. You might've known them as the person who coded up other e0x0e0 pages (like ~369 and ~258) and other Neocities sites like Ketamime and fushiu. You can read about their development process and notes in the Dev Notes. Their websites are built following these ethos:</p>-->
+                    <p>Hi. I am the mealy, feeble creachure behind the screen known by some as user147.</p>
+                    <p>You might've known me as the one who coded up other websites on e0x0e0.club like ~258, ~369, <a href="https://ketamime.neocities.org" target="_blank">ketamime</a> and fushiu. I write about my development process in the
+                        <a href="#devnote" class="nav"></a>.
+                    </p>
+                    <p>I am quite a control freak. Check out my
+                        <a href="#ethos" class="nav"></a>.
+                    </p>
+                    <input type="checkbox" class="nt-check" data-text="wisdom">
+                    <span class="nt-content">: if things look weird, try: <br>~ resize window <br>~ zoom in/zoom out Ctrl +/- (Cmd +/- on Mac) <br>~ change browser. best viewed on Chromium based browsers and Safari <br></span> | <input type="checkbox" class="nt-check" data-text="stats for nerds">
+                    <span class="nt-content">: this page weights 73 KB and is JavaScript-free</span>
+                    <p> </p>
+                </div>
+                <img id="banner" style="max-width: 18em; opacity: 0.3;" src="./1.1.1.png">
+            </section>
+        </article>
+
+        <!-- ARTICLES -->
+
+        <article id="/ethos/">
+            <p style="margin-top: 0">Ethos</p>
+            <strong>Control</strong>
+            <dd>This was, is, and will always be my answer as to why I decided to quit social media and make a website. This tells you why I <em>started</em> to step outside the walled gardens of socmed, and the other ethos tell you why I <em>continued</em> doing it. Using socmed is a gradual process of losing control - over your screentime, your activity and purchase habit, , over your brain hormones, your mood and online behavior, over your privacy and your very identity. It all happens in the ambience and it's 100% legal.</dd>
+            <strong>DIY Punk</strong>
+            <dd>Punk culture was all about doing things yourself, which meant you had to learn how things were done in the first place. The punks strive to build, create, and contribute as much as they consume. They broke down tools and dismantled ideas, for the sake of reverse-engineering and learning the history of stuff. They have a knack for getting their point accross in creative and outrageous ways. They were NIMBYs, Luddites, romantics, standing in the way of progress.</dd>
+            <strong>Brutalism</strong>
+            <dd>Build the website from scratch with vanilla HTML/CSS. External libraries (like JQuery, Bootstrap...), preprocessors (like SASS, LESS...), and content managing platforms (like WordPress, Wix, Tumblr...) always come with a bunch of bells and whistles or way more functionality than needed for a simple, personal web page. Refuse to use them, take pride in writing YOUR own code, return to basic and build the most out of the least.</dd>
+            <strong>Sustainability</strong>
+            <dd>Build the website to last. Offline first, static first, native first, and as stated above, avoid dependency on cloud resources. Stick to W3C standards. Use the same URL to combat link rot, and maintain the website. Make the website as ligthweight as possible, and thereby play nice with old devices, slow internet, and disabilities.</dd>
+            <strong>Freedom</strong>
+            <dd>No tracking and other shenanigans, avoid linking/embedding resources from sites that track users (Gaggle, Facebonk, etc). Stick to the ethos of Free and Open Source Software (FOSS) and allow users to copy/distribute resources under fair use instead of gatekeeping them.</dd>
+            <p class="rounds">
+                <a target="_blank" href="https://creativecommons.org/publicdomain/zero/1.0/">
+                    <img src="./1.3.1.png"> <img src="./1.3.2.png"></a>
+                <a target="_blank" href="https://www.extinctionsymbol.info/"><img src="./1.3.3.png"></a> <img src="./1.3.4.png">
+            </p>
+        </article>
+
+        <article id="/links/">
+            <p class="dir">
+                <a href="#/">..</a>
+                <a href="#/links/tools.txt">Web Tools</a>
+                <a href="#/links/people">People</a>
+            </p>
+        </article>
+
+        <article id="/links/tools.txt">
+            <p class="note">Languages/web</p>
+            <dd>
+                <a href="http://howtocenterincss.com/#contentType=text&content.text.lines=2&horizontal=left&vertical=middle&browser.IE=none" target="_blank">Centering in CSS</a> ⦿ <a href="https://csslisible.com" target="_blank">CSS lisible</a> ⦿ <a href="https://css-tricks.com" target="_blank">CSS Tricks</a> ⦿ <a href="https://htmlreference.io" target="_blank">HTML references</a> ⦿ <a target="_blank" href="https://onecompiler.com/javascript">JS compiler</a> ⦿ <a target="_blank" href="https://markdowntohtml.com">Markdown to HTML</a> ⦿ <a href="https://developer.mozilla.org/en-US/" target="_blank">MDN Web Docs</a> ⦿ <a href="https://www.w3schools.com/tags/ref_byfunc.asp" target="_blank">W3School</a> ⦿
+            </dd>
+            <p class="note">Languages/others</p>
+            <dd>
+                <a href="https://unicode-table.com/en/" target="_blank">Unicode table</a> ⦿ <a target="_blank" href="https://www.pelock.com/products/hash-calculator">Hash calculator</a> ⦿ <a target="_blank" href="https://juhbol.github.io/LaTex-math-cheatsheet/">LaTeX Math</a> ⦿ <a target="_blank" href="https://mermaid.live/">mermaid</a> ⦿ <a target="_blank" href="https://wiki.xxiivv.com/site/uxntal.html">Tal</a> ⦿ <a target="_blank" href="https://100r.co/site/uxn.html">uxn ecosystem</a> ⦿ <a target="_blank" href="https://zsh-manual.netlify.app">Zsh</a> ⦿
+            </dd>
+
+            <p class="note"> Image processing </p>
+            <dd>
+                <a href="https://rgb.to/" target="_blank">RGB to</a> ⦿ <a href="https://www.base64encoder.io/image-to-base64-converter/" target="_blank">Image to base64</a> ⦿ <a href="https://photomosh.com/" target="_blank">Photomosh</a> ⦿ <a href="https://www.photopea.com/" target="_blank">Photopea</a> ⦿ <a href="https://tinypng.com" target="_blank">PNG Panda</a> ⦿ <a href="https://exifinfo.org/" target="_blank">EXIF viewer</a> ⦿ <a href="https://www.imagesmaller.com/exif-remover/" target="_blank">EXIF remover</a> ⦿ 
+            </dd>
+
+        </article>
+
+        <!-- DEV FUCKING NOTE -->
+        <style>
+            ul {
+                border-left: 1px dashed;
+                padding: 0 1em;
+                margin-top: 1em;
+            }
+
+            li {
+                padding-bottom: 1em;
+            }
+
+            li::marker {
+                font-size: 1.5em;
+            }
+
+            .note {
+                opacity: 0.5;
+            }
+
+            hr {
+                border: 0;
+                border-bottom: 1px solid;
+                opacity: 0.6
+            }
+
+            /* NOTATION MACRO 2.0 */
+            input:not(:checked)+.nt-content {
+                display: none;
+            }
+
+            /* CORE (reveal mechanism) */
+
+            .nt-check {
+                appearance: none;
+                -webkit-appearance: none;
+                /* HIDE DEFAULT BROWSER CHECKBOX */
+                cursor: zoom-in;
+                display: inline;
+                opacity: 0.5;
+                font-size: var(--fs);
+            }
+
+            .nt-check:checked {
+                cursor: zoom-out;
+                opacity: 0.2;
+            }
+
+            .nt-check::before {
+                content: "{{}}";
+                font-family: var(--font);
+                color: var(--fg);
+            }
+
+            .nt-check:checked::before {
+                content: "}}{{"
+            }
+
+            .nt-check:hover {
+                text-decoration: underline
+            }
+
+            /* STYLING */
+
+            .nt-check[data-text]:before {
+                content: "{"attr(data-text)"}";
+                display: inline;
+            }
+
+            .nt-check[data-text]:checked:before {
+                content: "}"attr(data-text)"{";
+            }
+
+            .nt-content {
+                background: var(--bg);
+                filter: invert(0.15);
+            }
+
+        </style>
+
+        <article id="/devnote/">
+            <p class="dir">
+                <a href="#/">..</a>
+                <a href="#/devnote/230217.txt">230217 ✰ latest dev note</a>
+                <a href="#/devnote/221115.txt">221115</a>
+                <a href="#/devnote/221029.txt">221029 (-)</a>
+                <a href="#/devnote/221027.txt">221027 (*)(-)</a>
+                <a href="#/devnote/220917.txt">220917 (*)(-)</a>
+                <a href="#/devnote/22.txt">Jan - Apr 2022 (*)(-)</a>
+                <a href="#/devnote/21.txt">Sep - Dec 2021</a>
+            </p>
+
+            <dd>(*) -- link rot<br> (-) -- deprecated widget</dd>
+
+        </article>
+
+        <!-- DEV NOTES -->
+
+        <article id="/devnote/230217.txt">
+            <p>17/02/23</p>
+            <p>e0x0e0 update:</p>
+            <ul>
+                <li><strong>Index</strong>: Layout is completely changed but content is more or less the same.
+                    <ul>
+                        <li>Again with the mystery meat navigation. That is intentional, I like to just let people struggle to find a way in.</li>
+                        <li>Added the JavaScript stars background (code stolen), I just think it looks chill and it&#39;s fun to poke around. But if it&#39;s a toll on page performance then I&#39;ll take it down, or make it smaller maybe.</li>
+                        <li>The rest of functions are pure CSS. I also removed all the inline CSS because it&#39;s better practice.</li>
+                        <li>I still want to include more 32x32 icons into the page, but maybe I&#39;ll make custom ones.</li>
+                        <li><strong>Dev&#39;s notes</strong> (summary): will probably include accessibility notes in the future.</li>
+                        <li><strong>・゜.゜・✧･ﾟ¸. * •</strong>: sometimes I come here and just vibe. same with the &quot;write something&quot; page, it&#39;s for personal use.</li>
+                        <li><strong>Exit page</strong>: this is just for external links. I want to make a link directory in the future, so when that is done I will also leave a link to it on this goodbye page.</li>
+                    </ul>
+                </li>
+                <li><strong>DEV PAGE</strong> (user147) in progress!! I have the skeleton of the page which I&#39;m already quite happy with, but still constantly rewriting the content.
+                    <ul>
+                        <li>added dark mode button</li>
+                    </ul>
+                </li>
+                <li><strong>ART PAGE</strong> (user369) to-dos:
+                    <ul>
+                        <li><strong>Navigation</strong>: a navigation sidebar, and the article list is its own article. On mobile the sidebar is stacked on top of the main frame by default.</li>
+                        <li><strong>CSS Spoiler macro</strong>: I&#39;VE DONE THIS IN TIDDLYWIKI SINCE 5EVER but still haven&#39;t updated it on this page &lt;/3 now you can click on a spoiler to reveal it, and then click again to remask it. Built from dead simple CSS checkbox mechanism.</li>
+                    </ul>
+                </li>
+            </ul>
+        </article>
+        <article id="/devnote/221115.txt">
+            <p>15/11/22</p>
+            <p>e0x0e0 update:</p>
+            <ul>
+                <li>
+                    <strong>Index</strong>: I still want the enter sign on index, but maybe remove everything else.
+                </li>
+                <li>
+                    <strong>Launch page</strong>:
+                    <ul>
+                        <li>
+                            <strong>Nav bar</strong>: similar to the one on <a href="https://misterdizzy.neocities.org" target="_blank">Mister Dizzy's site.</a>
+                            <ul>
+                                <li>all anchors. Link to sections of the launch page: Objects (what?), People (who?) and Exit (where?).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Objects (what?)</strong>: my version of a site map. Contain links to all other pages of e0x0e0 but it's a bit of a mystery meat nav.
+                            <ul>
+                                <li>u3s6e9r.html : a drawer</li>
+                                <li>u1s4e7r.html: the main computer</li>
+                                <li>u2s5e8r.html: coming soon, but it should be some sort of toy, like a clown plushie or sth.</li>
+                                <li>copywrong.html: ??? (I still need to write this first)</li>
+                                <li>devnote.html: a plastic stag beetle</li>
+                                <li>not_found.html: idk man, an error sign?
+                                    <ul>
+                                        <li>I also intended to change not_found.html to include "nothing to see here, get away", a drawing, and a button to go back.</li>
+                                    </ul>
+                                </li>
+                                <li>e0x0e0 is a website, a room, a shared computer, a shared apartment, it's all of the above.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>People (who?)</strong>:
+                            <ul>
+                                <li>The e0x0e0 crew. Bios, pictures, trading cards and links to respective person's pages at e0x0e0 and elsewhere.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Exit (where?)</strong>:
+                            <ul>
+                                <li>Thank you for visiting us! Check out these locations on your way out:</li>
+                                <li>Friends: ft dearest friends of us. They may not have their own website so I'll try to link their carrrd / linktree / notion / anything they're proud of. This section will have custom headshot art.</li>
+                                <li>Neighbors: Neocities buttons. Maybe descriptions if I feel like it.</li>
+                                <li>Webring: should include: the explanation of what is a webring, and then the Null-ring widget.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>u3s6e9r.html</strong>: minor updates
+                    <ul>
+                        <li>
+                            <strong>Reinforced spoiler</strong>: changed the way spoilers are styled.
+                            <ul>
+                                <li>Previously all I did was turning both bg &amp; fg of the text to <code>gray</code> – which means if you highlight the spoiler text you can still read it – and swap out the url for images to a dummy image. </li>
+                                <li>But now I found a much cleaner, more elegant and less peek-able solution: <code>filter: invert(50%); background: gray;</code>. That will render any element into a gray block, regardless of content and without changing its size. Perfect. </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Language switch</strong>: no longer on topbar, only show up in articles that contain vnmese text.
+                        </li>
+                        <li>"Leave a comment" footer, redirects to the Guestbook.
+                            <ul>
+                                <li>
+                                    <span style="margin:auto;font-size:1.5em;text-align:center;writing-mode:vertical-lr;line-height:2em;">X•D <br>8-( <br>%`) <br><span style="writing-mode: horizontal-tb;">Leave&nbsp;a&nbsp;comment&nbsp;!!! </span><br>B,\ <br>:~() <br>=o3</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>sequence.html</strong>: was probly a bad idea, unless I draw comics someday then I can use it. But for now I created this <code>.image-gallery</code> class to display vertical scrolls of images.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </article>
+        <article id="/devnote/221029.txt">
+            <p>29/10/22</p>
+            <p>Rethinking some stuff for e0x0e0 rework</p>
+            <ul>
+                <li>
+                    <strong>ART PAGE</strong>:
+                    <ul>
+                        <li>
+                            <strong>Name</strong>: mayyyybe it's not a good idea to call it "art.html" after all because it contains also art talks &amp; fandom rambles of ~369, which, at one point, will probably outnumber the art (lol). Maybe I'll go with "u3s6e9r.html" as previously intended. People won't remember the URL so they'll have to bookmark my page &lt;3
+                        </li>
+                        <li>
+                            <strong>Embed</strong>: I've been thinking that maybe I'll allow iframes to load content from (god forbid) mAiNsTrEaM SoCiAl mEdIa as well, but idk....... I kinda hate the idea of having cross-domain cookies and scripts on my pristine script-free site.
+                        </li>
+                        <li>
+                            <strong>Image sequence</strong>: so image sequence is just a mechanism using iframes to pull images from "sequence.html". When you click on an image it'll jump to the next. The problem is there's no way to jump back to the previous image? Since this is script-free, I wouldn't want to use the "previous" and "next" arrows bc it'd be too much markup.
+                            <ul>
+                                <li>solution 1: carousel. make it an infinite loop, last picture linked to first picture</li>
+                                <li>solution 2: mini-gallery. make a list of mini thumbnails of all images in order, each thumnail is a link to respective image with <code>target="[IFRAME NAME]"</code>. Just like the image picker macro in TW. <span class="note">this requires a unique name for the iframe tho </span>
+                                </li>
+                                <li class="note">solution 1 is less markup —&gt; more favourable, but as I go I might have to use both.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Spoilers</strong>: yet another checkbox in the <strong>Meta section</strong>. We also need
+                            <ul>
+                                <li>Spoiler toggler (DONE)</li>
+                                <li>
+                                    <a href="./u3s6e9r.html#spoiler-rule">Spoiler rules</a>, <input type="checkbox" class="nt-check" data-text="I'll write that later."> <span class="nt-content"> update 31/10/22: done </span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Media host</strong>: I think I found the culprit eating up disk space on this Neocities acc, it's the EEAAO music videos I've made. They're only about 200MB, which means that I'll receive the warning again when I break the upload limit w images
+                    <ul>
+                        <li>(DONE) solution: create another child website (ex. e0x0e0-media) just for dumping heavy files like videos and music. Kind of a neat trick for now, because content can still be loaded from the same domain (Neocities) and not too much disk space is used on one site.</li>
+                        <li>I think infrequently used resources can also be purged / dumped on e0x0e0-media, I don't want to see the rest of my 83902435 abandoned projects on the main site anymore.</li>
+                    </ul>
+                </li>
+            </ul>
+        </article>
+        <article id="/devnote/221027.txt">
+            <p>27/10/22</p>
+            <p>Couldn't sleep. e0x0e0 rework idea, total reconstruction.</p>
+            <ul>
+                <li>
+                    <strong>LANDING PAGE</strong> (index.html): contains Null Webring widget, some note from the dev and an "Enter" sign.
+                </li>
+                <li>
+                    <strong>ART PAGE</strong>: should be named "art.html" bc it's understandable to non-tech ppl (read: art ppl). If I wanted this page to be obscure I would've named it <a href="http://hgjfkdhskjdgturrgehdsbjkfhdsjkahturaytklfdjjfjfff.net/blackroom.html" target="_blank">hgjfkdhskjdgturrgehdsbjkfhdsjkahturaytklfdjjfjfff.net</a>. (I still stand on the fact that ~369 did all the artwork / art talks and fandom rambles, it just won't show in the URL). Art page is comprised of:
+                    <ul>
+                        <li>
+                            <strong>Meta section</strong>: a bunch of <code>&lt;input&gt;</code> elements before the main container. Serves customization.
+                            <ul>
+                                <li>Dark mode toggler</li>
+                                <li>Color toggler <input type="checkbox" class="nt-check">
+                                    <span class="nt-content"> added 30/10/22 </span>, toggle color mode (on by default)
+                                </li>
+                                <li>Language toggler (I barely think it's needed) (default to EN, switch to VI to see random patches of vietglish rambles)</li>
+                                <li>Spoiler toggler <input type="checkbox" class="nt-check">
+                                    <span class="nt-content"> added 30/10/22 </span>, the spoiler widget is also generated using TW
+                                </li>
+                            </ul>
+
+                        </li>
+                        <li>
+                            <strong>Main container</strong>: aka what the viewer sees
+                            <ul>
+                                <li>
+                                    <strong>Navigator</strong>: using the anchor mechanism ( <code>article:not(:target) {display:none}</code>). <span class="note">cons: cannot anchor anything else, for example headings. But not like I need it tbh.</span>
+                                    <ul>
+                                        <li>Navigator links can be arranged in a tree model, a timeline, or filtered by tags (type, theme, categories or whatever, I call all of them tags)
+                                            <ul>
+                                                <li>filter uses checkbox mechanism. inclusive is better ( <code>#tagname:checked~.tagname {display:block}</code> instead of using <code>#tagname:not(:checked)</code>) </li>
+                                                <li>This can be a toll on CSS, so restrict the amount of tags</li>
+                                                <li>Required tag: masterpost.</li>
+                                            </ul>
+                                        </li>
+                                        <li class="note">Should I call this "Browse"?</li>
+                                        <li class="note">Because navigation is text-based, I have to make the titles funny / make the most out of emojis</li>
+                                        <li>
+                                            <s>No breadcrumb, unfortunately. Only direct URL to each article</s>
+                                            <ul>
+                                                <li>Can be solved with "masterpost" articles which contain links to other articles, a sort of sub-navigation. Breadcrumb is possible.</li>
+                                                <li>Masterposts can also enable tag-like mechanism, ex: an article tagged "TOH" can have a tag pill linking back to the "TOH masterpost". </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Article zone</strong>: <span class="note">padded, in case empty?</span>
+                                    <ul>
+                                        <li>Contains <code>&lt;article&gt;</code> elements, <code>display:none</code> by default </li>
+                                        <li>Media allowed in articles: text, link, image and iframe (embed external content or image sequence). This is to ensure that everything will change color on dark mode, except for iframes &amp; images
+                                            <ul>
+                                                <li>image sequence is special media from ./sequence.html. uses anchor mechanism.</li>
+                                                <li>iframe background should be transparent, if possible</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Copywrong footer</strong>: preferably at the bottom of the page
+                                    <ul>
+                                        <li>is a link titled "2021-2022 by e0x0e0. All wrongs reserved." redirects to ./copywrong.html#art
+                                            <ul>
+                                                <li>"copy.html" will be renamed "copywrong.html" bc I could never rmb if it's "copy" or "copying"</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>No "Back to top" button, but yes <strong>Close</strong> button, as in closing an article. Which would also bring you back to top. Lmao.
+                                    <ul>
+                                        <li>
+                                            <code>&lt;a href="#"&gt;</code>, position should be fixed or sticky.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Guestbook link</strong>: if you're a guest then it's for u
+                                    <ul>
+                                        <li>Got anonymous / pseudonymous questions? <input type="checkbox" class="nt-check" data-text="Found a bug?"> <span class="nt-content"> <a href="#devnote/220615.txt">on the forest floor?</a></span> Drew fanart? Wrote love letters? send them all to the Guestbook. I check it often enough and you can't find me personally by any other way. </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>DEVNOTE PAGE</strong>, aka this (done)</li>
+            </ul>
+            <p>Future concerns:</p>
+            <ul>
+                <li>
+                    <strong>Page bloat</strong>: images are heavy. Too many images can bloat a webpage. Best I could do is index-coloring my stuff, but I'm not willing to mod my images further than that.
+                    <ul>
+                        <li>the kind of behavior I want is that an image will load only when its parent is displayed. Some browsers have this by default, some others support <code>loading="lazy"</code> and some others doesn't support this at all without JavaScript. Would be a hit or miss bc I intended this to be a script-free page. Maybe I'll just put a sign saying that it's best viewed on Chromium / Firefox or whatever </li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Hosting change</strong>: Talking about future plans to upload a noticeable amount of images, I'm also hesistant to have Neocities as my host since they've limited the "download entire site" feature to a certain page weight. Which sucks, I need that feature for archiving purpose. Idk how to find a more reliable media host that wouldn't cost me my soul. Catbox.moe is dead (fuck) and imgur is unstable and full of trackers.
+                    <ul>
+                        <li>maybe it's time to look into the Tildeverse or some shared UNIX computer, or <a href="https://leprd.space" target="_blank">https://leprd.space</a> . I thought Leprd was a bit too robust but now that I realize my project needs a guestbook... maybe I could use that as an opportunity to learn SQL. </li>
+                        <li>but !!! I want to prevent link rot so maybe I will A. keep staying at Neocities and move my media to another host or B. change my website host, but also buy a domain name so that I don't have to care about link rot even if I switch to other hosts in the future. The latter sounds more like a longterm plan. But how long do I need to keep this shit up anyways.</li>
+                    </ul>
+                </li>
+            </ul>
+        </article>
+        <article id="/devnote/220917.txt">
+            <p>17/09/22</p>
+            <p>I love coding on TiddlyWiki, it really forces me to try a different approach to CSS, as in, trying to reuse as many classes as possible. I think I can apply this to my website to make the code more systemic and manageable. TW's codebase is like a masterclass about using classes (lol). </p>
+            <p>Things I'm trying out: base color palette consists of:</p>
+            <ul>
+                <li>general background</li>
+                <li>page background</li>
+                <li>general foreground</li>
+                <li>general primary</li>
+            </ul>
+            <p>This basic palette pretty much covered all colors in the "Hacker" palette I made in TW (black-black-white-green, monospace font, terminal style). More colors can be specified for borders &amp; other elements:</p>
+            <ul>
+                <li>tiddler border</li>
+                <li>table border</li>
+                <li>code foreground</li>
+                <li>....</li>
+            </ul>
+            <p>And then every other elements' color will be defined using these relative values.</p>
+            <p>All tiddlers in TW are wrapped in the class <code>.tc-tiddler-frame</code>. This is used to display not only tiddlers, but also other frame-based elements of my macros. I might steal that for my site too, for example a <code>.e0-frame</code> class as a generic frame style, or <code>.e0-flex</code> for flexbox elements, since I also use that a lot. </p>
+            <p><input type="checkbox" class="nt-check" data-text="Maybe I'll use TiddlyWiki to automate the process of writing my website"> <span class="nt-content"> note <a href="#devnote/221027">27/10/22</a>: I did! I use macros for pretty much everything now, even classes, because they did the same thing on the TW wiki </span>, since TW widgets can generate HTML. I still want my site to be script-free, but script-free sites tend to be a lot of markup, and it gets repetitive. I like to have the idleness of just writing content instead of code, and if not for WikiText I would've written most of my content in Markdown to convert to HTML anyways. Guess I can consider WikiText a robust version of Markdown for me.
+            </p>
+            <p>One thing I'm still not sure about is the layout for my site. The early 2000s frame-y layout is cool and retro and probly plays nice with CSS classes, but it "passes" too well as a regular website while I wanted to think outside of the... frame.</p>
+            <p><input type="checkbox" class="nt-check" data-text='I&apos;ve been thinking of the "map" layout'> <span class="nt-content"> what I mean is a layout where content is distributed on both horizontal &amp; vertical directions like in YWOT, unlike the regular web page which only scrolls vertically. </span> , which was apparently developed to fit the limitations of YWOT, so it sounds a bit stupid to put in HTML bc there's no such limits in HTML. Plus, it'll be based on anchor links which means I can't use anchor links for anything other than map elements.
+            </p>
+            <p><input type="checkbox" class="nt-check" data-text='Another stupider idea would be like "pseudo-map", you have a map that literally just contain links to other HTML pages. Or should I call it an "actual" map, with images representing the pages, but not the actual pages.'> <span class="nt-content"> <a href="https://www.reddit.com/r/InfowarriorRides/comments/jqpahl/well_those_certainly_are_all_words/" target="_blank">yeah, those certainly are all words.</a> it's hyperlink. what you're looking for is a link-based navigation. sleepy writer. </span> Like the map in Animal Croissant. And then <input type="checkbox" class="nt-check" data-text="on each page you'll have arrows to jump to nearby pages"> <span class="nt-content"> it's almost like I don't know iframes exist</span>. Idk why I'm obsessed with making it like an actual 2D space lol. Maybe I just like (and miss) the bareboneness of YWOT and the tedious mechanical scrolling. I have infinite space behind the screen, why not using it.
+            </p>
+            <p>One thing ppl did on YWOT was railways, or roads, or breadcrumbs that lead to another closed area. I can try to do that with HTML, ex:</p>
+            <pre><code> _____                            _____
+|     |  anchor AB    anchor BA  |     |
+|  A  |============||============|  B  |
+!_____!          portal          !_____!
+
+when user scrolls to the far left of (B) they can take a train to the far right of (A) then scroll left to centre of (A)
+
+       ,-------[map]
+   ___/_
+  |  /  |
+==|  B  |==
+  !_____!
+
+if user travels to (B) using the map, they'll always end up in the centre of (B)</code></pre>
+        </article>
+        <article id="/devnote/22.txt">
+            <p>21/01/22</p>
+            <p>Happy New Year. I played around with CSS and changed everything again in terms of design. There&#39;s no such thing as a microblog anymore. Added more multimedia content. Added my diary so you can use it to bully me in the future.</p>
+            <hr>
+            <p>22/02/22</p>
+            <p>Added the Shrine, which for now includes picrews and some Advance-Garbage fashion brands. Added the Inventory, which includes Bookmark &amp; Web tools. So far just functional stuff for my use.</p>
+            <hr>
+            <p>02/04/22</p>
+            <p>God I&#39;ve spent months fixing a bunch of small things that I was too lazy to fix. The devil&#39;s in the details. Reformatted this whole page because I changed the font and realized I can&#39;t just get away with <code>white-space: pre-wrap;</code> everything to save tags. </p>
+            <p>I'm really trying to make this page as lightweight as possible with all the styling I'm putting into it. I discovered some post-processors that can format my HTML and CSS files, but I'll only run it when I've already <em>perfected</em> the markup. </p>
+            <hr>
+            <p>13/04/22</p>
+            <p>Rewritten the copying page. Rewritten the whole style of the index page, really. Changed background color to silver ( <code>#c0c0c0</code> in hex, I was this close to go with <code>#e0e0e0</code> to be meta) because after hours of staring at the screen, black on white doesn&#39;t seem like a good idea anymore. I can&#39;t decide on an off-white color, and white on black or a &quot;dark mode&quot; scheme is kind of gloomy and makes me want to sleep, so now we have black on grey. I unironically think it looks good. </p>
+            <p>More note on color palette: it&#39;s not like I want to go grayscale, but I have to put a limit on colors because i&#39;m so indecisive and if I have too many options my brain will explode and I will stop functioning. I learned that when I started using TIC-80 and realized it&#39;s much, much easier to work with a limited palette. It goes the same for drawing, making powerpoint presentations etc, I&#39;d always have to start from b&amp;w or a gray scale, get all the base done, and then I&#39;ll consider colors. If I start with colors I&#39;ll get NOTHING done. With this page I think I&#39;m limiting it to the hex grayscale ( <code>#fff</code> - <code>#000</code>), dark blue <code>#000080</code>, blue, and red. </p>
+            <hr>
+            <p>17/04/22</p>
+            <p> no: create smaller flexboxes to allow line breaks between flex sections</p>
+            <p>yes: create one huge flexbox then hijack it with horizontal rules</p>
+            <p>tell me now am I insane.</p>
+            <p>also, found a new tip: from now on whenever I need to link to a Youtube video I&#39;ll just get the no-cookie variation of the embed link <input type="checkbox" class="nt-check" title="open/close notation"> <span class="nt-content">future note: this doesn't always work because some videos block embeds (the Youtube Music auto-generated ones, for example). For now I rely on <a href="https://docs.invidious.io/instances/" target="_blank">Invidious</a> for a handshake to the 'Tube – this can even fetch regionally blocked videos, though I have to switch instances occasionally and some of the instances really eats up CPU power. </span>, for example, <a target="_blank" href="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ">https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ</a>. No ads, no recommendation, less surveillance, just how a video should be. </p>
+            <hr>
+            <p>24/04/22</p>
+            <p>Added Winamp player, and of course I have changed my whole layout to adopt the Winamp. Haha. Oops. The skeuomorphic y2k computer screen was cute but I don&#39;t want to seem nostalgic (since I&#39;m not) and honestly I don&#39;t like useless skeuomorphism. The pseudo-screen was functional, it served to limit viewport to ~750px, but now I don't need it anymore. <a target="_blank" href="https://e0x0e0.neocities.org/page2.html">I still have the old layout here</a> in case I change my mind lol. </p>
+            <p>Also, moved main navigators to the side. They used to be at the bottom of every page, and looked cute with the whole computery aesthetic but it required extra padding and I had to paste it to every page. Silly me. Also? It&#39;s a shame that the <code>&lt;frame&gt;</code> element is obsolete, really. No more bottom navigations. </p>
+            <hr>
+            <p>25/04/22</p>
+            <p>Added Winamp player cheatsheet. Switched to pure CSS modals (alert boxes). Why? because <code>javascript:alert()</code> and similar JS methods block the Winamp player, and because I can. I always wanted to reduce the amount of scripts on the page <input type="checkbox" class="nt-check" title="open/close notation"> <span class="nt-content"> that aged pretty well. See list of no-script pages on e0x0e0 </span>, even if it adds a bit of markup. After all CSS <em>is</em> Turing-complete, so theoretically you can do <em>anything</em> with it, and I&#39;m willing to try. </p>
+            <p>I previously learned to make modals with anchor links and <code>div:not(:target) { display: none}</code>, but this changes the URL and writes more into the browsing history, so it doesn&#39;t really behave like a modal. My new CSS modals are based on <code>&lt;input type=&quot;checkbox&quot;&gt;</code> and <code>&lt;label&gt;</code>, <a target="_blank" href="https://github.com/you-dont-need/You-Dont-Need-JavaScript">inspired by this</a>. Shoutout to <a target="_blank" href="https://tonicfunk.neocities.org/index.html">Tonic Funks</a> for including this in their Links page. </p>
+            <hr>
+            <p>27/04/22</p>
+            <p> Got access to a Lenovo ThinkCentre at school, I think e0x0e0 works well in Edge, except that it looks <strong>tiny</strong>. I work on a Mac Pro, but I have scaled screen so the viewport looks like 1280 x 800, which is smaller than most nowadays&#39; computer screen. Maybe I&#39;ll put a note on my front page telling people to <code>Ctrl&#65291;</code> to see things properly. </p>
+            <p>I changed the cursor from inline SVG (the cursor is an ASCII character, the &#10040;) to PNG the other day because it broke on Safari. Now I change it back to SVG again because the PNG cursor looks fugly and pixelated on Safari. The SVG looked crisp for a few days and now it&#39;s pixelated again, and occasionally breaks into random strings. Works fine on Chrome&#47;Edge tho. Tried <code>image-rendering: pixelated</code>, base64-ing the picture, clearing Safari's cache, nothing works. Might be Apple&#39;s font smoothing but I&#39;m not sure, it looks like a bad resize job using <strong>sips</strong>. God damn. So much for having a custom cursor. </p>
+            <p>Who knows 90% time spent making a website is just trying to make it look the same on every browser. </p>
+            <hr>
+            <p>28/04/22</p>
+            <p>FILTERS!!!</p>
+            <p> I DID IT. I made <strong>a filter system using only CSS</strong>. We are a no scripts society &gt;:) Right now the <input type="checkbox" class="nt-check" data-text="devlog"> <span class="nt-content">future note from <a href="#devnote/221115">15/11/22</a>: this design is now obsolete, see previous design of the devlog <a target="_blank" href="https://codepen.io/u1s4e7r/pen/bGRRWeW">here</a></span> is a sandbox for filter (the tags - very Tumblr, ik), but I intend to use this in u3s6e9r's page. <input type="checkbox" class="nt-check"> <span class="nt-content"> note from the future <a href="#devnote/221029">29/10/22</a>: implemented, <em>finally</em>, after like 6 months </span> </p>
+            <p>The very first idea of a filter came to me last year when I saw <a href="https://otto958.systems" target="_blank">Otto958's website</a>. <input type="checkbox" class="nt-check"> <span class="nt-content"> sidenote: the portal on my page might be inspired by them too. Damn I thought I just like the idea of "terminal commands"-like shortcuts but now that I think about it... maybe it's really inspired by Otto985.</span> I tried replicating their layout to use it for u3s6e9r&#39;s page (yes I started working on u3s6e9r&#39;s page since last year), did a bunch of draft on that, unfortunately my noob coding skills didn&#39;t catch up with the idea. I really thought this was impossible with pure CSS. Well, I did it! It&#39;s still a bit hacky, I may try to improve it in the future. But hey, it's lightweight and it works. </p>
+        </article>
+        <article id="/devnote/21.txt">
+            <p>25/09/21</p>
+            <p>Finally renovated the index. Removed the &quot;Under Construction&quot; sign, it&#39;s now forever under destruction &lt;/3</p>
+            <hr>
+            <p>21/11/21</p>
+            <p>So I saw Sadgrl&#39;s new updates including their own <a target="_blank" href="https://yesterweb.org/radio/index.html">Yesterweb Radio</a>, and I was hooked. As a frequent listener of <a target="_blank" href="https://anonradio.net/">aNONradio</a>, I was <em>very</em> tempted to learn how to stream my own radio station through icecast (as if I have anything good to stream) but apparently I didn&#39;t have any time at the moment. So next &quot;goal&quot; is to figure out the whole icecast thing. Shouldn&#39;t be rocket science. </p>
+            <hr>
+            <p>26/11/21</p>
+            <p>Made a Go Back and Refresh button just so I can edit and preview the page easier locally. Added Picrew page &amp; changed the Microblog layout completely. Enjoy Microblog 2.0!</p>
+            <hr>
+            <p>03/12/21</p>
+            <p>Changed the font to Arial. Good ol&#39; sans-serif Arial. At first I didn&#39;t expect to do a lot of writing so this whole page was set in Menlo, Roboto Mono or monospace (there was a lot of ASCII art around here so setting all the texts to monospace saved me a lot of formatting). But after some long ass blog (rant) entries I realized that:</p>
+            <ol>
+                <li style="font-family: monospace;  font-size: 15px;">Monospace fonts make it easier to recognize letters, but not words.</li>
+                <li style="font-family: serif;  font-size: 17px;">Serif fonts make it easier to recognize words, but not letters. Also they give me visual fatigue.</li>
+                <li style="font-family: sans-serif;  font-size: 15px;">Sans-serif fonts are perfect for reading, and Arial is the best sans-serif font ever made.</li>
+            </ol>
+            <p>A bit of letter-spacing and line-height magic and Arial becomes the most readable font ever.</p>
+            <p style="font-family: 'Monaco', sans-serif;  font-size: 14px;">Readable monospaced fonts like Monaco is on thin ice (and it&#39;s also used in the code editor of Neocities I believe?). But hey Monaco isn&#39;t one of the default fonts in some browsers. So, boo.</p>
+            <p style="font-family: 'Courier', monospace;  font-size: 14px;">Courier should be used very sparingly for it is a reading nightmare, as it is <strong>both monospaced AND serif</strong>. I get tired looking at all the nooks and crannies of it and if I need to read a wall of text in Courier I&#39;ll just hang myself. </p>
+            <p>That said, if the text was formatted properly (i.e it has hierarchy and moderate paragraph spacing, unlike mine) and if the content was well-written (unlike mine), then I honestly don&#39;t mind reading it in <em style="font-family: 'Times', 'Times New Roman', serif; font-size: 17px;">Times New Roman.</em>
+            </p>
+
+        </article>
+        <article id="/devnote/220615.txt">
+            <p>What do computers and the forest floor have in common?</p>
+            <pre role="img" aria-hidden="true" style="font-size: 5px !important; line-height: 6px !important; width: fit-content !important;"><code style="font-size: 5px !important; line-height: 6px !important; ">                                                                                                                                                      
+                                                                          !7~                                                                         
+                                                                          #@B                                                                         
+                                                                          B@G                                                                         
+                                                                         .#@#.                                                                        
+                                                                         ^&amp;&amp;&amp;:                                                                        
+                                                                         ~&amp;&amp;&amp;^                                                                        
+                                                                         !&amp;&amp;&amp;^                                                                        
+                                                                         7&amp;&amp;&amp;!                                                                        
+                                                                         P&amp;&amp;&amp;Y                                                                        
+                                                                        .B&amp;&amp;&amp;G.                                                                       
+                                                                        7#&amp;&amp;&amp;#~                                                                       
+                                                 .^^.                   P#&amp;###5                   .^:                                                 
+                                                 ~PG5.                 7GBBBBBG~                 .PGP^                                                
+                                                 !PBG^..:!J~....     .~YGGP5PGGY^.     ....~J!:..~BB5~                                                
+                                           .....!YGPBJ..       .:.7YJ77?J5555YJ?77JY! :.       ..YBPPY~.....                                          
+                                           :5GPGG55Y5:.......   .7GPY??!~!?J?!~!??YPG!.   ...... :PY55GGPGY.                                          
+                                            :P5P55GGG?:...::^^!JYJP55Y?77?J?7!!7?Y55P?YJ!^^.:...:JGGGY5P55.                                           
+                                            :YYYGGP?.  .~:JY5BG#5JP5PPP5PYJJ?7!?JY55PJPBBGYY?:~.  :JPGPYYY.                                           
+                                         :5JYJJPP?!::!?J55YPGB##BBGGGBBBGP5YY55YJY55PGGBGG5YJY5J7~::7JGPJJJJ5.                                        
+                                          JYJ7JJYJJY?7!!!77JY5GGBBBGGBBGG5YJ5YY5J?JJJJJ7!~^^^^^^!?JYJJYJJ7JY?                                         
+                                        .:!!7JY5YY?~^^~!!7JY5GB#####BBBPP##B5JYYJJJJJJJ7!~^::.....^!JYY5JJ7!!:                                        
+                                        ^Y~!JPP5?!^~~~YBP???Y5PPGGGGPPGGPB#B5JJ!!!!!!!!!~~^~JGY:...:^~?5P5?~~Y:                                       
+                                        :!!5P555YJ?JJYG#&amp;B5Y5555YYJJJJ5PGGBGP??~^:::^^~!?JJP#&amp;P~:^^:^^~7J5PY~7.                                       
+                                       .!7PP5Y55YY5YY5G#&amp;PP55PPP5YJJJYGGPPP5?JJ?7!~!77?YY5PPGGY!^^^^~^~^7?Y5P7!                                       
+                                        JPJ7JYP5PP55GGB##G5BGGGGGPGPPPPPP55Y!?JYYYYYJJYYPGGJ55J7!~~~~~~^^:~7Y5?                                       
+            .::..^?!^:.^Y?~^:^^        :P55JJPGGGGPGBB####PPGBGGGGGPPP55YJYY??JJJJYYY555PG55YJJ7!!~~!~~~^:~?Y5P:        ^^^^~JY^.^^!?^..::.           
+       .:::.^~:.        .. ..~?J!.     YPP5Y5PGBGBBB#####BBPPGGGGPPPP5YYYY5YYYYY555555555Y?????77!!~^~~~~:~?5P5J     .!J?~.. ..        .^~^.:::.      
+    ^5Y^.                    :JG&amp;B55!~?JYY?YYGBBB####&amp;#&amp;##GGYJJYYYYYJJ??777?77???JJYJJ?7!~~!!!77!?7!^^^~~^^!?JYJ?~75PB&amp;G?.                    .^Y5:   
+   :&amp;!                      P@@@&amp;&amp;&amp;BG#G!7J55PBBB###&amp;&amp;&amp;&amp;&amp;&amp;BBG?~^::^~~^^::::::^:::::^^:.....^~~~~77?7!!~^~~^!7J?77BBPB&amp;&amp;&amp;@@@Y                      7&amp;.  
+    7                      :Y^.^#&amp;&amp;BPG5!^JY5GBB##&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;#PJ7:.......   ....            .:^~~!!!?7!!!~~!!!7J?^7PPPB&amp;&amp;#^.^Y.                      7   
+                              ^#@@&amp;#GP5J^7YPBB##&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;B?^::^:..           ....:..    .:^~7!?7???Y?777?J?!^J5GB#&amp;@@B.                             
+                             .BBP??YGGY?~^?5G##&amp;&amp;&amp;&amp;&amp;&amp;###&amp;&amp;##7:^!!!!~^:....::^~~!777!^..   ...:^~!?JYY55YJJJJ7^~?5GPJ??P#P                             
+                                   ?#B5??77J5G###&amp;&amp;&amp;&amp;&amp;##BBB577?JJJJ??77!!7J?????7??7!^:........:^!?5PPP5YJJ?77??PB#!                                  
+                                   .::~5J5PGPPPB#&amp;&amp;#####BBGGGPPPP555YJJJJJYYJ7777?JJ??7!!777777?JYPGGPYJY5PGP5JY^::.                                  
+                                       .^JGBB#BBBB#&amp;&amp;&amp;&amp;#####BBGGGGP5YJ?Y5PPGPJ??JJJYYY555PGGGGBBBBGP555PGBBBGJ^.                                      
+                                       .Y#P#&amp;&amp;&amp;&amp;######&amp;&amp;&amp;&amp;####BBBBBGGGPGGGBBGPPPPPPP5PPGB#BBBBBBBGGGGGGB#GB#PBY.                                      
+                                      :B&amp;PJB&amp;@&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;##&amp;&amp;&amp;&amp;&amp;&amp;&amp;###BBBBBBBBBBBB#B5JJJ5PBB###BBBGGGGGB#&amp;&amp;&amp;#Y7JYG#G.                                     
+                                     .B#5?B&amp;&amp;&amp;&amp;&amp;&amp;@@@&amp;&amp;&amp;#BBB####&amp;&amp;&amp;&amp;&amp;&amp;###BGP##BP??5G##B#BGGPGPG##&amp;&amp;&amp;&amp;#B5YGB?^7JP#G                                     
+                                     ?&amp;G7G&amp;&amp;&amp;#B#&amp;&amp;&amp;&amp;&amp;&amp;&amp;@@@&amp;&amp;##BBBBBBB#&amp;&amp;&amp;#BGPGGGBGGP55GGB#&amp;&amp;&amp;&amp;&amp;&amp;##G5?~::~PG!:?JP#!                                    
+                                     G#J?B&amp;&amp;&amp;&amp;&amp;&amp;&amp;#&amp;&amp;#B###&amp;&amp;&amp;&amp;@@@@&amp;&amp;&amp;&amp;######BPG55B#&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;#BGG5YYJ?~~!?YPBB?:^JJBP                                    
+                                    :#GJJG&amp;@&amp;&amp;&amp;&amp;&amp;&amp;&amp;#B#BBGP5PGBB##&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;#BBGPPY?7!!!^^!?JJJYPPGBG?::?JGB.                                   
+                                    ~&amp;YYYB&amp;@@@&amp;&amp;&amp;&amp;&amp;&amp;###BGYJYJ777YGP5YJY5555555YY5PG57!~~!~^~~JJJJ555Y5GGBBP7:^~YY#:                                   
+                                    ~&amp;?55G#&amp;@@&amp;&amp;&amp;&amp;&amp;&amp;##BBBGPP555J7Y###GPPGGGGGGB#&amp;&amp;G??55JJYYYYJYYYY55PPGBBGJ!^~^J?#:                                   
+                                    ?&amp;?5PGB&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;###BGPPPPP5PPPP#&amp;&amp;#BBB###&amp;&amp;@&amp;BPPP5YYYYYYYJYYYY555PGGB57~~~^J7&amp;!                                   
+                                    :&amp;JYGPB&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;##BBGPPGGGPPPPPG#&amp;&amp;#####B5&amp;&amp;#BGP5555Y?JJYYY555555PGGGY!~!^^Y?B.                                   
+                                     GPJGGB#&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;#BBGPGGGPGPPGPGB#&amp;&amp;&amp;&amp;&amp;&amp;5G#BBBP5J?Y5Y?JY5JYY5YY555PGGJ7~!^!JYY                                    
+                                     JBJGBB#&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;#BBBGGGGGGPPPPG5GGGG#&amp;#BBGBGPYYJ~?5Y!JY5JYY55555PPG5?!!!:7?P!                                    
+                                     :GJGBB##&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;###BBGBGGGPPP5Y7PPY?G##G55BP577J.7YY~YY5YY5Y55Y5PPPY?!7~^!!5.                                    
+                                     .JJGBB##&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;####BBBBGGPPP5J^GGJ~PB#GJ7GPJ.~J ^JJ!YY5Y55555555P5J?7!~^~~7                                     
+                                    .!PYPBB###&amp;&amp;&amp;&amp;&amp;&amp;&amp;####BBBBBBGBPPY~PPY^GB#PJ.GP! 7!.!J7!YY5YYYYYY55P5J??7~^^^75~                                    
+                                   :G#&amp;B5BB###&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;###BBB#BBBBGGY^GG5:P#BPY:PP7:5!:7Y?JYYYYYYY55555YJ?7!~~~!P&amp;#P.                                  
+                                   Y&amp;@&amp;&amp;PGB####&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;###B##BBBBG57GP5~P##GPJPPYJ5??Y5JJJY5555555P55J??7!~!?5&amp;&amp;@#?                                  
+                                  5&amp;&amp;@&amp;&amp;#BBB###&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;######B##BGPBGPYG&amp;#GP5GP5Y5YYY5JJYY555555PP5Y?7?7775B#&amp;&amp;&amp;&amp;&amp;Y                                 
+                                 ^##&amp;&amp;?:.P#B####&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;#########BBBBGGPB&amp;&amp;GPPGPYY5YYY5YYY5555555P55J????JP#5.:J@&amp;##:                                
+                                 ?&amp;##&amp;~. .5#BB####&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;#&amp;&amp;#####B##BBG&amp;&amp;&amp;BGPG5Y55YY5555555555P5P5YJ??JYP#Y ..7&amp;##&amp;!                                
+                                .P####!    YBBBB###&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;##&amp;###&amp;#B#&amp;@&amp;BGPG5Y5P55555555555PP555YJJY5GB?    ?####5                                
+                                 YB###J    .G#BGGBB###&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;##&amp;@&amp;#GPG555P55P5555555PPPP55YY55B#P     Y###BJ                                
+                                :P####G.    :~5BGPGBBB###&amp;##&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;#BGGPPPP555PP55P55P5555YY5PBY^.    .G####P:                               
+                                 ~B###B!       ^5BGPGGBBBB#B#####&amp;#&amp;&amp;&amp;#&amp;&amp;&amp;&amp;&amp;#BGGG55P555P55P555555Y55PGY:       7B###B^                                
+                                 :G####B^        :YGGPPGGGBBGBBBB#########&amp;#G5YPYJY5YY55Y55YYYYYYYPPJ:        ~B####G.                                
+                                ^PB#####B^         .^?5GGPPGGGGGGGBGGBBGBB#BPYJY??JJJJYJJJ??JYYYJ7^.         ^B#####BP:                               
+                                7G55####B#~            :~7JY555PPPPPPPPPPGBGPYJY??J??J????777~^.            !#B####55G!                               
+                                    !&amp;##B##?                .:^^~!!77?J??JP55J??7!!!~~^::..                J&amp;#B###^                                   
+                                     J###&amp;&amp;&amp;P.                                                           .G&amp;&amp;&amp;###7                                    
+                                     ~##B#&amp;&amp;&amp;B!                                                         7#&amp;&amp;&amp;#B##^                                    
+                                     ^5#B#&amp;&amp;G5B5!.                                                   .75BYB&amp;&amp;#B#Y:                                    
+                                      ^BGJ^PG^ .:^^^:.                                           .:^^^:. ^B5^YGB:                                     
+                                       ..   !P7.      .                                         .      .?P~   ..                                      
+                                             .?GJ:                                                   :YP7                                             
+                                               ^7YJ:                                               :YY7:                                              
+                                                  ^5J.                                           .YY:                                                 
+                                                    !!:                                         :7~                                                   
+                                                      .^^.                                   .^^                                                      
+                                                        :!:                                 :!.                                                       
+                                                           :^.                           .^:                                                          
+                                                             ~:                        .:^                                                            
+                                                               .:.                   .:.                                                              
+                                                                 :~:               :~.                                                                
+                                                                   :.             .:                                                                  
+</code></pre>
+            <p id="forest-floor">Bugs!</p>
+            <!--<p>No but seriously, do send me insect pics, I'd love to identify them.</p>
+            <p>I major in environmental engineering, it's at odd with my computer tinkering habit but I like to keep the things I do for money apart from what I do for fun.</p>-->
+        </article>
+
+        <!-- END OF DEV NOTES -->
+
+        <article id="/test.txt" class="play">
+
+            <style>
+                .gallery {
+                    width: 40vw;
+                    padding: 0 .5em;
+                    background: #eee;
+                    border: 1px solid;
+                    height: calc(40vw + 3em);
+                    overflow-x: auto;
+                    white-space: nowrap;
+                }
+
+                .gallery input {
+                    display: inline;
+                    cursor: pointer;
+                }
+
+                .gallery input {
+                    appearance: none;
+                    -webkit-appearance: none;
+                    padding: .5em;
+                }
+
+                .gallery input:checked {
+                    background: #aaa;
+                }
+
+                .gallery input:checked+ :is(img, div, span) {
+                    display: block;
+                }
+
+                .gallery:not(.hai) input::after {
+                    content: attr(title);
+                }
+
+                .hai {
+                    height: calc(40vw + 6em) !important;
+                }
+
+                .hai input:checked {
+                    border-radius: 25px;
+                    transition: .5s;
+                }
+
+                .gallery>img,
+                .tab div {
+                    display: none;
+                    position: absolute;
+                    margin-top: .5em;
+                    width: 40vw;
+                    height: 40vw;
+                    object-fit: contain;
+                }
+
+                .tab>div {
+                    white-space: normal;
+                    overflow-y: auto;
+                }
+
+                .hai img {
+                    margin: 0;
+                }
+
+                .hai input {
+                    display: inline-block;
+                    padding: 0;
+                    margin-top: .5em;
+                    width: 5em;
+                    height: 5em;
+                    background-size: cover !important;
+                    background-position: center !important;
+                    border: 1px solid;
+                    transition: .5s;
+                }
+
+            </style>
+
+            <div style="display: inline-block; width: 50px; height: 50px; background: #888"> </div> <span style="float: right">Best viewed in Chrome</span>
+
+            <p><strong>Embedding base64 plain text</strong> (scroll to read)</p>
+
+            <object type="text/html" data="./Losing_Earth_The_Decade_We_Almost_Stopped_Climate_Change_By_Nathaniel_Rich.html" style="width: 100%;"></object>
+
+            <ul>
+                <li>
+                    <p><strong>1. Responsive image gallery with radio input</strong></p>
+
+                    <div class="gallery">
+                        <input type="radio" name="img" title="[x]">|
+                        <input checked type="radio" name="img" title="1.2.1.jpg">
+                        <img src="1.2.1.jpg">
+                        <input type="radio" name="img" title="1.2.2.jpg">
+                        <img src="1.2.2.jpg">
+                        <input type="radio" name="img" title="here's a long ass name hjsdkflsadf">
+                        <img src="1.2.3.gif">
+                        <input type="radio" name="img" title="scroll horizontally to read them all">
+                        <img src="1.2.4.gif">
+                        <input type="radio" name="img" title="1.2.5.gif">
+                        <img src="1.2.5.gif">
+                    </div>
+
+                    <ul>
+                        <li>
+                            <p>1.1 Same things but with divs</p>
+
+                            <div class="gallery tab" style="margin-left: 1em">
+                                <input type="radio" name="img-1" title="[x]">|
+                                <input checked type="radio" name="img-1" title="first happy tab">
+                                <div>
+                                    <h2>One long ass paragraph</h2>
+                                    <p>Scroll to read. Put it in, leave it alone. This is gonna be a happy little seascape. I'll go over the colors one more time that we use: Titanium white, Thalo green, Prussian blue, Van Dyke brown, Alizarin crimson, Sap green, Cad yellow, and Permanent red. We have all at one time or another mixed some mud. Just use the old one inch brush. Use what you see, don't plan it. Let your imagination be your guide. See there, told you that would be easy. Let's make some happy little clouds in our world. Learn when to stop.</p>
+
+                                    <p>These little son of a guns hide in your brush and you just have to push them out. Clouds are free they come and go as they please. You need to have a very firm paint to do this. Absolutely no pressure. You are just a whisper floating across a mountain. Volunteering your time; it pays you and your whole community fantastic dividends. And right there you got an almighty cloud. You don't have to be crazy to do this but it does help. Son of a gun. We don't have anything but happy trees here. This present moment is perfect simply due to the fact you're experiencing it. Just let this happen. We just let this flow right out of our minds. Steve wants reflections, so let's give him reflections. We'll put all the little clouds in and let them dance around and have fun. Everyone wants to enjoy the good parts - but you have to build the framework first. The shadows are just like the highlights, but we're going in the opposite direction.</p>
+
+
+                                    <p>Generated by <a href="https://www.bobrosslipsum.com/" target="_blank">Bob Ross lipsum</a></p>
+                                </div>
+                                <input type="radio" name="img-1" title="second happy tab">
+                                <div>
+                                    <h2>Here's another title</h2>
+                                    <p>Lorem ipsum dolor sit amet</p>
+                                    <p>Life is too short to be alone, too precious. Share it with a friend. Everybody needs a friend. You can spend all day playing with mountains. Tree trunks grow however makes them happy. See. We take the corner of the brush and let it play back-and-forth.</p>
+
+                                    <p>If we're gonna walk though the woods, we need a little path. We'll make some happy little bushes here. Let the paint work</p>
+                                    <p>Life is too short to be alone, too precious. Share it with a friend. Everybody needs a friend. You can spend all day playing with mountains. Tree trunks grow however makes them happy. See. We take the corner of the brush and let it play back-and-forth.</p>
+
+                                    <p>If we're gonna walk though the woods, we need a little path. We'll make some happy little bushes here. Let the paint work</p>
+                                </div>
+                                <input type="radio" name="img-1" title="third happy tab">
+                                <div>
+                                    <h2>Yay!!!!!Yippeeeeee</h2>
+                                    <img src="./1.1.1.png"> One long-ass image
+                                </div>
+                                <input type="radio" name="img-1" title="fourth happy tab">
+                                <div>
+                                    <p>Trees cover up a multitude of sins. Only think about one thing at a time. Don't get greedy. Let's build an almighty mountain. The man who does the best job is the one who is happy at his job. It's cold, but it's beautiful. You better get your coat out, this is going to be a cold painting. Just go out and talk to a tree. Make friends with it. This is probably the greatest thing that's ever happened in my life.</p>
+
+                                    <p>Working it up and down, back and forth. All you need to paint is a few tools, a little instruction, and a vision in your mind. A tree cannot be straight if it has a crooked trunk. Let's put some happy little clouds in our world. If you've been in Alaska less than a year you're a Cheechako. We can fix anything. Clouds are free. They just float around the sky all day and have fun. The secret to doing anything is believing that you can do it. Anything that you believe you can do strong enough, you can do. Anything. As long as you believe. If I paint something, I don't want to have to explain what it is. Every day I learn. We can always carry this a step further. There's really no end to this. Everybody's different. Trees are different. Let them all be individuals.</p>
+
+                                </div>
+                                <input type="radio" name="img-1" title="fifth happy tab">
+                                <div>
+                                    <p>We artists are a different breed of people. We're a happy bunch. Don't forget to tell these special people in your life just how special they are to you. There comes a nice little fluffer. All you have to learn here is how to have fun. See there, told you that would be easy. You got your heavy coat out yet? It's getting colder. I was blessed with a very steady hand; and it comes in very handy when you're doing these little delicate things. Don't kill all your dark areas - you need them to show the light. These little son of a guns hide in your brush and you just have to push them out. In your imagination you can go anywhere you want. Even the worst thing we can do here is good. Let's put some happy trees and bushes back in here. For the lack of a better word I call them hangy downs. See. We take the corner of the brush and let it play back-and-forth. I will take some magic white, and a little bit of Vandyke brown and a little touch of yellow.</p>
+
+                                    <p>We have a fantastic little sky! Anytime you learn something your time and energy are not wasted. How to paint. That's easy. What to paint. That's much harder. Pretend you're water. Just floating without any effort. Having a good day. Just use the old one inch brush. There's not a thing in the world wrong with washing your brush. Everybody needs a friend.</p>
+                                </div>
+                            </div>
+
+                            <ul>
+                                <li>
+                                    <p>Responsive image gallery with radio input, with image thumbnails.</p>
+
+                                    <div class="gallery hai" style="margin-left: 2em ">
+                                        <input checked type="radio" name="img-2" style="background-image: url(1.2.1.jpg)">
+                                        <img src="1.2.1.jpg">
+                                        <input type="radio" name="img-2" style="background-image: url(1.2.2.jpg)">
+                                        <img src="1.2.2.jpg">
+                                        <input type="radio" name="img-2" style="background-image: url(1.2.3.gif)">
+                                        <img src="1.2.3.gif">
+                                        <input type="radio" name="img-2" style="background-image: url(1.2.4.gif)">
+                                        <img src="1.2.4.gif">
+                                        <input type="radio" name="img-2" style="background-image: url(1.2.5.gif)">
+                                        <img src="1.2.5.gif">
+                                    </div>
+
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+
+
+
+
+        </article>
+
+        <div id="not-found" style="padding: 0 1em">
+            <p>Oops. Nothing to see here</p>
+            <a href="#/">go to index</a> or <a>tell me about the broken link</a>
+        </div>
+
+        <style>
+            article:target~#not-found {
+                display: none;
+            }
+
+        </style>
+
+        <!-- POPPY UPS -->
+        <input type="radio" id="close" name="popup" checked>
+        <input type="radio" id="soon" name="popup">
+        <label for="close" class="popup"> coming soon! <br><br>items in this list: ethos/more | links/more | All wrongs reserved | Classic Mac nostalgia | de-Googling the KeyTwo | using vim</label>
+        <label for="close" class="popup-bg"> </label>
+    </main>
+</body>
+
+</html>
