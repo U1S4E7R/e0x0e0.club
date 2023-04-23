@@ -9,50 +9,23 @@
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
         /* RESET */
-        :is(html, body) {
+        :is(html, body, article) {
             margin: 0;
             padding: 0;
             font-family: var(--font);
             color: var(--fg);
-        }
-        
-        /* FRAME SCROLLBAR */
-
-        :is(iframe, embed, object)::-webkit-scrollbar {
-            width: 7px !important;
-        }
-
-        :is(iframe, embed, object)::-webkit-scrollbar-thumb {
-            width: 7px !important;
-            border-radius: 0px;
-            background-color: rgba(0, 0, 0, .5);
-            -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-        }
-
-        :is(iframe, embed, object)::-webkit-scrollbar-thumb:hover {
-            background: rgba(200, 200, 0, .5);
-        }
-
-        :is(iframe, embed, object)::-webkit-scrollbar-track {
-            background: #eee;
+            background: var(--bg)
         }
 
         :root {
             --bg: #fff;
-            /*1F1F1F*/
-            /* general background */
             --fg: #000;
-            /*A1A1A1*/
-            /* general foreground */
-            --prim: #00aaaadd;
-            /* general primary */
+            /* --prim: #00aaaadd; 
+            --code: "Roboto Mono", "Monaco", "Lucida Console", monospace;*/
             --font: "Roboto Mono", "Menlo", "Monaco", "Lucida Console", monospace;
-            --code: "Roboto Mono", "Monaco", "Lucida Console", monospace;
-            --fs: 17px;
             /* default font-size & line-height*/
+            --fs: 17px;
             --lh: 25px;
-            --op: 0.5;
-            /* level 1 opacity */
             background: #000;
         }
 
@@ -66,10 +39,7 @@
             min-height: 100vh;
             background: var(--bg);
             color: var(--fg);
-            /*transition: background-color 1s linear;*/
         }
-
-        /*main * { transition: color 0.2s linear, filter 1s linear; }*/
 
         nav * {
             font-size: 24px;
@@ -81,7 +51,7 @@
             line-height: 30px;
             width: 24px;
             padding: 5px;
-            position: fixed !important;
+            position: fixed;
             right: 0.5em;
             text-align: center;
         }
@@ -103,40 +73,42 @@
             text-align: left;
         }
 
-        /*.nav a::after,
-        a.nav::after {
-            content: attr(href);
+        blockquote {
+            border: 1px dashed;
         }
-        [target="_blank"], :not(nav) > label:not(.popup, .popup-bg) {
-              opacity: 0.6 !important;
-          }*/
 
+        blockquote>.source {
+            display: block;
+            font-style: italic;
+            font-size: 0.9em;
+            text-align: center;
+        }
 
         /* NORMALIZE */
         label {
             cursor: pointer
         }
-
+        
         [target="_blank"] {
             cursor: ne-resize;
-            font-weight: bold;
+        }
+
+        :not(.dir)>[target="_blank"]::after {
+            content: "\2197";
+            font-size: 1.7em;
+            opacity: 0.3;
         }
 
         a:any-link {
             color: var(--fg);
-            /*text-decoration: none;*/
         }
-        
+
         a:hover {
             background: #aaaaaa55;
         }
-        
-        :is(a:any-link, [for="soon"], nav > label):hover {
-            text-decoration: underline
-        }
 
-        [for="soon"] {
-            opacity: 0.5
+        :is(a:any-link, nav > label):hover {
+            text-decoration: underline
         }
 
         input:not(.nt-check),
@@ -145,8 +117,7 @@
         }
 
         :is(pre, code) {
-            font-family: var(--code);
-            font-size: 14px !important;
+            font-family: var(--font);
         }
 
         :not(pre)>code,
@@ -166,6 +137,43 @@
         .rounds img {
             width: 4em;
             opacity: 0.5
+        }
+        
+        /* DIRECTORY VIEW */
+        
+        .dir>a {
+            position: relative;
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
+            padding: 1em 0;
+            margin-left: calc(24px + 1em);
+            opacity: 1 !important;
+            text-decoration: none;
+        }
+
+        .dir>a::after {
+            content: attr(href);
+            display: block;
+            width: 100%;
+            font-size: 0.9em;
+        }
+
+        .dir>a::before {
+            position: absolute;
+            margin-left: calc(-24px - 1em);
+        }
+
+        .dir>a[href$=".txt"]::before {
+            content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAOAgMAAABWXwReAAAADFBMVEUAAAAAAAAAAAAAAAA16TeWAAAAA3RSTlMADgkdKVH0AAAAG0lEQVQI12P4DwIfYBQeAFbiAKEaGAioPICgABZlGgsewYeTAAAAAElFTkSuQmCC);
+        }
+
+        .dir>a[href$="/"]::before {
+            content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAARAQMAAAAMvaX+AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAAB9JREFUCNdjsD/AwFD/gIHh/wcg/v8HiP+RhOv//wEAmTQtkn2gQYIAAAAASUVORK5CYII=);
+        }
+
+        .dir>a[href*="http"]::before {
+            content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAWAQMAAAAVTUV7AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAAEhJREFUCNclxLENgCAAALAaB0Y/0DccTHyLwURP8xROwA0XkYShJSSmzFLYIuuKbsjRWLLwJtN4m8Nlq8SPfJDoWk9Tb86LnR/BDReoSX2EgQAAAABJRU5ErkJggg==)
         }
 
         /* CSS POPUP */
@@ -202,29 +210,20 @@
             border: 1px solid;
             z-index: 999 !important;
         }
-
-        /* DARK MODE SWITCH */
-        /* Fixed Chrome position: fixed error 
-        #toggle-dark-mode:checked~main {
-            --bg: #161616;
-        }
-        
-        #toggle-dark-mode:checked~main :is(article, nav, #not-found) {
-            filter: invert(0.8) brightness(0.75);
-        }*/
         
         /* DARK MODE AUTO */
         @media (prefers-color-scheme: dark) {
             main {
                 --bg: #161616;
+                --fg: #818181;
             }
-        
-            main :is(article, nav, #not-found) {
-                filter: invert(0.8) brightness(0.75);
+            
+            .dir>a::before {
+                filter: invert(0.55)
             }
         }
 
-        /* MOBILE & TOUCH SCREENS */        
+        /* MOBILE & TOUCH SCREENS */
         /* BUTTONS */
         #font-L:checked~main {
             --fs: 18px;
@@ -253,11 +252,6 @@
             content: "+"
         }
 
-        .stripe> :nth-child(2n) {
-            background: #aaaaaa55;
-        }
-        
-        
         @media screen and (max-width: 650px) {
             pre[data-size="over"] {
                 font-size: 2.5vw !important;
@@ -267,18 +261,6 @@
         @media screen and (min-width: 650px) {
             .mobile {
                 display: none
-            }
-
-            /*GRID*/
-            .grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                column-gap: 2em;
-            }
-
-            .grid> :last-child {
-                padding: 1em;
-                border-left: 1px solid
             }
         }
 
@@ -300,6 +282,7 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 99999;
         }
+
     </style>
 </head>
 
@@ -327,44 +310,8 @@
 
         <article id="/">
             <style>
-                .dir>a {
-                    position: relative;
-                    display: flex;
-                    flex-flow: row wrap;
-                    align-items: center;
-                    padding: 1em 0;
-                    margin-left: calc(24px + 1em);
-                    opacity: 1!important;
-                    text-decoration: none;
-                }
+                
 
-                .dir>a::after {
-                    content: attr(href);
-                    display: block;
-                    width: 100%;
-                    font-size: 0.9em;
-                }
-
-                .dir>a:not([href*="http"], .noprefix)::after {
-                    content: attr(href);
-                }
-
-                .dir>a::before {
-                    position: absolute;
-                    margin-left: calc(-24px - 1em);
-                }
-
-                .dir>a[href$=".txt"]::before {
-                    content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAOAgMAAABWXwReAAAADFBMVEUAAAAAAAAAAAAAAAA16TeWAAAAA3RSTlMADgkdKVH0AAAAG0lEQVQI12P4DwIfYBQeAFbiAKEaGAioPICgABZlGgsewYeTAAAAAElFTkSuQmCC);
-                }
-
-                .dir>a[href$="/"]::before {
-                    content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAARAQMAAAAMvaX+AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAAB9JREFUCNdjsD/AwFD/gIHh/wcg/v8HiP+RhOv//wEAmTQtkn2gQYIAAAAASUVORK5CYII=);
-                }
-
-                .dir>a[href*="http"]::before {
-                    content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAWAQMAAAAVTUV7AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAAEhJREFUCNclxLENgCAAALAaB0Y/0DccTHyLwURP8xROwA0XkYShJSSmzFLYIuuKbsjRWLLwJtN4m8Nlq8SPfJDoWk9Tb86LnR/BDReoSX2EgQAAAABJRU5ErkJggg==)
-                }
             </style>
 
             <pre role="img" aria-hidden="true" class="note" style="line-height: 1em">       __     _  _      ______
@@ -382,7 +329,6 @@
                 <a href="#/musick/">Music</a>
                 <p class="note">Elsewhere</p>
                 <a href="#/links/tools.txt">Web Tools</a>
-                <a href="#/links/">All bookmarks</a>
                 <a href="https://e0x0e0.club/dump/pastebin.txt">pastebin</a>
                 <p class="note">Test</p>
                 <a href="#/test.txt">Playground</a>
@@ -400,47 +346,6 @@
             <dd>
                 <p>[ ] fix the link rot &amp; deprecated widgets in Devnotes</p>
             </dd>
-        </article>
-
-        <article id="index2" class="nav" style="text-align: center;">
-            webbed site i made with my puter,<br>it's on the line.
-            <div style=" width: fit-content; margin: auto;">
-                <p class="link-list" style="column-count: 3; column-rule: 1px solid #e0e0e0;">
-                    #index
-                    <a href="#about"></a>
-
-                    <a href="#ethos"></a>
-                    <a href="#links"></a>
-                    <a href="#test"></a>
-                    <a href="#%20">#_̵̪͌̽̋̀̓̓͛͝_̵̢̡̥̪̗̺̓͒̓̾̿͑̽̕_̸̝͐_̶̦̍̐̉͋̑</a>
-                    <label for="soon">#copywrong</label><br>
-                    <label for="soon">#manifesto</label><br>
-                    <label for="soon">#soon</label>
-                </p>
-                <!--<dd><label for="soon">#ethos/more</label></dd>
-<dd><label for="soon">#ethos/noscript</label></dd>-->
-                <a href="#devnote"></a>
-                <p class="link-list" style=" margin-top: 0; margin-bottom: 0; column-count: 2; column-rule: 1px solid #e0e0e0;">
-                    <a href="#devnote/230217"></a>
-                    <a href="#devnote/221115"></a>
-                    <a href="#devnote/221029"></a>
-                    <a href="#devnote/221027"></a>
-                    <a href="#devnote/220917"></a>
-                    <a href="#devnote/220428"></a>
-                    <a href="#devnote/220427"></a>
-                    <a href="#devnote/220425"></a>
-                    <a href="#devnote/220424"></a>
-                    <a href="#devnote/220417"></a>
-                    <a href="#devnote/220413"></a>
-                    <a href="#devnote/220402"></a>
-                    <a href="#devnote/220222"></a>
-                    <a href="#devnote/220121"></a>
-                    <a href="#devnote/211203"></a>
-                    <a href="#devnote/211126"></a>
-                    <a href="#devnote/211121"></a>
-                    <a href="#devnote/210925"></a>
-                </p>
-            </div>
         </article>
 
         <article id=" ">
@@ -473,16 +378,18 @@
             <p>i'm tệ, the webmastệr at e0x0e0.club. i mostly go by "147" or "user147" on the web, if you see an account named "u1s4e7r" it's most likely mine. </p>
             <p>i am now a permanent residence at e0x0e0.club, but you could <a href="#/find-me/">find me</a> elsewhere on the Web (or <em>beyond</em> the Web, even).</p>
         </article>
-        
+
         <article id="/find-me/">
             <p class="dir" style="">
-                <a href="https://e0x0e0.club/~147/"><span class="note">permanent residence</span></a>
-                <a class="noprefix" href="mailto:147@e0x0e0.club"><span class="note">send me bug pics</span></a>
-                <a href="https://codepen.io/u1s4e7r"><span class="note">steal my code</span></a>
-                <a href="https://github.com/U1S4E7R"><span class="note">fork my code</span></a>
-                <a href="https://multiverse.plus/e0x0e0"><span class="note">bullshit with me on the multiverse</span></a>
-            </p>
-            <p class="note">What is tệnạnt?</p>
+                <a target="_blank" href="https://e0x0e0.club/~147/"><span class="note">permanent residence</span></a>
+                <a target="_blank" href="mailto:147@e0x0e0.club"><span class="note">send me bug pics</span></a>
+                <a><span class="note">(don't) hit me up on Discord</span>
+                
+                <span style="display:block; width: 100%;">e0x0e0#4916</span></a>
+                <a target="_blank" href="https://codepen.io/u1s4e7r"><span class="note">steal my code</span></a>
+                <a target="_blank" href="https://github.com/U1S4E7R"><span class="note">fork my code</span></a>
+                <a target="_blank" href="https://multiverse.plus/e0x0e0"><span class="note">bullshit with me on the multiverse</span></a>
+            </p>            
         </article>
 
         <article id="about-old">
@@ -537,20 +444,32 @@
         </article>
 
         <article id="/links/tools.txt">
-            <p class="note">Languages/web</p>
+            <p class="dir">
+                <a href="#/links/">..</a>
+            </p>
+            <style>
+                dd > a { display: inline-block}
+            </style>
+            <p class="note">Language/web</p>
             <dd>
-                <a href="http://howtocenterincss.com/#contentType=text&content.text.lines=2&horizontal=left&vertical=middle&browser.IE=none" target="_blank">Centering in CSS</a> ⦿ <a href="https://csslisible.com" target="_blank">CSS lisible</a> ⦿ <a href="https://css-tricks.com" target="_blank">CSS Tricks</a> ⦿ <a href="https://htmlreference.io" target="_blank">HTML references</a> ⦿ <a target="_blank" href="https://onecompiler.com/javascript">JS compiler</a> ⦿ <a target="_blank" href="https://markdowntohtml.com">Markdown to HTML</a> ⦿ <a href="https://developer.mozilla.org/en-US/" target="_blank">MDN Web Docs</a> ⦿ <a href="https://www.w3schools.com/tags/ref_byfunc.asp" target="_blank">W3School</a> ⦿
+                <strong>Base64</strong> <a href="https://base64.guru/converter/encode/text" target="_blank">encode</a> &amp; <a href="https://base64.guru/converter/decode/text" target="_blank">decode</a> ⦿ <strong>CSS</strong> <a href="http://howtocenterincss.com/#contentType=text&content.text.lines=2&horizontal=left&vertical=middle&browser.IE=none" target="_blank">centering</a>; <a href="https://catchmyfame.github.io/flexboxplayground/" target="_blank">flexbox</a>; <a href="https://csslisible.com" target="_blank">formatting</a>; <a href="https://cssgradient.io/" target="_blank">gradient</a>; <a href="https://css-tricks.com/the-shapes-of-css/" target="_blank">shape</a>; <a href="https://www.magicpattern.design/tools/css-backgrounds" target="_blank">pattern</a> ⦿ <a href="https://htmlreference.io" target="_blank"><strong>HTML</strong> references</a> ⦿ <a target="_blank" href="https://onecompiler.com/javascript"><strong>JavaScript</strong> compiler</a> ⦿ <a target="_blank" href="https://markdowntohtml.com"><strong>Markdown</strong> to HTML</a> ⦿ <strong>Docs <a href="https://css-tricks.com" target="_blank">CSS Tricks</a>, <a href="https://developer.mozilla.org/en-US/" target="_blank">MDN Web Docs</a>, <a href="https://www.w3schools.com/tags/ref_byfunc.asp" target="_blank">W3School</a>, <a href="https://unicode-table.com/en/" target="_blank">Unicode table</a></strong> ⦿ 
+            </dd><br>
+            <dd>
+                <strong>DDG built-in</strong> <a href="https://duckduckgo.com/?q=html%20beautifier&t=h_&ia=answer" target="_blank">HTML beautifier</a>; <a href="https://duckduckgo.com/?q=php+cheatsheet&t=osx&ia=cheatsheet" target="_blank">[LANGUAGE] cheatsheet</a>; <a href="https://duckduckgo.com/?q=base64%20hello%20world&t=h_&ia=answer" target="_blank">Base64 encode/decode</a>; <a href="https://duckduckgo.com/?q=url+escape+https%3A%2F%2Fcsslisible.com&t=h_&ia=answer" target="_blank">URL escape/decode</a> ⦿
             </dd>
-            <p class="note">Languages/others</p>
+            <p class="note">Language/misc</p>
             <dd>
-                <a href="https://unicode-table.com/en/" target="_blank">Unicode table</a> ⦿ <a target="_blank" href="https://www.pelock.com/products/hash-calculator">Hash calculator</a> ⦿ <a target="_blank" href="https://juhbol.github.io/LaTex-math-cheatsheet/">LaTeX Math</a> ⦿ <a target="_blank" href="https://mermaid.live/">mermaid</a> ⦿ <a target="_blank" href="https://wiki.xxiivv.com/site/uxntal.html">Tal</a> ⦿ <a target="_blank" href="https://100r.co/site/uxn.html">uxn ecosystem</a> ⦿ <a target="_blank" href="https://zsh-manual.netlify.app">Zsh</a> ⦿
+                <a target="_blank" href="https://www.pelock.com/products/hash-calculator">Hash calculator</a> ⦿ <a target="_blank" href="https://juhbol.github.io/LaTex-math-cheatsheet/">LaTeX Math</a> ⦿ <a target="_blank" href="https://mermaid.live/">mermaid</a> ⦿ <a target="_blank" href="https://www.sankeymatic.com/build/">SankeyMATIC</a> ⦿ <a target="_blank" href="https://wiki.xxiivv.com/site/uxntal.html">Tal</a> ⦿ <a target="_blank" href="https://100r.co/site/uxn.html">uxn ecosystem</a> ⦿ <a target="_blank" href="https://zsh-manual.netlify.app">Zsh</a> ⦿ <a target="_blank" href="https://zzzcode.ai/answer-question">ZZZ code AI</a> ⦿ <a target="_blank" href="https://e0x0e0.neocities.org/terminal-cheatsheet">Terminal cheatsheet</a> ⦿ <strong>CLI man pages</strong> <a target="_blank" href="https://linux.die.net/man/1/cowsay">cowsay</a>; <a target="_blank" href="https://linux.die.net/man/6/figlet">FIGlet</a>; <a target="_blank" href="https://linux.die.net/man/6/fortune">fortune</a>; <a target="_blank" href="https://docs.brew.sh/Manpage">homebrew</a>; <a target="_blank" href="https://www.unix.com/man-page/osx/1/iconutil/">iconutil</a>; <a target="_blank" href="https://github.com/xvxx/phetch">phetch</a>; <a target="_blank" href="https://ss64.com/osx/sips.html">sips</a> ⦿ 
             </dd>
 
             <p class="note"> Image processing </p>
             <dd>
-                <a href="https://rgb.to/" target="_blank">RGB to</a> ⦿ <a href="https://www.base64encoder.io/image-to-base64-converter/" target="_blank">Image to base64</a> ⦿ <a href="https://photomosh.com/" target="_blank">Photomosh</a> ⦿ <a href="https://www.photopea.com/" target="_blank">Photopea</a> ⦿ <a href="https://tinypng.com" target="_blank">PNG Panda</a> ⦿ <a href="https://exifinfo.org/" target="_blank">EXIF viewer</a> ⦿ <a href="https://www.imagesmaller.com/exif-remover/" target="_blank">EXIF remover</a> ⦿ 
+                EXIF <a href="https://exifinfo.org/" target="_blank">viewer</a> &amp; <a href="https://www.imagesmaller.com/exif-remover/" target="_blank">remover</a> ⦿ <a href="https://www.base64encoder.io/image-to-base64-converter/" target="_blank">Image to base64</a> ⦿ <a href="https://photomosh.com/" target="_blank">Photomosh</a> ⦿ <a href="https://www.photopea.com/" target="_blank">Photopea</a> ⦿ <a href="https://tinypng.com" target="_blank">PNG Panda</a> ⦿ <a href="https://rgb.to/" target="_blank">RGB to</a> ⦿ 
             </dd>
-
+            <p class="note"> Piracy &amp; Bypass Paywall</p>
+            <dd>
+                <strong>Books</strong> <a href="https://annas-archive.org/search" target="_blank">Anna's Archive (Z-Library + LibGen + Sci-Hub)</a>; <a href="https://www.gutenberg.org/ebooks/search/" target="_blank">Project Gutenberg</a> ⦿ <strong>News</strong> <a href="https://12ft.io/" target="_blank">12ft Ladder</a>; <a href="https://github.com/qnoum/bypass-paywalls-chrome-clean-magnolia1234" target="_blank">Bypass paywall clean</a>; <a href="https://archive.org/web/" target="_blank">Wayback Machine</a> ⦿ <a href="https://help.utorrent.com/support/solutions/29000034387" target="_blank">µTorrent Web</a>
+            </dd>
         </article>
 
         <!-- DEV FUCKING NOTE -->
@@ -1101,6 +1020,25 @@ if user travels to (B) using the map, they'll always end up in the centre of (B)
         <article id="/test.txt" class="play">
 
             <style>
+                /* SCROLLBAR */
+                .gallery::-webkit-scrollbar {
+                    height: 7px !important
+                }
+
+                .gallery::-webkit-scrollbar-thumb {
+                    width: 7px !important;
+                    border-radius: 0;
+                    background-color: rgba(55, 55, 55, .7)
+                }
+
+                .gallery::-webkit-scrollbar-thumb:hover {
+                    background: rgba(255, 255, 0, .5)
+                }
+
+                .gallery::-webkit-scrollbar-track {
+                    background: rgba(150, 150, 150, .7)
+                }
+
                 .gallery {
                     width: 40vw;
                     padding: 0 .5em;
@@ -1178,9 +1116,19 @@ if user travels to (B) using the map, they'll always end up in the centre of (B)
 
             <div style="display: inline-block; width: 50px; height: 50px; background: #888"> </div> <span style="float: right">Best viewed in Chrome</span>
 
-            <p><strong>Embedding base64 plain text</strong> (scroll to read)</p>
+            <p><strong>Embedding base64 html</strong></p>
 
-            <object type="text/html" data="./Losing_Earth_The_Decade_We_Almost_Stopped_Climate_Change_By_Nathaniel_Rich.html" style="width: 100%;"></object>
+            <!--<object type="text/html" data="./embed-1.html" style="width: 100%; height: 22em;"></object>-->
+
+            <blockquote>
+                <object type="text/html" data="data:text/html;base64,PGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJodHRwczovL2NkbmpzLmNsb3VkZmxhcmUuY29tL2FqYXgvbGlicy9naXRodWItbWFya2Rvd24tY3NzLzUuMi4wL2dpdGh1Yi1tYXJrZG93bi5taW4uY3NzIiBpbnRlZ3JpdHk9InNoYTUxMi1ZYTlIK09QajhOZ2NRazM0bkNyYmVoYUEwYXRiekdkWkNJMnVDYnFWUkVMZ25scmg4dlEySU5NbmthZFZNU25pQzU0SENoTEloNWh0YWJWdUtKd3c4Zz09IiBjcm9zc29yaWdpbj0iYW5vbnltb3VzIiByZWZlcnJlcnBvbGljeT0ibm8tcmVmZXJyZXIiPjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9lMHgwZTAuY2x1Yi9+MTQ3L2ZyYW1lLmNzcyIgdHlwZT0idGV4dC9jc3MiIG1lZGlhPSJhbGwiPjxib2R5IGNsYXNzPSJtYXJrZG93bi1ib2R5IiBzdHlsZT0icGFkZGluZzoxLjVlbSI+PHAgZGlyPSJhdXRvIj5JbiBHYWlhLCB0aGUgY29udHJvbCBvZiB1c2VyIGRhdGEgbGllcyBpbiB0aGUgd2F5IHRoYXQgdXNlciBkYXRhIGlzIGFjY2Vzc2VkLiBXaGVuIGFuIGFwcGxpY2F0aW9uIGZldGNoZXMgYSBmaWxlPGNvZGU+ZGF0YS50eHQ8L2NvZGU+Zm9yIGEgZ2l2ZW4gdXNlcjxjb2RlPmFsaWNlLmlkPC9jb2RlPiwgdGhlIGxvb2t1cCB3aWxsIGZvbGxvdyB0aGVzZSBzdGVwczo8L3A+PG9sIGRpcj0iYXV0byI+PGxpPkZldGNoIHRoZSB6b25lZmlsZSBmb3I8Y29kZT5hbGljZS5pZDwvY29kZT4sIGFuZCByZWFkIGhlciBwcm9maWxlIFVSTCBmcm9tIHRoYXQgem9uZWZpbGU8L2xpPjxsaT5GZXRjaCB0aGUgQWxpY2UncyBwcm9maWxlIGFuZDxlbT52ZXJpZnk8L2VtPnRoYXQgaXQgaXMgc2lnbmVkIGJ5PGNvZGU+YWxpY2UuaWQ8L2NvZGU+J3Mga2V5PC9saT48bGk+UmVhZCB0aGUgYXBwbGljYXRpb24gcm9vdCBVUkwgKGUuZy48Y29kZT5odHRwczovL2dhaWEuYWxpY2Uub3JnLzwvY29kZT4pIG91dCBvZiB0aGUgcHJvZmlsZTwvbGk+PGxpPkZldGNoIGZpbGUgZnJvbTxjb2RlPmh0dHBzOi8vZ2FpYS5hbGljZS5vcmcvZGF0YS50eHQ8L2NvZGU+PC9saT48L29sPjxwIGRpcj0iYXV0byI+QmVjYXVzZTxjb2RlPmFsaWNlLmlkPC9jb2RlPmNvbnRyb2xzIGhlciB6b25lZmlsZSwgc2hlIGNhbiBjaGFuZ2Ugd2hlcmUgaGVyIHByb2ZpbGUgaXMgc3RvcmVkLCBpZiB0aGUgY3VycmVudCBzdG9yYWdlIG9mIHRoZSBwcm9maWxlIGlzIGNvbXByb21pc2VkLiBTaW1pbGFybHksIGlmIEFsaWNlIHdpc2hlcyB0byBjaGFuZ2UgaGVyIGdhaWEgcHJvdmlkZXIsIG9yIHJ1biBoZXIgb3duIGdhaWEgbm9kZSwgc2hlIGNhbiBjaGFuZ2UgdGhlIGVudHJ5IGluIGhlciBwcm9maWxlLjwvcD48L2JvZHk+" style="width: 100%; height: 32em;"></object>
+                <a class="source" href="https://github.com/stacks-network/gaia" target="_blank">Source: Gaia on Github</a>
+            </blockquote>
+
+            <blockquote>
+                <object type="text/html" data="data:text/html;base64,PHN0eWxlPi5iZHAtcG9zdC10aXRsZXtjb2xvcjojMDAwO2ZvbnQtc2l6ZToyMHB4IWltcG9ydGFudH08L3N0eWxlPjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9lMHgwZTAuY2x1Yi9+MTQ3L2ZyYW1lLmNzcyIgdHlwZT0idGV4dC9jc3MiIG1lZGlhPSJhbGwiPjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9rb2xhYi5vcmcvd3AtY29udGVudC90aGVtZXMvaGVzdGlhL3N0eWxlLm1pbi5jc3M/dmVyPTMuMC4yNCIgdHlwZT0idGV4dC9jc3MiIG1lZGlhPSJhbGwiPjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9rb2xhYi5vcmcvd3AtY29udGVudC90aGVtZXMvaGVzdGlhL2Fzc2V0cy9jc3MvZm9udC1zaXplcy5taW4uY3NzP3Zlcj0zLjAuMjQiIHR5cGU9InRleHQvY3NzIiBtZWRpYT0iYWxsIj48Ym9keSBjbGFzcz0ibWFpbiI+PGRpdiBjbGFzcz0ic2luZ2xlLXBvc3Qtd3JhcCBlbnRyeS1jb250ZW50Ij48aDIgY2xhc3M9ImJkcC1wb3N0LXRpdGxlIj5Vc2VyIEFjY291bnQ6IEdlbmVyYWw8L2gyPjxwPkluIHRoZSBjb2NrcGl0IGFyZWEsIEphbmUgY2FuIGFkanVzdCBoZXIgdXNlciBzZXR0aW5ncyBlYXNpbHkuIFNoZSBjYW4gYWRkIGFsaWFzZXMsIHNldCB0aGUgc3RvcmFnZSBxdW90YSwgZW5hYmxlIG9yIGRpc2FibGUgR3JvdXB3YXJlIEZlYXR1cmVzLCBBY3RpdmVzeW5jIG9yIDItRmFjdG9yIEF1dGhlbnRpY2F0aW9uLjwvcD48aDIgY2xhc3M9ImJkcC1wb3N0LXRpdGxlIj5FLU1haWwgaW1wb3J0PC9oMj48cD5KYW5lIG5lZWRzIHRvIGltcG9ydCBhIGJ1bmRsZSBvZiBtYWlscyBmcm9tIG9uZSBwbGFjZSB0byB0aGUgb3RoZXIuIFNoZSBjYW4gY2hvc2UgZWl0aGVyIE1JTUUgb3IgTWJveCBkYXRhIHRvIGFkZCBlbWFpbCBtZXNzYWdlcyB0byBhIHNlbGVjdGVkIGZvbGRlci48L3A+PGgyIGNsYXNzPSJiZHAtcG9zdC10aXRsZSI+VGFnczwvaDI+PHA+U2ltaWxhciB0byBmb2xkZXJzLCBKYW5lIGlzIHVzaW5nIFRhZ3MgdG8gc2VwYXJhdGUgYW5kIG9yZ2FuaXplIGhlciBFLU1haWxzLiBUYWdzIGFyZSBzaG93aW5nIHVwIGFzIGEgY29sb3JlZCByZWZlcmVuY2UgaW4gdGhlIHN1YmplY3QgbGluZSBvZiB0aGUgcmVmZXJlbmNlZCBFLU1haWxzLiBUaGUgbmljZSB0aGluZzogVGFncyBjYW4gYmUgcmV1c2VkIGFjcm9zcyB0aGUgS29sYWIgY29tcG9uZW50cyAmbmRhc2g7IEUtTWFpbCwgQ2FsZW5kYXIsIE5vdGVzLCBGaWxlcyBhbmQgVGFza3MuPC9wPjwvZGl2PjwvYm9keT4=" style="width: 100%; height: 32em;"></object>
+                <a class="source" href="https://kolab.org/use-cases/" target="_blank">Source: Kolab</a>
+            </blockquote>
 
             <ul>
                 <li>
@@ -1292,8 +1240,6 @@ if user travels to (B) using the map, they'll always end up in the centre of (B)
 
         <!-- POPPY UPS -->
         <input type="radio" id="close" name="popup" checked>
-        <input type="radio" id="soon" name="popup">
-        <label for="close" class="popup"> coming soon! <br><br>items in this list: ethos/more | links/more | All wrongs reserved | Classic Mac nostalgia | de-Googling the KeyTwo | using vim</label>
         <label for="close" class="popup-bg"> </label>
     </main>
 </body>
