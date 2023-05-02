@@ -83,6 +83,7 @@
 
         /* NORMALIZE */
         label, summary {cursor: pointer}
+        
         [target="_blank"] {cursor: ne-resize;}
 
         :not(.dir)>[target="_blank"]::after {
@@ -92,10 +93,14 @@
         }
 
         a:any-link {color: var(--fg);}
-        a:hover {background: #aaaaaa55;}
+        :is(a, .link):hover {background: #aaaaaa55;}
 
-        :is(a:any-link, nav > label):hover {
-            text-decoration: underline
+        :is(a:any-link, label.link){
+            text-decoration: underline;
+        }
+        
+        nav *:not(:hover) {
+            text-decoration: none;
         }
         
         hr {
@@ -178,6 +183,15 @@
             
             .dir>a::before {filter: invert(0.55)}
         }
+        
+        /* JUKEBOX TOGGLE */
+        #toggle-jukebox:checked ~ main > article:not([id="/jukebox.xyz"]) {
+            display: none;
+        }
+
+        #toggle-jukebox:checked ~ main > article[id="/jukebox.xyz"] {
+            display: block;
+        }
 
         /* MOBILE & TOUCH SCREENS */
         /* BUTTONS */
@@ -221,6 +235,7 @@
     <!-- design note: scale images in "em" so that it grows/shrink with text size-->
 
     <input type="checkbox" id="toggle-dark-mode">
+    <input type="checkbox" id="toggle-jukebox">
     <input type="radio" name="font-size" id="font-L">
     <input checked type="radio" name="font-size" id="font-M">
     <input type="radio" name="font-size" id="font-S">
@@ -229,7 +244,8 @@
 
         <nav title="navigation bar">
             <a href="https://e0x0e0.club" style="font-size: 2em" title="go to e0x0e0 club">✷</a>
-            <a href="#/" title="index">&#128880;</a>
+            <a href="#/" title="go to index">&#128880;</a>
+            <label class="link" for="toggle-jukebox" title="open/close the jukebox">&#9835;</label>
             <!--&#128880;-->
             <span class="mobile">
                 <input id="nav-expand" type="checkbox">
@@ -240,27 +256,26 @@
         </nav>
 
         <article id="/">
-            <p class="note">Now: <a href="#/jukebox.xyz">listening</a> S.O.S by ABBA</p>
+            <pre role="img" aria-hidden="true" class="note" style="line-height: 1em">       __     _  _      ______
+      /_ |   | || |    |____  |
+  _   _| |___| || |_ ___   / / __
+ | | | | / __|__   _/ _ \ / / '__|
+ | |_| | \__ \  | ||  __/  /| |
+  \__,_|_|___/  |_| \___/_/ |_|</pre>
+            <p class="note">Now: <label class="link" for="toggle-jukebox">listening</label> "L'internationale"</p>
             <div class="dir" style="">
                 <a href="#/about.xyz">About / FAQ</a>
                 <a href="#/program/">Programs</a>
                 <p class="note">Scribbles</p>
                 <a href="#/scribble-guide.xyz">Read me</a>
-                <a href="#/staple/">Staples</a>
                 <a href="#/log/">Web Logs</a>
+                <a href="#/staple/">Staples</a>
                 <!--<a href="#/ethos/">Ethos</a>
                 <a href="#/musick/">Music</a>-->
                 <p class="note">Elsewhere</p>
                 <a href="#/links/tools.xyz">Web Tools</a>
                 <a href="#/links/">Chain</a>
             </div>
-            <pre role="img" aria-hidden="true" class="note" style=" width: fit-content; margin-left: auto; line-height: 1em">       __     _  _      ______
-      /_ |   | || |    |____  |
-  _   _| |___| || |_ ___   / / __
- | | | | / __|__   _/ _ \ / / '__|
- | |_| | \__ \  | ||  __/  /| |
-  \__,_|_|___/  |_| \___/_/ |_|</pre>
-
         </article>
         <article id="/about.xyz">
             <pre role="img" aria-hidden="true" class="note" data-size="over" style="line-height: 1em">
@@ -283,9 +298,9 @@
         hit any key to continue</pre>
             <p>ABOUT</p>
             
-            <p>Hi. I'm tệ, the webmastệr at e0x0e0.club. Call me tệ or 147. You're at my folder right now, <code>/~147/</code>. It's my homepage on the internet. Come on in.</p>
+            <p>Hi. I'm tệ, the webmastệr at e0x0e0.club. Call me tệ or 147. You are at my folder <code>/~147/</code> right now. It's my homepage on the internet, the place where I document my existence and cast it into the void.</p>
                         
-            <p>If you like the design, it was inspired by "DiggieDog", a Gopher client on Android. Yes, I browse Gopherspace frequently, but I'm not committed enough to have my own gopherhole. So... I dug myself a webhole right here, in the comfort of HTML.</p>
+            <p>If you like the design, it was inspired by "DiggieDog", a Gopher client on Android. Yes, I browse Gopherspace frequently, but I'm not committed enough to have my own gopherhole. So... I dug myself a webhole here, right in the comfort of HTML.</p>
             
             <p>FAQ</p>
             
@@ -294,8 +309,7 @@
             <p>2. Is this an ARG?</p>
             <dd>Even though the navigation seems a bit mystery meat, this is not an ARG. It's my personal webpage.</dd>
             <p>3. What is e0x0e0? </p>
-            <dd>e0x0e0 is an old pseudonym I had on Instagram, and also on Neocities for a while. Nowadays "e0x0e0" refers not to me but to the website e0x0e0.club. e0x0e0 is us, we are the club. I like to think of e0x0e0 as a collective, even though it's still mostly me and... like, a piece of Ket. But I will get the whole of Ket and some other people on board as well, someday when I'm no longer plagued with reality.
-            </dd>
+            <dd>e0x0e0 is an old pseudonym I had on Instagram, and also on Neocities for a while. Nowadays "e0x0e0" refers not to me but to the website e0x0e0.club. e0x0e0 is us, we are the club. I like to think of e0x0e0 as a collective, even though it's still mostly me and... like, a piece of Ket. But I will get the whole of Ket and some other people on board as well, someday.</dd>
             
             <p>~147</p>
         </article>
@@ -331,11 +345,11 @@
 ⠸⠉⠉⠉⠇ ⢎⠉⠉⠉⡹ ⠘⠭⠉⠭⠃ ⢰⠉⠉⠉⡆ ⢸⠉⠉⠉⢹  time
 
 </pre>
-            <p class="note">These entries are writings of mine that I come back to and refine ritually. Entries are indexed by name.</p>
-            <p class="dir">
+            <p class="note">Most of these entries are pulled from the /log/ section and refined/compiled into something more readable. Entries are indexed by name.</p>
+            <div class="dir">
                 <a href="#/">..</a>
                 <a href="#/staple/homepage.xyz">Homepage</a>
-            </p>
+            </div>
         </article>
         
         <article id="/staple/homepage.xyz">
@@ -399,8 +413,8 @@
                 <a href="#/log/230427.xyz"><i class="orange"></i> 27.4.2023 - Judith Nijland</a>
                 <a href="#/log/230425.xyz"><i class="cyan"></i> 25.4.2023 - Memory</a>
                 <a href="#/log/230423.xyz"><i class="cyan"></i> 23.4.2023 - Solo Traveler Grindset</a>
+                <a href="#/log/230413.xyz"><i class="lime"></i> 13.4.2023 - Gopher babbles with Bennie</a>
                 <a href="#/log/230316.xyz"><i class="cyan"></i> 16.3.2023 - Get some credits in the real world</a>
-                <a href="#/log/230217.xyz"><i class="orange"></i> 17.2.2023 - Remy Wolf</a>
                 <a href="#/log/230204.xyz"><i class="yellow"></i> 4.2.2023 - Art Footprint Manifesto excerpt</a>
                 <a href="#/log/230131.xyz"><i class="lime"></i> 31.1.2023 - Web3 class notes (P1)</a>
                 <a href="#/log/230130.xyz"><i class="cyan"></i> 30.1.2023</a>
@@ -414,10 +428,10 @@
             <p>
                 Other albums available <a href="https://judithnijland.nl/album/" target="_blank">here</a>, but the one I was looking for (Acoustic Solutions vol. 4) wasn't there. But that's okay, "Suitcase Of Songs" have most of the songs from vol 4. I'm just so glad to find this because most of her recorded discography is on CD and not on streaming platforms.
             </p>
+            <p>edit 30.4.2023: nevermind, somebody uploaded Acoustic Solutions vol. 4 on Youtube!!!</p>
         </article>
         
         <article id="/log/230425.xyz" class="cyan">
-            <p>Ciphered the whole thing because if you know me then you&#39;ve probably been <em>Cats</em>-pilled without consent many times by me. So here, I&#39;ll cut you some slack. Content Warning: &quot;Cats&quot; the musical.</p>
             <p>(Zlkqfkrba colj 23.4.2023) F alk&#39;q hklt elt ql bumixfk ql jv mbbop qexq F&#39;j pqfii molzbppfkd jv qoxrjx. F alk&#39;q hklt elt ql bumixfk ql qebj qexq, xcqbo pl jxkv vbxop xtxv colj eljb, F&#39;sb dlq pl jxkv dlla qefkdp dlfkd lk xka F pbbj pl crkzqflkxi yrq F&#39;j pqfii molzbppfkd pljbqefkd qexq exmmbkba 15 vbxop xdl. Pljbqfjbp qeb ifqqibpq qefkd exmmbk xka F pqxoq ql xdb-obdobpp. F qefkh qefp bkqov fp xylrq qexq. </p>
             ---
             <p>X zbiifpq txp mboclojfkd lk qeb pqobbq, vlr hklt, fk ebo zxoafdxk, tfqe x yirbqllqe pmbxhbo clo zljmxkflk. Ebo zbiil zxpb tfab lmbk, zxiifkd clo x yfq lc alkxqflk, ebo Jlyfib Mxv FA tofqqbk lk x mfbzb lc mxmbo pqrzh lk qeb zxpb. F pbxozeba xii lsbo jvpbic yrq F afak&#39;q exsb x mbkkv, pl F mrq fkql ebo zxpb x 5 brolp yfii. Vbxo, cfsb ylkbp fp hfkax x ilq clo x pqobbq mboclojbo, yrq peb txp x zbiifpq, xka xipl, fq txp grpq ibcqlsbo zxpe qexq pqxvba fk jv txiibq pfkzb ifhb 2021 (f alk&#39;q rpb zxpe xkvjlob).</p>
@@ -435,7 +449,7 @@
             <p>23.4.2023</p>
             <p>Sunday evening. It&#39;s already 20:30 but I want to take myself out for a date. All the cafes I like would&#39;ve been closed by now. The only things open at this hours are K-markets (but they&#39;ll stop selling alcohol at 9) and bars/pubs, most of which would be too noisy or crowded for my taste. I decide to take a shower. It will take me another 30 mins to reach the city centre. I wonder what sort of place will open it&#39;s door to shelter me at this hour.</p>
             ---
-            <p>I finally got ready at 22:02, another 13 mins waiting at the bus stop. At first I wanted to go to ▒▒▒▒▒▒ &#39;cause I&#39;ve been there once and the vibe was nice. But ▒▒▒▒▒▒ will be closed at 23:00, which means I&#39;ll have less than 30 mins to finish whatever drink I ordered there, and I&#39;m a very slow drinker. I don&#39;t want to crawl to another pub after 23.00, so I decided to check out a new bar called ▓▓▓. It&#39;s a small place (I have a bias for small spaces), it&#39;ll close at 00:00, and according to Google Maps it&#39;s less crowded than usual. So I thought it&#39;d be suitable for today.</p>
+            <p>I finally got ready at 22:02, another 13 mins waiting at the bus stop. At first I wanted to go to ▒▒▒▒▒▒ &#39;cause I&#39;ve been there once and the vibe was nice. But ▒▒▒▒▒▒ will be closed at 23:00, which means I&#39;ll have less than 30 mins to finish whatever drink I ordered there, and I&#39;m a very slow drinker. I don&#39;t want to crawl to another pub after 23:00, so I decided to check out a new bar called ▓▓▓. It&#39;s a small place (I have a bias for small spaces), it&#39;ll close at 00:00, and according to Google Maps it&#39;s less crowded than usual. So I thought it&#39;d be suitable for today.</p>
             <p>As I gaze through the road of ▒▒▒▒▒▒▒▒▒▒ while on the bus, I also saw some other main-road bigger bars like ▒▒ and the ▒▒▒▒▒▒▒▒ ▒▒▒▒▒... which I know will be open until 2-5 AM, but I still wanted to wait and go to ▓▓▓. I realized that I have a clear preference when it comes to bars &amp; pubs: I find bars that are too fancy rather off-putting. You know, those bougie jazz-pubs-slash-social-clubs that have a huge ass terrace, perfectly aligned diner tables, velvety seats, shimmery gold to be the main color of their palette... Deluxe rooftop sky bars that are entitled enough to reject your RP card and ask for a passport (yes I do hold a grudge). Those with a tuxed man in their logo, that are designed like a first-class suite on the Titanic and reek the smell of old money... irk me to no end. I also don&#39;t like bars that are too square and flat and symmetrical, or too conveniently planned. The Finnish landscape is full of hills and slopes and extruding bedrock, it&#39;s very uneven and most roads are steep as a ski track. This tricky geography enables different types of building to exist, including the extra-small, the underground, and the asymmetrical. Whenever I see a spatial building that lays on a flat road, I feel like they&#39;re having it too easy (or they apparently won the real estate lottery). I like buildings that adapt to the space available for them, be it tucked into a sharp street-corner or shoved under the basement of an apartment complex, the smaller the space the more innovative people gets. Design-wise, I also like bars that look a bit rustic (wood furniture is a big win), mismatchy, or New York street rat DIY-Punk vibe. Of course, I&#39;m not that picky when I go out with others, but when I go by myself, I do like very <em>specific</em> things.</p>
             <p>Turns out, I made the right decision going to ▓▓▓ instead of the main-street bars. The place is a fucking jackpot (imo). First off, it&#39;s pretty niche and tucked away from the noisy part of the city centre. Nobody even asked for my ID, which makes me so damn happy cause I&#39;m asian and you know how asian people have to prove their age everywhere - I guess it&#39;s the combination of them not having a lot of customers and me showing up in this esosteric location alone at 22:35 that makes them think I can&#39;t possibly be a minor. Anyways, this fucking place, I feel happy just looking at it. It&#39;s small and cozy and is divided into multiple micro-areas (despite being small), each of which have one or two crooked corners, but they made it work. The wall was painted (in a very amateur manner) deep red and adorned with pictureless picture frames. Many decor elements seemed like they were DIY-ed out of refurbished materials, like the light fixtures and the bar itself. Furnitures look like the kind mass-produced in the 70s-80s, all mismatched, some of them have visible tears as if they&#39;ve been hauled straight from a flea market. The composition was fucking beautiful, makes it seem like a beat-down old living room. Overall it looks very fleshed-out, vintage but not in a pretentious way.</p>
             <p>That was long. So here&#39;s a quick conclusion to wrap it up before I get too drunk to write the rest of this entry: 10/10 would visit again. It was a vibe, some dude is singing along to Gloria Gaynor&#39;s &quot;I Will Survive&quot;. I&#39;m so glad that I chose to go here. It&#39;s already 23:22 (crazy), only half an hour until closing time, so I better hurry. </p>
@@ -445,18 +459,91 @@
             <p>(bar playing &quot;Maniac&quot; by Michael Sembello. She&#39;s me fr)</p>
         </article>
         
+        <article id="/log/230413.xyz" class="lime">
+            <p>13.04.2023</p>
+            <p>This is a (instant messaging) convo I had with Bennie about Gopherspace. They took my Gopher infodump so that YOU don't have to. Everybody say thank you Bennie.</p>
+            <p><span class="note">(jk everyone please ask me about Gopher/Gemini/old Web).</span> I never run out of things <strong>to talk</strong> about Gopher, but I can't come up with anything decent <strong>to write</strong> about it (that hasn't already been written). I find myself re-explaining everything everytime I talk about it to someone new, that's why I'm trying to like... compile whatever I knew about Gopher through these IM conversations.</p>
+            <p>---</p>
+            <style>
+                .chat > p {
+                    margin: 0;
+                    padding: 1em;
+                }
+                .chat > p::before, 
+                .chat > p::after {
+                    display: block;
+                    opacity: 0.5;
+                }
+                .chat > p::after {
+                    content: "--- 13/04/2023@" attr(time);
+                    font-size: 0.9em
+                }
+                [moj]::after {
+                    content:"|:" attr(moj) ":" attr(num)"";
+                    opacity: 0.5;
+                    font-size: 0.9em;
+                    display: inline-block;
+                }
+                .chat > p img {
+                    max-width: 100%;
+                    border-radius: 10px;
+                    box-shadow: 0 0 3px #aaa;
+                }
+                .chat .note {
+                    font-size: 0.9em;
+                }
+                .chat > :nth-child(2n) {
+                    margin-right: 15%;
+                }
+                .chat > :nth-child(2n+1) {
+                    margin-left: 15%;
+                }
+                .chat > :nth-child(2n)::before {
+                    content: "BENNIE";
+                }
+                .chat > :nth-child(2n+1)::before {
+                    content: "TỆ";
+                }
+            </style>
+            <div class="chat">
+                <p time="00:11">ok imma just send this w/o context first<br><img src="friends.png" style="max-width: 420px;"> <span moj="heart" num=8></span></p>
+                <p time="00:13"><span moj="heart" num=2>Ôi yêu why does this. </span><br><span moj="heart" num=1>Why this cômfỏting </span></p>
+                <p time="00:15">đko<br>so uh<br><span moj="heart" num=4>the person who wrote this is a woman, a nurse, i think late in her 40s </span><br>this is like... pulled from her online diary. she has a gopherhole called &quot;agk&quot; which is her initials ig<br>now u might wonder wtf is a gopherhole</p>
+                <p time="00:16"><span moj="haha" num=4>????? Bình tĩnh what&#39;s a Goph </span><br>Đc r :)<br><span moj="heart" num=1>Continue </span></p>
+                <p time="00:17">so, gopher is an internet protocol that existed before world wide web </p>
+                <p time="00:17">? VÃI<br>BITCH TF </p>
+                <p time="00:17">basically, the web uses the HTTP protocol, so when u use a browser to visit a website it begins with &quot;https://....&quot; right </p>
+                <p time="00:18">Yéd </p>
+                <p time="00:18">gopher is its own protocol, and gopher &quot;sites&quot; begin with &quot;gopher://......&quot; </p>
+                <p time="00:20">VÃI<br><span moj="heart" num=4>bro why am i invested </span><br>Tf<br>Gopher </p>
+                <p time="00:20">most modern browsers dropped support for gopher long ago, but the community there isn&#39;t dying or anything, in fact some ppl like anna (who wrote the stuff above) still use it everyday
+                    <br><br><span class="note"> | Re: bro why am i invested</span><br><span moj="like" num=5>u should, hehe. there are more to the Internet than just... the Web yk </span>
+                </p>
+                <p time="00:21"><span class="note"> | Re: most modern browsers dropped support... </span><br><span moj="like" num=4>How tf </span></p>
+                <p time="00:22"><span moj="like" num=3>anw gopher is rlly different bc it&#39;s an archaic protocol and not much has changed abt it, so it doesn&#39;t have all the fancy styling stuff u can do with HTML. all content on gopher is served in plain text </span><br><img src="agk.png"> <span moj="heart" num=6></span><br>this is anna&#39;s gopherhole....</p>
+                <p time="00:22"><span moj="heart" num=2>VÃI I SEE </span></p>
+                <p time="00:22">yuhhh</p>
+                <p time="00:23"><span moj="heart" num=3>ê that shit so nice to look at it rlly gives off the vibe người già trung niên </span><br>Thing is<br><span moj="heart" num=4>It looks so easy on the eyes bitch tf </span><br>Looks very minimalistic i like it picasso </p>
+                <p time="00:23">chính xác<br><span moj="heart" num=5>this is why gopher isnt dying </span><br>some ppl even prefer it to the Web<br><span moj="heart" num=5>(its me im people) </span></p>
+                <p time="00:24">As they should tbh </p>
+                <p time="00:25"><span moj="heart" num=9>nowadays i also surf reddit through gopherddit if its not media content :))) gopher is much easier on the eye fr </span><br><span moj="heart" num=7>theres an active community there so lots of ppl made gopher proxy for websites á, so u have gopherpedia (wikipedia proxy) and stuff like that </span></p>
+                <p time="00:26">Adu<br>Hay<br>Nma ughhhh i often consume shit w kiểu<br>Media í </p>
+                <p time="00:29">yeah<br><span moj="wow" num=5>idk if i dont consume lots of media hay là i kinda adapt to it once i start using it nữa </span><br><span moj="wow" num=8>kiểu my first hour browsing gopher was.... very wowie, like, most of the stuff there r more well written than anything i&#39;ve read from weblogs </span><br><span moj="heart" num=6>so i get the appeal </span><br><br><span class="note"> | Re: [image]</span><br><span moj="heart" num=4>cái screenshot này từ hồi 2021 r í </span><br><span moj="heart" num=5>about the time i found out abt gopher </span></p>
+                <p time="00:29">TF FR?<br><span moj="like" num=4>H u still browse thru gophers? </span></p>
+                <p time="00:31">yeah that entry was from october 2021<br><span class="note"> | Re: H u still browse thru gophers?</span><br>
+                    yup<br><span moj="heart" num=10>i dont have a hole myself hdhfj but its nice to lurk around n read ppls stuff </span><br><span moj="heart" num=7>literally all of them r just.... regular ppl, hobbyists, mostly trung niên but like their stuff is so well written??? </span></p>
+                <p time="00:31"><span moj="heart" num=1>Vì they trung niên đó </span> <span moj="like" num=1></span><br>Time to contemplate</p>
+                <p time="00:31">lol ig so</p>
+
+            </div>
+        </article>
+        
         <article id="/log/230316.xyz" class="cyan">
             <p>16.3.2023</p>
             <p>It&#39;s march. The word for march in finnish is maaliskuu, it means &quot;the month where you could see the ground&quot;, i.e when snow is supposed to melt. I&#39;m not seeing no ground, everything is covered in even thicker snow than we had in febuary. But we&#39;re having more sun now and day is getting longer so summer is definitely coming (cheers in -10°C).</p>
             <p>I rearrange all the furnitures in my room bi-monthly bc I get bored of coherence and routine. School is not doing well rn (though, it has to be well bc I need a scholarship). I figured that I&#39;m totally capable of doing the work and I could pass the courses if only I do attend classes/pay attention, but I don&#39;t. Maybe I can partly blame it on the fact that I don&#39;t have friends (as in sb to regularly talk / have lunch with) at school, which has bothered me more than I think it would. But mostly I&#39;m just understimulated, by lectures and people and all their beautiful outlook on the future. Yiddi yadda we&#39;re all gonna die in the following years and all that matters is what we do in the small moments we have before death, and I start to feel like I don&#39;t wanna waste time in this stupid degree.</p>
             <p>Any sort of human contact I&#39;ve made during my time in finland have been functional, practical, and site-specific. Sometimes I think these constraints keep me a part of society but sometimes I think they make me hungry for something else. I think that&#39;s why I&#39;m still making content for the web. </p>
             
-        </article>
-        
-        <article id="/log/230217.xyz" class="orange">
-            <p>17.2.2023</p>            
-            <embed src="https://great.dj/embed/s5i0h3" style="width: 100%; height: 350px; margin: auto; display: block">
-            <p>She....her.......thank you very much.</p>
         </article>
         
         <article id="/log/230204.xyz" class="yellow">
@@ -472,7 +559,7 @@
             <p>31.1.23 ~ 22:57</p>
             <p>Done with school, did the laundry again (it went well), had dinner (rye bread, edam cheese, lingonberries jam, some mandarines), talked to Ket a little, watched two episodes of Karen Pirie (terrible romance, but I&#39;m following the case).</p>
             <p>All is well. Except nothing is. Still have to make up for the last missed assignments. Still have to find someone for the interview. I&#39;m really testing ░░░░░░░░&#39;s patience with my AutoCAD project, I&#39;m considering offering video tutorials or sth like that in return for his ever-so-forgiving attitude. Maybe I could help with teaching SketchUp, he seems pretty miserable, having to take the lot.</p>
-            <p>Anw. I&#39;m starting the Web3 masterclass right now. Quick overview: I do love the way they present this, the wackiness (&quot;chief troublemaker&quot;, &quot;A statement male to save one&#39;s own ass&quot;). These people seem pretty punk themselves and the way they present Web3 makes me feel like I&#39;m witnessing Tim Berners-Lee introducing the World Wide Web in 1995 at Havard. Even though I&#39;m coming in with all the precaution and skepticism, I know the nerd side of me would want to see all the wonderful (or horrifying) applications it may have in the future.</p>
+            <p>Anw. I&#39;m starting the Web3 masterclass right now. Quick overview: I do love the way they present this, the wackiness (&quot;chief troublemaker&quot;, &quot;A statement made to save one&#39;s own ass&quot;). These people seem pretty punk themselves and the way they present Web3 makes me feel like I&#39;m witnessing Tim Berners-Lee introducing the World Wide Web in 1995 at Havard. Even though I&#39;m coming in with all the precaution and skepticism, I know the nerd side of me would want to see all the wonderful (or horrifying) applications it may have in the future.</p>
             <p>0.1 • &quot;We&#39;ll leave out the hype and let you decide&quot; Well thank G*d. I&#39;ll take everything with a grain of salt. I guess you can consider these &quot;Lecture notes&quot;.</p>
             <p>1.1 • Oh fuck me they created a fashion playground in the Metaverse man not the fucking Metaverse. My thoughts rn is that they&#39;re creating social-media-on-steroid and not investigating the behavioral effects it can have.</p>
             <p>1.1 • &quot;In order to create a model of digital fashion that can be traded, we have to have blockchain as an enabling technology&quot; - That&#39;s an interesting statement. The previous one said that in order to be decentralized we need blockchain, but I know this isn&#39;t true. BitTorrent and IPFS exist, many other distributed technologies exist. I think it&#39;s just that blockchain tech facilitates the &quot;trade&quot; part - since so many currencies emerged from it that made people and businesses favor it more.</p>
@@ -480,7 +567,7 @@
             <p>1.1 • &quot;We&#39;ll introduce VR headsets&quot; and you claim to be sustainable ??? To be planet friendly? With more devices and more mining?</p>
             <p>1.1 • &quot;We&#39;re gonna move from being just consumers where our values is extracted to actually being able to participate in the economy&quot; How?? I have questions. But like... A space where people don&#39;t just consume content but also create or sell their own content...that&#39;s the Web.</p>
             <p>... Or at least that was the Web, before the dot-com boom. Before someone made a private &amp; centralized version of it that&#39;s so simple it could be used by a 10-year-old and non-tech people flocked to that. You think those people care abt the fact that the Web is intended to be free and open and not privately owned by 5 white guys? THEY gave up privacy for convenience. I&#39;m guessing that one day someone will get the brilliant idea of providing Web3 services for ppl who don&#39;t want to know how it works, and those services will exploit the users, and then Web3 will become extremely popular - at the cost of its core value. What about that?</p>
-            <p>1.1 • &quot;Creare wealth together&quot; wealth is nоt аbоut having/producing/ creating more, it&#39;s about distributing the right resource to the right place, and the total amount of resource doesn&#39;t change. &quot;Creating wealth&quot; isn&#39;t about growth and innovation, it&#39;s more like a giant mass balance problem.</p>
+            <p>1.1 • &quot;Create wealth together&quot; wealth is nоt аbоut having/producing/ creating more, it&#39;s about distributing the right resource to the right place, and the total amount of resource doesn&#39;t change. &quot;Creating wealth&quot; isn&#39;t about growth and innovation, it&#39;s more like a giant mass balance problem.</p>
             <p>-- that&#39;s it for today. I gotta take a break, my laptop fan is spinning for dear life.</p>
         </article>
         
@@ -770,10 +857,24 @@
                 <a href="#/links/people/">Find People</a>
                 <a href="#/links/tools.xyz">Web Tools</a>
             </p>
-            <pre role="img" aria-hidden="true" class="note">-=-=-=- ALL IN ALL IT WAS JUST =-=-=-=-
-=-=-=-=- ♪ LINKS IN A CHAIN ♪ =-=-=-=-=
--=-=-=- ALL IN ALL YOU'RE JUST =-=-=-=-
-=-=- ♪ ANOTHER LINK IN THE CHAIN ♪ -=-=</pre>
+            <pre role="img" aria-hidden="true" class="note">---
+I'm added to your
+Chain, chain, chain (chain, chain, chain) 
+Chain of fools
+
+Every chain has got a weak <strong>link</strong> 
+I might be weak, yeah, 
+But I'll give you strength
+
+One of these mornings, 
+The chain is gonna break 
+But up until the day, 
+I'm gonna take all I can take, oh, hey
+
+Chain, chain, chain (chain, chain, chain) 
+Chain, chain, chain (chain, chain, chain) 
+Chain, chain, chai-i-in (chain, chain, chain) 
+Chain of fools (oh)</pre>
         </article>
         
         <article id="/links/find-me/">
@@ -815,15 +916,16 @@
             </dd>
             <p class="note"> Piracy &amp; Bypass Paywall</p>
             <dd>
-                <strong>Books</strong> <a href="https://annas-archive.org/search" target="_blank">Anna's Archive (Z-Library + LibGen + Sci-Hub)</a>; <a href="https://www.gutenberg.org/ebooks/search/" target="_blank">Project Gutenberg</a> ⦿ <strong>News</strong> <a href="https://12ft.io/" target="_blank">12ft Ladder</a>; <a href="https://github.com/qnoum/bypass-paywalls-chrome-clean-magnolia1234" target="_blank">Bypass paywall clean</a>; <a href="https://archive.org/web/" target="_blank">Wayback Machine</a> ⦿ <a href="https://help.utorrent.com/support/solutions/29000034387" target="_blank">µTorrent Web</a>
+                <strong>Books</strong> <a href="https://annas-archive.org/search" target="_blank">Anna's Archive (Z-Library + LibGen + Sci-Hub)</a>; <a href="https://www.gutenberg.org/ebooks/search/" target="_blank">Project Gutenberg</a> ⦿ <strong>News</strong> <a href="https://12ft.io/" target="_blank">12ft Ladder</a>; <a href="https://github.com/qnoum/bypass-paywalls-chrome-clean-magnolia1234" target="_blank">Bypass paywall clean</a>; <a href="https://archive.org/web/" target="_blank">Wayback Machine</a> ⦿ <a href="https://help.utorrent.com/support/solutions/29000034387" target="_blank">µTorrent Web</a> ⦿ <a href="https://thepiratebay.systems" target="_blank">The Pirate Bay</a> ⦿
             </dd>
         </article>
 
         <!-- JUKEBOX -->
         
         <article id="/jukebox.xyz">
-            <p>Welcome to the Jukebox. You can play this as background music when you <a href="#/">navigate</a> <code>/~147/</code></p>
-            <iframe name="jukebox" src="https://great.dj/embed/now" style="width: 450px; height: 450px; margin: auto; display: block; border: 0">
+            <p><label class="link" for="toggle-jukebox">&lt;&lt; go back to browsing</label> </p>
+            <p>Welcome to the Jukebox. You can play this as background music when you navigate <code>/~147/</code></p>
+            <iframe name="jukebox" src="https://great.dj/embed/now" style="--max: calc(100vw - 5em); width: 450px; height: 450px; max-width: var(--max); max-height: var(--max); margin: auto; display: block; border: 0">
             </iframe>
             <br>
             <strong>Choose any playlist/album below</strong>
@@ -831,8 +933,12 @@
                 <li><a href="https://great.dj/embed/now" target="jukebox"><strong>NOW playlist</strong></a> (default) - A frequently updated playlist of the songs I loop right now.</li>
                 <li><a href="https://great.dj/embed/lucien" target="jukebox">Lucien playlist</a></li>
                 <li><a href="https://great.dj/embed/pink_francoise" target="jukebox">Pink Francoise playlist</a></li>
-                <li><a href="https://bandcamp.com/EmbeddedPlayer/album=1735672601/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/track=1742532503/transparent=true/" target="jukebox">Son Lux - At War With Walls and Mazes (2009)</a></li>
-                <li><a href="https://bandcamp.com/EmbeddedPlayer/album=2849647393/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" target="jukebox">Connie Converse - How Sad How Lovely (1950s)</a></li>
+                <li><a href="https://great.dj/embed/s5i0h3" target="jukebox">Remy Wolf live playlist</a></li>
+                <li>Tom Lehrer - <a href="https://tomlehrersongs.com/albums/an-evening-wasted-with-tom-lehrer/" target="jukebox">An Evening (wasted) With Tom Lehrer (1959)</a></li>
+                <li>Connie Converse - <a href="https://bandcamp.com/EmbeddedPlayer/album=2849647393/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/track=3043387646/transparent=true/" target="jukebox">How Sad, How Lovely (1950s)</a></li>
+                <li>Judith Nijland - <a href="https://judithnijland.nl/suitcase-of-songs-2/" target="jukebox">Suitcase Of Songs (2006)</a></li>
+                <li>The postal Service - <a href="https://www.youtube-nocookie.com/embed/gm5ihR7h9bs" target="jukebox">Give Up (2003)</a></li>
+                <li>The Pom-Poms - <a href="https://bandcamp.com/EmbeddedPlayer/album=3925810230/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/track=2715504655/transparent=true/" target="jukebox">The Pom-Poms EP (2018)</a></li>
             </p>
         </article>
         
