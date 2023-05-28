@@ -20,7 +20,7 @@
         :root {
             --bg: #fff;
             --fg: #000;
-            /* --prim: #00aaaadd;
+            /* --prim: #00aaaadd; 
             --code: "Roboto Mono", "Monaco", "Lucida Console", monospace;*/
             --font: "Roboto Mono", "Menlo", "Monaco", "Lucida Console", monospace;
             /* default font-size & line-height*/
@@ -57,7 +57,7 @@
 
         article {
             margin: 0 3em 0 .5em;
-            padding: 5px 0 1em 1em;
+            padding: 5px 0 5em 1em;
             max-width: 45em;
         }
 
@@ -185,12 +185,21 @@
         }
         
         /* JUKEBOX TOGGLE */
-        #toggle-jukebox:checked ~ main > article:not([id="/jukebox.xyz"]) {
+        #peekaboo {
+            position: fixed; bottom: 2em; right: 2em;
+        }
+        
+        #toggle-jukebox:checked ~ main > #peekaboo > #seen {
             display: none;
         }
-
-        #toggle-jukebox:checked ~ main > article[id="/jukebox.xyz"] {
-            display: block;
+        
+        #toggle-jukebox:not(:checked) ~ main > #peekaboo > #hidden {
+            display: none;
+        }
+        
+        /* SLUMBER (HIDE/SHOW DRAFT) */        
+        .toggle-slumber:not(:checked) + .slumber {
+            display: none;
         }
 
         /* MOBILE & TOUCH SCREENS */
@@ -235,15 +244,23 @@
     <!-- design note: scale images in "em" so that it grows/shrink with text size-->
 
     <input type="checkbox" id="toggle-dark-mode">
-    <input type="checkbox" id="toggle-jukebox">
+    <input type="checkbox" id="toggle-jukebox" checked>
     <input type="radio" name="font-size" id="font-L">
-    <input checked type="radio" name="font-size" id="font-M">
+    <input type="radio" name="font-size" id="font-M" checked>
     <input type="radio" name="font-size" id="font-S">
     <main>
+        <span id="peekaboo" style="z-index: 999; background: var(--bg); border-radius: 15px; border: 1px solid; box-shadow: 0 0 10px gray;">
+            <span id="seen">
+                <iframe name="jukebox" src="https://great.dj/embed/u1s4e7r/8" allow='autoplay' style="--max: calc(100vw - 5em); width: 355px; height: 355px; max-width: var(--max); max-height: var(--max); margin: auto; display: block; border-radius: 15px; border: 0;">
+                </iframe>
+                <label class="link" for="toggle-jukebox" title="close the jukebox" style="display: block; text-align: center; border-radius: 15px;">▶ collapse jukebox ◀</label>
+            </span>
+            <span id="hidden"> <label for="toggle-jukebox" class="" title="open the jukebox" style="display: block; padding: 1em 1.3em; border-radius: 15px; ">&#9835;</label> </span>
+        </span>
+
         <nav title="navigation bar">
             <a href="https://e0x0e0.club" style="font-size: 2em" title="go to e0x0e0 club">✷</a>
             <a href="#/" title="go to index">&#128880;</a>
-            <label class="link" for="toggle-jukebox" title="open/close the jukebox">&#9835;</label>
             <!--&#128880;-->
             <span class="mobile">
                 <input id="nav-expand" type="checkbox">
@@ -260,9 +277,10 @@
  | | | | / __|__   _/ _ \ / / '__|
  | |_| | \__ \  | ||  __/  /| |
   \__,_|_|___/  |_| \___/_/ |_|</pre>
-            <p class="note">Now: <label class="link" for="toggle-jukebox">listening</label> "Shine On You Crazy Diamond (Full Length: Part I - IX)" by Pink Floyd.</p>
+            <p class="note"><a href="#/jukebox/">Now</a>: listening Best Thing playlist (aka Julius 1.0).</p>
             <div class="dir" style="">
                 <a href="#/about.xyz">About / FAQ</a>
+                <a href="#/jukebox/">Jukebox</a>
                 <a href="#/program/">Programs</a>
                 <p class="note">Scribbles</p>
                 <a href="#/scribble-guide.xyz">Read me</a>
@@ -328,12 +346,20 @@
                 ░░░░▒▒▒▒ People<br>
                 ▖▖▖▖▝▝▝▝ Other
             </dd>
-            <p>- Some content that I deem too personal or potentially upsetting will be ciphered. The cipher could be brute-forced easily so it doesn't provide any "protection", it's just a reminder of the sensitive and personal nature of the contents. It's a <a href="https://billwurtz.com/questions/q.php?date=201711112326" target="_blank">scarecrow password wall</a> I put up to make sure <span style="opacity: 0.3; text-decoration: line-through">I don't accidentally read something angsty I wrote years ago</span> person who'd like to read it will have to put in some effort and will be human (avoid bot scraping).</p>
+            <p>- Some content, that I deem too personal or potentially upsetting, will be written in Ceasar cipher. The cipher could be brute-forced easily so it doesn't provide any "protection", it's just a reminder of the sensitive and personal nature of the contents. It's a <a href="https://billwurtz.com/questions/q.php?date=201711112326" target="_blank">scarecrow password wall</a> I put up to make sure <span style="text-decoration: line-through" class="note">I don't accidentally read something angsty I wrote years ago</span> person who'd like to read it will have to put in some effort and will have to be human.</p>
         </article>
         
         <!-- STAPLES -->
         
         <article id="/staple/">
+            <p class="note">Most of these entries are pulled from the <code>~147/log/</code> section and refined/compiled into something more readable. Entries are indexed by name.</p>
+            <div class="dir">
+                <a href="#/">..</a>
+                <p class="note">Read me</p>
+                <a href="#/scribble-guide.xyz">How to read the scribbles</a>
+                <p class="note" role="img" aria-hidden="true">All entries</p>
+                <a href="#/staple/gopher.xyz"><i class="lime"></i> Gopher babbles with Bennie</a>
+            </div>
             <pre role="img" aria-hidden="true" class="note" style="line-height: 1.1em">⠸⠉⠉⠉⠇ ⡎⠉⠉⠉⡆ ⢸⠉⠉⠉⡇ ⡏⠉⠉⠉⢹ ⠪⠋⠉⠭⠵  one
 
 ⠫⠍⠉⢉⡹ ⡏⠉⠉⠉⡇ ⡎⠉⠉⠉⡱ ⢰⠉⠉⠉⡆ ⠸⠉⠉⠉⠇  staple
@@ -343,15 +369,50 @@
 ⠸⠉⠉⠉⠇ ⢎⠉⠉⠉⡹ ⠘⠭⠉⠭⠃ ⢰⠉⠉⠉⡆ ⢸⠉⠉⠉⢹  time
 
 </pre>
-            <p class="note">Most of these entries are pulled from the /log/ section and refined/compiled into something more readable. Entries are indexed by name.</p>
-            <div class="dir">
-                <a href="#/">..</a>
-                <a href="#/staple/homepage.xyz">Homepage</a>
-            </div>
         </article>
         
-        <article id="/staple/homepage.xyz">
-            <p class="note">Coming soon!</p>
+        <article id="/staple/gopher.xyz" class="lime">
+            <p>13.04.2023. <span class="note">You're seeing the readable version of <a href="#/log/230413.xyz">log no.230413</a>.</span></p>
+            <p>This is a (instant messaging) convo I had with Bennie about Gopherspace. They took my Gopher infodump so that YOU don't have to. Everybody say thank you Bennie.</p>
+            <p class="note"><span >(jk everyone PLEASE ask me about Gopher/Gemini/old Web).</span> I never run out of things <strong>to say</strong> about Gopher, but I can't come up with anything decent <strong>to write</strong> about it (that hasn't already been written). I find myself re-explaining everything everytime I talk about it to someone new, that's why I'm trying to like... compile whatever I knew about Gopher through these IM conversations.</p>
+            <p>---</p>
+            <div class="chat">
+                <p time="00:11">Ok I'm just gonna send this without context first<br><img src="friends.png" style="width: 420px; max-width: 70vw;" alt="screenshot from a gopherhole. The screen reads as following: It's a fabric of friends woven in time from found strands. It's actively maintained and mended--visits, phone calls, fun times, care when needed. We figure our way through life together freely, voluntarily.
+                    
+                We've seen each others' weaknesses and our own in the sight of the other. We fashioned ourselves after each other. We remember our dead. (new line) Foucault, in 1981, gave an interview titled 'Friendship as a Way Of Life.' I've loved it a long time. Way of life he said 'can be shared among individuals of diff-erent age, status, and social activity. It can yield intense relations not resembling those that are insti-tutionalized. It seems to me that a way of life can yield a culture and an ethics.' 
+                    
+                He was thinking about about heterotopia--the *other* places he'd lived and loved in as a gay man of his era. 'To be gay, I think,' (he said) 'is not to identify with the psychological traits and the visible masks of the homosexual, but to try to define and develop [friendship as] a way of life.'
+                    
+                When we wandered we found each other, recognized and loved each other. When we settled, some friendships endured time, distance, and wear, tough as osnaburg. Without marriage or paternity our woven love, memory, and way of life became durable family, the basic unit of our world."> <span moj="heart" num=8></span></p>
+                <p time="00:13"><span moj="heart" num=2>Omg why does this. </span><br><span moj="heart" num=1>Why is this comforting </span></p>
+                <p time="00:15">I know right<br>So uh<br><span moj="heart" num=4>The person who wrote this is a woman, a nurse, I think late in her 40s </span><br>This is like... pulled from her online diary. She has a gopherhole called &quot;AGK&quot; which is her initials I guess<br>Now you might wonder wtf is a gopherhole</p>
+                <p time="00:16"><span moj="haha" num=4>????? Hold up what&#39;s a Goph- </span><br>Ok :)<br><span moj="heart" num=1>Continue </span></p>
+                <p time="00:17">So, Gopher is an internet protocol that existed before World Wide Web </p>
+                <p time="00:17">? DAMN<br>BITCH THE FUCK </p>
+                <p time="00:17">Basically, the Web uses the HTTP protocol, so when you use a browser to visit a website [its URL] begins with &quot;https://....&quot; right </p>
+                <p time="00:18">Yes </p>
+                <p time="00:18">Gopher is its own protocol, and Gopher &quot;sites&quot; URL begin with &quot;gopher://......&quot; </p>
+                <p time="00:20">DAMN<br><span moj="heart" num=4>Bro why am I invested </span><br>[The fuck]<br>Gopher </p>
+                <p time="00:20">Most modern browsers dropped support for Gopher long ago, but the community there isn&#39;t dying or anything, in fact some people like Anna (who wrote the stuff above) still use it everyday
+                    <br><br><span class="note"> | Re: Bro why am I invested</span><br><span moj="like" num=5>You should, hehe. There are more to the Internet than just... the Web you know </span>
+                </p>
+                <p time="00:21"><span class="note"> | Re: Most modern browsers dropped support... </span><br><span moj="like" num=4>How the fuck </span></p>
+                <p time="00:22"><span moj="like" num=3>Anyways Gopher is really different because it&#39;s an archaic protocol and not much has changed about it, so it doesn&#39;t have all the fancy styling stuff you can do with HTML. All content on Gopher is served in plain text </span><br><img src="agk.png" alt="a screenshot of Anna's Gopherhole on Gopher"> <span moj="heart" num=6></span><br>This is Anna&#39;s gopherhole....</p>
+                <p time="00:22"><span moj="heart" num=2>DAMN I SEE </span></p>
+                <p time="00:22">Yuhhh</p>
+                <p time="00:23"><span moj="heart" num=3>[Hey] that shit is so nice to look at it really gives off the middle age people vibe </span><br>Thing is<br><span moj="heart" num=4>It looks so easy on the eyes bitch the fuc </span><br>Looks very minimalistic I like it picasso </p>
+                <p time="00:23">Exactly<br><span moj="heart" num=5>This is why Gopher isn't dying </span><br>Some people even prefer it to the Web<br><span moj="heart" num=5>(It's me I'm people) </span></p>
+                <p time="00:24">As they should [to be honest] </p>
+                <p time="00:25"><span moj="heart" num=9>Nowadays I also surf Reddit through Gopherddit if it's not media content :))) Gopher is much easier on the eye [for real] </span><br><span moj="heart" num=7>There's an active community there so lots of people made Gopher proxy for websites, so you have Gopherpedia (Wikipedia proxy) and stuff like that </span></p>
+                <p time="00:26">Oh shit<br>Cool<br>But ughhhh I often consume shit with like<br>Media you know</p>
+                <p time="00:29">Yeah<br><span moj="wow" num=5>I don't know if I don't consume lots of media or if I kinda adapted to [the lack of media] once i started using [Gopher] </span><br><span moj="wow" num=8> My first hour browsing Gopher was.... very wowie, like, most of the stuff there are more well written than anything I&#39;ve read from <a href="#/log/">Weblogs</a> </span><br><span moj="heart" num=6>So I get the appeal </span><br><br><span class="note"> | Re: [image]</span><br><span moj="heart" num=4>this screenshot was from 2021 </span><br><span moj="heart" num=5>Around the time I found out about Gopher </span></p>
+                <p time="00:29">[THE FUCK FOR REAL]?<br><span moj="like" num=4>And now you still browse through gophers? </span></p>
+                <p time="00:31">Yeah that entry was from October 2021<br><span class="note"> | Re: And now you still browse through gophers?</span><br>
+                    Yup<br><span moj="heart" num=10>I dont have a hole myself hdhfj but it's nice to lurk around and read people's stuff </span><br><span moj="heart" num=7>Literally all of them are just.... regular people, hobbyists, mostly middle aged but like their stuff is so well written??? </span></p>
+                <p time="00:31"><span moj="heart" num=1>It's because they're middle-aged </span> <span moj="like" num=1></span><br>Time to contemplate</p>
+                <p time="00:31">Lol I guess so</p>
+
+            </div>
         </article>
         
         <!-- LOGS -->
@@ -390,34 +451,69 @@
             }
         </style>
         <article id="/log/">
-            <pre role="img" aria-hidden="true" class="note" style="line-height: 1.1em">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⠄⠀⣀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣏⣴⣾⣿⣿⡆⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⢏⣴⣷⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣿⣿⡿⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⠟⠁⠀⠀⠀  welcome
-⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⢟⣿⣿⣿⣿⣿⣿⢿⣿⣿⡧⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⡿⢟⣵⣿⣿⣿⣿⣿⢟⣡⠄⠉⠛⠛⠄⠀⠀⠀⠀  to my
-⠀⠀⠀⠀⢀⣴⣿⣿⣿⡿⠋⣠⣾⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⢀⣠⣤⣬⣉⠙⠁⢀⣾⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  web log
-⠀⣰⠟⣁⣀⣈⠙⠳⣄⠙⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⣿⣾⣿⣿⣿⣷⣄⠘⣆⠘⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⢻⣿⣿⢿⣿⣿⣿⠄⢸⠀⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠛⠃⣾⣿⣿⣛⣠⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠙⠛⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</pre>
-            <p class="note">Most of these entries are pulled from my <a href="journal.jpg" target="_blank">actual, physical journal</a> which is obsessively paged and categorized (hence the color code). I use an image-to-text program to easily digitalize this, so there might be some typos. Entries are indexed by date.</p>
-            <p class="dir">
+            <p class="note">Welcome to my web log. Most of these entries are pulled from my <a href="journal.jpg" target="_blank">actual, physical journal</a> which is obsessively paged and categorized (hence the color code). I use an image-to-text program to easily digitalize this, so there might be some typos. Entries are indexed by date.</p>
+            <div class="dir">
                 <a href="#/">..</a>
+                <p class="note">Read me</p>
+                <a href="#/scribble-guide.xyz">How to read the scribbles</a>
+                <p class="note">All entries (2023)</p>
+                <a href="#/log/230528.xyz"><i class="cyan"></i> 28.5.2023 - Aging</a>
+                <a href="#/log/230527.xyz"><i class="cyan"></i> 27.5.2023</a>
                 <a href="#/log/230427.xyz"><i class="orange"></i> 27.4.2023 - Judith Nijland</a>
                 <a href="#/log/230425.xyz"><i class="cyan"></i> 25.4.2023 - Memory</a>
                 <a href="#/log/230423.xyz"><i class="cyan"></i> 23.4.2023 - Solo Traveler Grindset</a>
                 <a href="#/log/230413.xyz"><i class="lime"></i> 13.4.2023 - Gopher babbles with Bennie</a>
+                <a href="#/log/230222.xyz"><i class="orange"></i> 22.2.2023 - "Give Up" (2003) by The Postal Service</a>
+                <a href="#/log/230221.xyz"><i class="magenta"></i> 21.2.2023</a>
                 <a href="#/log/230316.xyz"><i class="cyan"></i> 16.3.2023 - Get some credits in the real world</a>
                 <a href="#/log/230204.xyz"><i class="yellow"></i> 4.2.2023 - Art Footprint Manifesto excerpt</a>
                 <a href="#/log/230131.xyz"><i class="lime"></i> 31.1.2023 - Web3 class notes (P1)</a>
                 <a href="#/log/230130.xyz"><i class="cyan"></i> 30.1.2023</a>
                 <a href="#/log/230127.xyz"><i class="cyan"></i> 27.1.2023</a>
+                <a href="#/log/230108.xyz"><i class="orange"></i> 8.1.2023 - Who wrote Caramelldansen?</a>
+            </div>
+            <label class="link" for="slog" title="wake/sleep the slumber directories">&#9635; </label>
+            <input type="checkbox" class="toggle-slumber" id="slog">
+            <p class="dir slumber">
+                <span class="note">Archive (slumber)</span>
+                <a href="#/log/2021/">2021</a>
+                <a href="#/log/2020/">2020</a>
             </p>
+            <pre role="img" aria-hidden="true" class="note" style="line-height: 1.1em">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⠄⠀⣀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣏⣴⣾⣿⣿⡆⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⢏⣴⣷⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣿⣿⡿⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⠟⠁⠀⠀⠀  
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⢟⣿⣿⣿⣿⣿⣿⢿⣿⣿⡧⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⡿⢟⣵⣿⣿⣿⣿⣿⢟⣡⠄⠉⠛⠛⠄⠀⠀⠀⠀  
+⠀⠀⠀⠀⢀⣴⣿⣿⣿⡿⠋⣠⣾⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⢀⣠⣤⣬⣉⠙⠁⢀⣾⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+⠀⣰⠟⣁⣀⣈⠙⠳⣄⠙⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⣿⣾⣿⣿⣿⣷⣄⠘⣆⠘⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⢻⣿⣿⢿⣿⣿⣿⠄⢸⠀⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠛⠃⣾⣿⣿⣛⣠⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠙⠛⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</pre>
+        </article>
+        
+        <article id="/log/230528.xyz" class="cyan">
+            <p>28.5.2023 @ 7:00 - Aging</p>
+            <p>Been eating porridge for days like a real sick person. Didn&#39;t sleep for a night, then got a cold yesterday (god forbid me to go out for some fresh air) and slept for approximately 13.5 hours. </p>
+            <p>Finding it hard to make peace with the fact that I can get sick, burnt out, hungry, or anything of the sort. It&#39;s hard to believe that I can attempt to ruin my health and <em>actually</em> suffer consequences from it. I hate thinking that I&#39;m not young and reckless anymore.</p>
+            <p>I always wanted to die clean and pretty, I don&#39;t want to be slowly marching towards death. I don&#39;t want to be the ship of Theseus where each part of the ship is replaced with a dysfunctional version of itself, and then the worse-functioning version of that one, until eventually the ship is rendered completely useless and unrecognizable from its younger self.</p>
+            <p>I mean, of course, that the ship of Theseus is a silly problem. Whether the ship is continuously aged into a less-functioning version of itself, or enhanced and repaired into a better functioning version, it would remains &quot;the same ship&quot; for as long as people want to believe so. It&#39;s because identity is a social construct and if a social contract assigned the identity &quot;ship of Theseus&quot; onto this random ship, then in turns, only a social contract could remove it.</p>
+        </article>
+        
+        <article id="/log/230527.xyz" class="cyan">
+            <p>27.5.2023</p>
+            <p>Qju q sebt reybut uww vhec jxu vhytwu. Y zkij mqdj je bqo temd qdt sho.</p>
+            <p>Y mybb xqlu je cqau fuqsu myjx jxu vqsj jxqj rbydtydw ikdbywxj mqhcydw kf jxu ayjsxud qdt ryhti iydwydw qdt bkix whuuduho zylydw yd jxu mydt mybb iywdyvo &quot;7fc&quot; qdt &quot;Jycu veh tydduh&quot;. Jxyi aydt ev ujuhdqb tqojycu yi hqjxuh tyiehyudjydw.</p>
+            <p>Y xqju uluhojxydw. Y huiudj uluhoedu. Eh cqoru Y xqju dejxydw qj qbb qdt Y wuj kfiuj mxud Y sqd&#39;j unfbqyd jxyi sedijqdj vuubydw ev kduqiu jxqj iysaudi co wkji qdt mxqj sqkiut yj.</p>
+            <p>L fdq&#39;w hyhq whoo. Lv lw sdqlf iurp orrnlqj dw pb edqn dffrxqw dqg uhdolclqj krz pxfk L&#39;yh orvw wudfn ri. Lv lw glvdssrlqwphqw iurp qrw frpsohwlqj doo (ru dqb) ri wkh exoohw srlqwv L vdlg L zrxog dffrpsolvk zhhnv djr, dqg qrw hyhq wublqj wr gr vr. Lv lw ihdu iurp zkdwhyhu ixwxuh frqvhtxhqfhv wkdw pb fxuuhqw volsv dqg plvwdnhv pljkw kdyh. Lv lw dqjhu iurp ehlqj ohiw rq kdqj dqg jhwwlqj pb frxog-eh-shuihfw vfkhgxoh vfudpeohg dqg uxlqhg.</p>
+            <p>P dlua vba vm tf dhf avkhf, jba tf jhml aptl zovya, jhujlsslk wshuz dpao vaoly wlvwsl, joljrlk tf wovul dhf tvyl mylxbluasf aohu tf bzbhs joyvupjhssf vmmspul zlsm, dlua ovtl lhysf lclu aovbno P ohalk ilpun aolyl, nva tfzlsm ylhkf mvy aol lujvbualy, dhpalk whapluasf, kpzayhjalk tfzlsm myvt aopurpun aoha P ht dhpapun. Hshz, zol ulcly zovdlk bw.</p>
+            <p>Thfil P&#39;t thk aoha P jvbsk&#39;cl zwlua MVBY leayh ovbyz ha aol jhml huk aolu nv av aol aluhua jvttpaall tllapun, pm pa dhzu&#39;a mvy aopz. Uvd aoha pa&#39;z avv shal puav aol khf huk hss aol svclsf jhmlz hyl jsvzlk, P dpss ohcl av zpa olyl pu tf puzhulsf iypnoa rpajolu dpao hu ltwaf zavthjo huk hu ltwaf ihur hjjvbua afwpun hdhf tf puzhupaf puav aopz zjyllu.</p>
+            <p>D mzvgduz ocvo ncz rvn ocz jmdbdivg bcjnozm. Ocvo ncz wzcvqzy gdfz ocdn rczi D rvn rvt tjpibzm, rvt wzajmz D bjo dioj njxdvg hzydv, rvt wzajmz D ajmhzy v kvmvnjxdvg mzgvodjincdk rdoc rjmyn ji v nxmzzi. Wzajmz vit ja ocjnz nopaa cvy v xcvixz oj mpdi hz, do rvn vgrvtn czm. Vgrvtn ydnomvxozy piodg ncz&#39;n ijo, vgrvtn vwnzio piodg npyyzigt ncz&#39;n nxmzvhdib ocvo D izqzm nkzio odhz ajm czm. Bjy nvqzn ocz lpzzi.</p>
+            <p>Rzgg oj wz avdm, D&#39;h wzdib wpo v rcdit fdy viy ht nompbbgz rdgg izqzm npmhjpio ocz vhjpio ja nomznn ocvo ncz wzvmn. D&#39;h ijo ocz jigt kzmnji rcj cvy oj hvfz odhz amjh ht nxczypgz. Ncz&#39;n wpndzm ocvi D rdgg zqzm, zqzm wz. Viy D&#39;h npmz ncz cvy v qzmt bjjy zskgvivodji ocvo rdgg diqvgdyvoz vgg ja ht xjhkgvdion. Vaozm vgg D nodgg rvio oj wz di bjjy ozmhn rdoc ocz kzmnji rcj apiyn ht gdaz. Rjr. Rcvo v nvy ocdib oj nvt vwjpo tjpm hjoczm.</p>
         </article>
         
         <article id="/log/230427.xyz" class="orange">
@@ -458,22 +554,22 @@
         </article>
         
         <article id="/log/230413.xyz" class="lime">
-            <p>13.04.2023</p>
-            <p>This is a (instant messaging) convo I had with Bennie about Gopherspace. They took my Gopher infodump so that YOU don't have to. Everybody say thank you Bennie.</p>
-            <p><span class="note">(jk everyone please ask me about Gopher/Gemini/old Web).</span> I never run out of things <strong>to talk</strong> about Gopher, but I can't come up with anything decent <strong>to write</strong> about it (that hasn't already been written). I find myself re-explaining everything everytime I talk about it to someone new, that's why I'm trying to like... compile whatever I knew about Gopher through these IM conversations.</p>
+            <p>13.04.2023. Babbled with Bennie about Gopher today. <span class="note">See <a href="#/staple/gopher.xyz">the readable version</a> of this entry.</span></p>
+            <!--<p>This is a (instant messaging) convo I had with Bennie about Gopherspace. They took my Gopher infodump so that YOU don't have to. Everybody say thank you Bennie.</p>
+            <p><span class="note">(jk everyone please ask me about Gopher/Gemini/old Web).</span> I never run out of things <strong>to talk</strong> about Gopher, but I can't come up with anything decent <strong>to write</strong> about it (that hasn't already been written). I find myself re-explaining everything everytime I talk about it to someone new, that's why I'm trying to like... compile whatever I knew about Gopher through these IM conversations.</p>-->
             <p>---</p>
             <style>
                 .chat > p {
                     margin: 0;
                     padding: 1em;
                 }
-                .chat > p::before,
+                .chat > p::before, 
                 .chat > p::after {
                     display: block;
                     opacity: 0.5;
                 }
                 .chat > p::after {
-                    content: "--- 13/04/2023@" attr(time);
+                    content: "--- 13.04.2023 @ " attr(time);
                     font-size: 0.9em
                 }
                 [moj]::after {
@@ -504,7 +600,13 @@
                 }
             </style>
             <div class="chat">
-                <p time="00:11">ok imma just send this w/o context first<br><img src="friends.png" style="max-width: 420px;"> <span moj="heart" num=8></span></p>
+                <p time="00:11">ok imma just send this w/o context first<br><img src="friends.png" style="width: 420px; max-width: 70vw;" alt="screenshot from a gopherhole. The screen reads as following: It's a fabric of friends woven in time from found strands. It's actively maintained and mended--visits, phone calls, fun times, care when needed. We figure our way through life together freely, voluntarily.
+                    
+                We've seen each others' weaknesses and our own in the sight of the other. We fashioned ourselves after each other. We remember our dead. (new line) Foucault, in 1981, gave an interview titled 'Friendship as a Way Of Life.' I've loved it a long time. Way of life he said 'can be shared among individuals of diff-erent age, status, and social activity. It can yield intense relations not resembling those that are insti-tutionalized. It seems to me that a way of life can yield a culture and an ethics.' 
+                    
+                He was thinking about about heterotopia--the *other* places he'd lived and loved in as a gay man of his era. 'To be gay, I think,' (he said) 'is not to identify with the psychological traits and the visible masks of the homosexual, but to try to define and develop [friendship as] a way of life.'
+                    
+                When we wandered we found each other, recognized and loved each other. When we settled, some friendships endured time, distance, and wear, tough as osnaburg. Without marriage or paternity our woven love, memory, and way of life became durable family, the basic unit of our world."> <span moj="heart" num=8></span></p>
                 <p time="00:13"><span moj="heart" num=2>Ôi yêu why does this. </span><br><span moj="heart" num=1>Why this cômfỏting </span></p>
                 <p time="00:15">đko<br>so uh<br><span moj="heart" num=4>the person who wrote this is a woman, a nurse, i think late in her 40s </span><br>this is like... pulled from her online diary. she has a gopherhole called &quot;agk&quot; which is her initials ig<br>now u might wonder wtf is a gopherhole</p>
                 <p time="00:16"><span moj="haha" num=4>????? Bình tĩnh what&#39;s a Goph </span><br>Đc r :)<br><span moj="heart" num=1>Continue </span></p>
@@ -518,7 +620,7 @@
                     <br><br><span class="note"> | Re: bro why am i invested</span><br><span moj="like" num=5>u should, hehe. there are more to the Internet than just... the Web yk </span>
                 </p>
                 <p time="00:21"><span class="note"> | Re: most modern browsers dropped support... </span><br><span moj="like" num=4>How tf </span></p>
-                <p time="00:22"><span moj="like" num=3>anw gopher is rlly different bc it&#39;s an archaic protocol and not much has changed abt it, so it doesn&#39;t have all the fancy styling stuff u can do with HTML. all content on gopher is served in plain text </span><br><img src="agk.png"> <span moj="heart" num=6></span><br>this is anna&#39;s gopherhole....</p>
+                <p time="00:22"><span moj="like" num=3>anw gopher is rlly different bc it&#39;s an archaic protocol and not much has changed abt it, so it doesn&#39;t have all the fancy styling stuff u can do with HTML. all content on gopher is served in plain text </span><br><img src="agk.png"  alt="a screenshot of Anna's Gopherhole on Gopher"> <span moj="heart" num=6></span><br>this is anna&#39;s gopherhole....</p>
                 <p time="00:22"><span moj="heart" num=2>VÃI I SEE </span></p>
                 <p time="00:22">yuhhh</p>
                 <p time="00:23"><span moj="heart" num=3>ê that shit so nice to look at it rlly gives off the vibe người già trung niên </span><br>Thing is<br><span moj="heart" num=4>It looks so easy on the eyes bitch tf </span><br>Looks very minimalistic i like it picasso </p>
@@ -542,6 +644,23 @@
             <p>I rearrange all the furnitures in my room bi-monthly bc I get bored of coherence and routine. School is not doing well rn (though, it has to be well bc I need a scholarship). I figured that I&#39;m totally capable of doing the work and I could pass the courses if only I do attend classes/pay attention, but I don&#39;t. Maybe I can partly blame it on the fact that I don&#39;t have friends (as in sb to regularly talk / have lunch with) at school, which has bothered me more than I think it would. But mostly I&#39;m just understimulated, by lectures and people and all their beautiful outlook on the future. Yiddi yadda we&#39;re all gonna die in the following years and all that matters is what we do in the small moments we have before death, and I start to feel like I don&#39;t wanna waste time in this stupid degree.</p>
             <p>Any sort of human contact I&#39;ve made during my time in finland have been functional, practical, and site-specific. Sometimes I think these constraints keep me a part of society but sometimes I think they make me hungry for something else. I think that&#39;s why I&#39;m still making content for the web. </p>
             
+        </article>
+        
+        <article id="/log/230222.xyz" class="orange">
+            <p>22.2.2023. Looping "Give Up" (2003) by The Postal Service.</p>
+            <p>I heard that Mark Zucc listened to this album 20 years ago while he coded up the first version of F*cebook. I'm listening to it now while coding up <code>/~147/</code> so that I can fuck off from F*cebook, thereby completing the cycle.</p>
+            <p>---</p>
+            <p>I've been looping Give Up for days. It was a terrific album, and the only one from The Postal Service - they disbanded shortly afterwards, what a shame. The tune is early 2000s, and the theme is early 20s. For a moment I think I kind of sympathized with the anguishes of a 20-something young Mark Zucc, how crushed he must've felt listening to this album after being dumped by a girl. Cynicism kicks in, the world shuts down thanks to a pandemic, and on top of all that is the penetration of technology into every part of life... as mentioned in the album. It must've been very confusing for him, for me, for anyone who is aware of that.</p>
+            <p>Still, I can't believe that I and a <em>Megacorp Silicon Valley lizard</em> could share this random thing in common and be connected by that. But I guess everyone has the right to enjoy a good album even if they would grow up to become a <em>Megacorp Silicon Valley lizard</em>.</p>
+            <hr>
+            <p>Pingback: <a href="#/jukebox/NOW-alb.xyz">NOW albums/EPs archive</a></p>
+        </article>
+        
+        <article id="/log/230221.xyz" class="magenta">
+            <p>21.2.2023</p>
+            <p>The contant urge to put men into very vulnerable positions without necessarily debasing them nor glorifying abuse.</p>
+            <p style="height: 5em"></p>
+            <p class="musick"><a href="https://knowyourmeme.com/photos/2085573-if-youre-20-30-and-your-main-circle-isnt-discussing" target="_blank"></a></p>
         </article>
         
         <article id="/log/230204.xyz" class="yellow">
@@ -589,10 +708,33 @@
             <p>Rsdfsggwcb wg kvsb mci vsof hvs gcth fiapzs ct hvs dv0bs obr wbghobhzm tssz gots psqoigs mci ybck hvsfs&#39;g ob 80% qvobqs hvoh wh wg hvs qozz ct mcif sachwcboz giddcfh twuifs. Obr mci xigh kobh hc pifgh obr qfm obr qfiapzs hc dwsqsg obr hszz hvsa vck gvwhhm mci tssz pih hvs acasbh mci gss hvswf toqs mci&#39;r oihcaohwqozzm dih cb o aogy, psqoigs ucr tcfpwr mci hc sjsf ps jizbsfopzs ofcibr dscdzs mci zcjs, kvc ozgc zcjs mci. Psqoigs mci hvwby bwqs dscdzs dfcpopzm hccy o zch ct gvwhg tfca chvsf rsdfsggsr tiqysfg zwys mci ozfsorm, obr mci rcb&#39;h kobh hvsa hc dih id kwhv mci og kszz, hvoh hvsm rcb&#39;h rsgsfjs wh, hvoh hvsm dfcpopzm vojs hvswf ckb wggisg, hvoh sjsb wt hvsm&#39;fs asbhozzm ojowzopzs mci&#39;fs ghwzz otfowr ct pswbu o pifrsb, cf pswbu ohhoqvsr.</p>
         </article>
         
+        <article id="/log/230108.xyz" class="orange">
+            <p>8.1.2023</p>
+            <p>Caramelldansen, a tale of lost media, historical revisionism, and balsamic vinegar.</p>
+            <p>Youtuber jan Misali made a 45 minutes video called &quot;Who wrote Caramelldansen?&quot; in which he attempted to trace down the originality of the song from being an average pop song from the (now-disbanded) Swedish band &quot;Caramell&quot;, to a hit nightcore remix, to a japanese meme on Nico Nico Douga, to now being credited to Swedish-owned &quot;Caramella Girls&quot;</p>
+            <blockquote>
+                <p style="margin: 1em">Maybe in a sense, the Caramella Girls <em>are</em> the modern incarnation of Caramell. They&#39;ve just been Ship-Of-Theseus-ed into a lineup that no longer has any of their original members. Except it&#39;s not really like the Ship Of Theseus. It&#39;s more like... if you were to disassemble a ship one piece at a time, but instead of replacing those parts as you take them out, the ship is just left without those parts, and eventually, the ship is completely gone. But then a few years later, a song created by the Ship Of Theseus becomes a big meme in Japan, and in response, the guy who owns the rights to the Ship Of Theseus - who is not Theseus - decides to make a new ship, the Thesea Girls, in order to apeal to this demographic that enjoys works made by this old ship that no longer exists.</p>
+                <!--<a class="source" href="https://www.youtube.com/watch?v=rI3yD3WAcz4"> jan Misali - Who wrote Caramelldansen?</a>-->
+            </blockquote>
+            <blockquote>
+                <p style="margin: 1em">Who wrote Caramelldansen? Caramell wrote Caramelldansen, obviously (specifically, Vasco and Millboy). But officially, the Caramella Girls wrote Caramelldansen. But technically, DJ Speedycake wrote Caramelldansen. Whoever wrote the English lyrics wrote Caramelldansen (and we don&#39;t know who that is). Whoever first heard &quot;Dansa med oss&quot; as «バルサミコ酢» wrote Caramelldansen. The meme itself was written by thousands, no, millions of authors. Everyone who shared «Sven from Sweden»&#39;s flash loop with their friends on now-defunct message boards wrote Caramelldansen. Every middle schooler who traced over the GIF with their favorite anime characters wrote Caramelldansen. Every kid who downloaded the song to their ipod shuffle and listened to it with their friends during recess wrote Caramelldansen.</p>
+                <p style="margin: 1em">Who wrote Caramelldansen? The song was written by Vasco and Millboy, but <em>we</em> wrote the meme. <strong><em>We</em></strong> wrote Caramelldansen.</p>
+                <a class="source" href="https://www.youtube.com/watch?v=rI3yD3WAcz4"> jan Misali - Who wrote Caramelldansen?</a>
+            </blockquote>
+            
+        </article>
+        
         <article id="/log/2021/">
+            <p class="note">All 2021 (to be updated)</p>
             <p class="dir">
+                <a href="#/log/">..</a>
                 <a href="#/log/211006.xyz"><i class="yellow"></i> 6.10.2021 - Phú's opinion on social network silos</a>
             </p>
+            <!--<label class="link" for="s2021" title="wake/sleep the slumber directories">&#9641;</label>
+            <input type="checkbox" class="toggle-slumber" id="s2021">
+            <p class="dir slumber">
+                <a href="#/log/210325.xyz"><i class="cyan"></i> 25.3.2021&nbsp;<span class="note"> (unciphered rants)</span></a>
+            </p>-->
         </article>
         
         <article id="/log/211006.xyz" class="yellow">
@@ -602,7 +744,90 @@
                 <a class="source">Source: Phú wrote it on F*cebook and sent me this morning.</a>
             </blockquote>
         </article>
-        
+
+        <article id="/log/2020/">
+            <p class="note">All 2020 (to be updated)</p>
+            <p class="dir">
+                <a href="#/log/">..</a>
+                <a href="#/log/201206.xyz"><i class="orange"></i><i class="magenta"></i> 6.12.2020 - Per espera, ad astra</a>
+            </p>
+        </article>
+
+        <article id="/log/201206.xyz">
+            <style>
+                .pad-quote ~ blockquote, .pad-quote ~ *> blockquote {
+                    padding: 1em;
+                }
+            </style>
+            <p class="pad-quote">6.12.2020 @ 23:51.</p>
+            <mark>/* CONTAINS SPOILER FOR AD ASTRA (2019). PLEASE WATCH YOUR STEPS */</mark>
+            <pre> <i class="orange"></i>#1: Things I&#39;ve written down watching Ad Astra (2019). OCs mentioned: Chen Henneslie &amp; Helen Schneider.</pre>
+            <p>Dude, I was just reminded to watch Ad Astra and I did it immediately. Wisest choice I&#39;ve ever made for a while now. </p>
+            <p>1/ I don&#39;t even know the dude&#39;s name, but this man is Dr. Chen Henneslie. Oh the similarity. My heart breaks bc now I finally understand what Stuck in the sound&#39;s video was about. And what&#39;s with the 47 code?? This movie is such a good timing. (His name was Roy btw)</p>
+            <p>2/ So the lore would be Chen loses his dad since teenage bc he&#39;s too immersed in his work or overworked himself in a failed project and passed away. He was trained to be the doctor, after his dad, always focus, always make pragmatic decisions. Hence the &quot;your feelings don&#39;t matter&quot;.</p>
+            <p>3/ Roy fucking McBride, I dont even know what else to say, this man is literally Chen Henneslie. Just look at these monologues.</p>
+            <blockquote>ROY: &quot;I’m calm, steady. I slept well, 8.2 hours. No bad dreams. I am ready to go. Ready to do my job to the best of my abilities. I am focused only on the essentials, to the exclusion of all else. I will make only pragmatic decisions. I will not allow myself to be distracted. I will not allow my mind to linger on that which is unimportant. I will not rely on anyone or anything. I will not be vulnerable to mistakes. Resting BPM, 47. Submit.&quot;</blockquote>
+            <p>I think I might just quote every line I hear from this movie.</p>
+            4/<blockquote>ROY: &quot;I always wanted to be an astronaut. For the future of mankind and all. At least, that&#39;s what I always told myself.
+                I see myself from the outside. Smile, present a side. It’s a performance, with my eyes on the exit.
+                Always on the exit.<br><br>At least it&#39;s comfortable out here. Space I understand.&quot;</blockquote>
+            5/ <blockquote>ROY: &quot;So many times in my life I screwed up. I talk when I should&#39;ve listened. I was harsh when I should&#39;ve been tender.&quot; <br><br>ROY: &quot;Hey Eve, it&#39;s Roy. I&#39;m away again, no surprise there.&quot;</blockquote>
+            <p>6/ I fucking can&#39;t. Number 7 popped in too much for it to be a coincidence. Resting BPM 47. Door number 7. Rover number 7. Pirates rovers from 7 o&#39;clock direction. I&#39;m legit scared, the universe is trying to fuck with my sense. </p>
+            7/ <blockquote>ROY: &quot;My dad was a pioneer. He sacrificed himself for the search for intelligent life. My dad was the program. I was 16 when he left, 29 when he disappeared. And that’s that.&quot; </blockquote>
+            <p>Chen feels u so so so badly :pensive face:</p>
+            <blockquote>ROY: &quot;What happened to my dad?
+                What did he find out there?
+                Did it break him?
+                or was he always broken? &quot;</blockquote>
+            8/ <blockquote>ROY: &quot;The attack, it was full of rage. I understand that rage. I’ve seen that rage in my father, and I’ve seen that rage in me. Because I’m angry that he took off. He left us. You know, but when I look at that anger, and if I push it aside, and just put it away, all I see is hurt. I just see pain. I think it keeps me walled off, walled off from relationships and opening myself up, and, you know, really caring for someone. And I don’t know how to get past that. I don’t know how to get around that. And it worries me. And I don’t want to be that guy. I don’t want to be my dad.&quot;</blockquote>
+            <p>9/ what<br>the f<br>fhcxjn<br>jsk?<br>this is giving me brain damage.</p>
+            <p>10/
+                I&#39;ve never cried this much since the last few years. This movie fucked me up so badly. I don&#39;t know if anyone&#39;s going to understand just how personal this is related to me.</p>
+            <p>Even the one who tried to change me, they thought that maybe I&#39;m just that way. Maybe I&#39;m just detached like that. </p>
+            <p>Just another cosmo science fiction for some fresh air, I thought. I hate to admit that this movie is just full of things I hate to admit.</p>
+            <p>However it has a wonderful plot, and as I&#39;m basing &quot;Dr. Chen&quot; on this, I&#39;m not sure if I could pull off something at the level. </p>
+            <p>11/ And still, this hits home too hard.</p>
+            <p>I know that working alone is not a wise thing to do.</p>
+            <p>They say if you want to go fast go alone, but if you want to go far go together. It fits Roy&#39;s dad narrative perfectly. He was fast to success, his name was top at the hall of fame, but then he struck the wall and run low for the rest of his life. Gone insane, killed people, clinged to his infatuating ideal that was proven to be unrealistic. Even when his son came to save him, to bring him back to life, he can&#39;t even seem to accept it. It is tragic to see someone as good as him gone wasted. </p>
+            <p>It&#39;s always helpful to have a plan B, or a person B for extra help. And for some people, like me, getting help from someone can be cumbersome, as well as sharing THEIR struggles. It feels like you want the whole world to leave you alone. But what do you know about being alone? Have you been inside a vessel? Have you been socially isolated? What do you know about its consequences? </p>
+            <hr>
+            <pre> <i class="magenta"></i>#2: Clifford McBride (Ad Astra) vs Helen Schneider (my OC)</pre>
+            <p>I&#39;m getting to a point now.</p>
+            <p>As much as I want to talk abt Roy McBride, I actually find that his father Clifford McBride has a lot in common with Helen Esc. Schneider. Funny how during the movie I&#39;m like hmm this man is a horrible person gtfo and then I realized that he&#39;s just like Hêl fr :pensive face:</p>
+            <p>Egocentric and lonely leaders who are infatuated with their ideals, who are disciplined and violent on command, who disregard their own and anyone&#39;s personal life, who have no strong ground of ethics except for work ethics. They also had the same &quot;runaway&quot; mindset and hurted people who wanted to help. Immersing themselves in work as an escape from life, they have already chosen death.</p>
+            <p>But on the flip side, they&#39;re both extraordinary thinkers with determination, who spent their whole life building a legacy. Because what they consider the most important is the works, discoveries and informations, not life, not family, not your feelings. They live not in the moment, but for the future. <strong>&quot;He could only see what was not there, and missed what was right in front of him.&quot;</strong> Clifford in the end was outright delusional and gone insane, he died in a desperate attempt to refuse coming back &quot;home&quot;. Helen never treasured her life, nor home. She manifested her own death as part of the plan, bc she was so obsessed that even her death must serve something. </p>
+            <p>Man, at this point I can&#39;t confidently state that Hel is mentally fine anymore. Thank god she wasn&#39;t a space traveler :skull emoji:</p>
+            <p>Also why am I not even surprised finding Helen in toxic male characters anymore? Always have to be the most toxic close-minded males who make the worst consequences. Isn&#39;t Clifford and Lima Project just another Dr. Dyatlov and Chernobyl :pensive face:</p>
+            <hr>
+            <pre> <i class="magenta"></i>#3: Roy McBride (Ad Astra) vs Chen Henneslie (my OC)</pre>
+            <p>Roy is dedicated to space travel because it&#39;s like an exit door for all the struggles coming from the emotional isolation he had with his closed ones. He works a dangerous job and yet his heartbeat never went over 80 BPM even in near death situations. He excels at his job, and yet, his eyes are on the exit.</p>
+            <p>Chen lives in (what I&#39;d call) a Kafka-esque society, so to be fair not only him but everyone is upset with their life yet do nothing about it. He&#39;s a doctor under his dad&#39;s shadow and surname, the system make people work like hamsters in a wheel, procedures feel like an inescapable loop. <strong>&quot;All our lives we sweat and save, building for a shallow grave.&quot;</strong> Chen excels at his work without questioning and without being asked to do so, and yet, his eyes are on the exit.</p>
+            <p>Roy and Chen both fall into the paranoia of &quot;being a copy of your dad&quot; and it&#39;s easy to see why. Roy&#39;s dad was the man who traveled furthest in space at the moment, and Chen&#39;s dad was a terrific surgeon who hold several PhDs. Imagine having a super popular dad and following his path and anyone who talks to you only know you as your dad&#39;s son.</p>
+            <p>When they unfortunately found out that their dads aren&#39;t heroes but actually a threat to society, the paranoid gets super real. But whatever they think doesn&#39;t define reality, right? When Roy faces his dad in person, after 20-ish years being apart, he noticed the difference, even though they seem to sympathize easily. Roy&#39;s not the same as his dad, but he&#39;s been living under the shadow of Clifford and when he headed back to Earth from Neptune, it was the first time his real personality comes to the sun. It was a burden, and he ended it, determinedly, for once and forever. I&#39;m living for this character development. </p>
+            <hr>
+            <pre> <i class="orange"></i>#4: Clifford McBride apologist 1/2</pre>
+            <p>fuck im very tired now but i do be overthinking abt Clifford McBride ^^ today&#39;s on me being the devil&#39;s advocate nobody asked for...</p>
+            <p>I mean it&#39;s fiction so I wouldn&#39;t ask much but technically I&#39;d still advocate for Clifford&#39;s right to continue his work. They put him on a search for intelligent life outside the Earth, and The Milky Way is incredibly huge let alone any other galaxy, they only gave him a couple of decades. How do they assure that he failed? How do they know there&#39;s really no one out there?</p>
+            <p>And I mean, at the age of 70(?), after being absolutely isolated from human contact and living 30 years in the ship, the man wanted to continue his work. His determination doesn&#39;t wear off, never been.</p>
+            <p>He basically killed all of his crewmates, sadly, and to survive only 1 year without human contact is not for an average human at all, let alone 30 years. So it seems like he's supposed to stay alone that way, but still the man is extremely lonely. He probably knew SPACECOM used Roy only to bait him, but he still replied to Roy&#39;s sincere call about their good memories, somewhere deep down he misses his son.</p>
+            <p>When he finally got to meet Roy, he was surprised by Roy&#39;s forgiving attitude and patience. Isn&#39;t it clear that SPACECOM treated him like shit. He was so grateful when Roy suggested to make a copy of all documents from the Lima Project to the Cepheus. He even opened up about the fight on the ship, that his crewmates all betrayed him bc they want to go home, and that he wish he could&#39;ve had a companion like Roy. He even tried to convince Roy that together, they can continue the work. He was full of hope.</p>
+            <p>And I mean, SPACECOM just wants to throw a nuclear missile to end both Clifford and the Lima project, the Cepheus was initially designed for that find-and-destroy mission. If Roy did NOT hijack the Cepheus and go find his dad all by himself, have he NOT decided to gently and patiently talk to his dad and convince Clifford to go with him, if he did not save a backup of the Lima Project on the Cepheus along with journal diary...... That SPACECOM crew would just nuke the whole thing and we&#39;ll never know about the legacy of Clifford. Now he&#39;s also dead anyways so nobody will ever know how much he has to give.</p>
+            <p>Im getting tired, it&#39;s 3:21AM. See you later then. </p>
+            <hr>
+            <pre> <i class="orange"></i>#5: Clifford McBride apologist 2/2</pre>
+            <p>I realized it&#39;s unfair to call Clifford the movie&#39;s villain hsjsndb even though he was portrayed as one he&#39;s NOT the villain? He&#39;s like.. an anti-hero? or just a very stubborn lil man who wants to go through with his mission. The surge wasn&#39;t even his fault, it was his crew mates who did it and he was there to FIX it. Roy knows this, he believed since day one that even tho Clifford was a terrible dad, he&#39;s still a terrific astronaut and he was trying to fix the surge and SPACECOM was trying to discredit him.</p>
+            <blockquote>
+                CLIFFORD: &quot;Home?&quot;
+                <p>ROY: &quot;Yep.&quot;</p>
+                <p>CLIFFORD: &quot;This is home. This is a one way voyage my son. You&#39;re talking about Earth? There was never anything for me there. I never cared about you, or your mother... or any of your small ideas. For 30 years... I&#39;ve been breathing this air, eating this food... enduring these hardships... and I never once thought about home.&quot;</p>
+                <p>ROY: &quot;I know, Dad.&quot;</p>
+                <p>CLIFFORD: &quot;I knew this would widow your mother... and orphan you... but I found my destiny. So, I abandoned my son.&quot;</p>
+                ROY: &quot;I still love you, Dad. I&#39;m taking you back.&quot;
+            </blockquote>
+            <p>Breathing this air, enduring these hardships... <strong>&quot;Per aspera, ad astra&quot;</strong>, it means &quot;Through hardships, to the stars&quot;. And that&#39;s what he did. Traveled to the furthest planet, never came back.</p>
+            <p>hhhhhh im havin a hard time accepting the fact that this is a movie focusing on Roy&#39;s internal life and development and it was written that way so we can pull off a beautiful &quot; lesson&quot; or two abt life and social connections ^^ so I can&#39;t ask for Clifford&#39;s justice. If this was more like Interstellar then CLIFFORD JUSTICE WHEN im being aggressively supportive @ him</p>
+        </article>
+          
         <!-- PROGRAMS -->
         
         <article id="/program/">
@@ -857,21 +1082,21 @@
             </p>
             <pre role="img" aria-hidden="true" class="note">---
 I'm added to your
-Chain, chain, chain (chain, chain, chain)
+Chain, chain, chain (chain, chain, chain) 
 Chain of fools
 
-Every chain has got a weak <strong>link</strong>
-I might be weak, yeah,
+Every chain has got a weak <strong>link</strong> 
+I might be weak, yeah, 
 But I'll give you strength
 
-One of these mornings,
-The chain is gonna break
-But up until the day,
+One of these mornings, 
+The chain is gonna break 
+But up until the day, 
 I'm gonna take all I can take, oh, hey
 
-Chain, chain, chain (chain, chain, chain)
-Chain, chain, chain (chain, chain, chain)
-Chain, chain, chai-i-in (chain, chain, chain)
+Chain, chain, chain (chain, chain, chain) 
+Chain, chain, chain (chain, chain, chain) 
+Chain, chain, chai-i-in (chain, chain, chain) 
 Chain of fools (oh)</pre>
         </article>
         
@@ -898,57 +1123,190 @@ Chain of fools (oh)</pre>
             </style>
             <p class="note">Language/web</p>
             <dd>
-                <strong>Base64</strong> <a href="https://base64.guru/converter/encode/text" target="_blank">encode</a> &amp; <a href="https://base64.guru/converter/decode/text" target="_blank">decode</a> ⦿ <strong>CSS</strong> <a href="http://howtocenterincss.com/#contentType=text&content.text.lines=2&horizontal=left&vertical=middle&browser.IE=none" target="_blank">centering</a>; <a href="https://catchmyfame.github.io/flexboxplayground/" target="_blank">flexbox</a>; <a href="https://csslisible.com" target="_blank">formatting</a>; <a href="https://cssgradient.io/" target="_blank">gradient</a>; <a href="https://css-tricks.com/the-shapes-of-css/" target="_blank">shape</a>; <a href="https://www.magicpattern.design/tools/css-backgrounds" target="_blank">pattern</a> ⦿ <a href="https://htmlreference.io" target="_blank"><strong>HTML</strong> references</a> ⦿ <a target="_blank" href="https://onecompiler.com/javascript"><strong>JavaScript</strong> compiler</a> ⦿ <a target="_blank" href="https://markdowntohtml.com"><strong>Markdown</strong> to HTML</a> ⦿ <strong>Docs <a href="https://css-tricks.com" target="_blank">CSS Tricks</a>, <a href="https://developer.mozilla.org/en-US/" target="_blank">MDN Web Docs</a>, <a href="https://www.w3schools.com/tags/ref_byfunc.asp" target="_blank">W3School</a>, <a href="https://unicode-table.com/en/" target="_blank">Unicode table</a></strong> ⦿
+                <strong>Base64</strong> <a href="https://base64.guru/converter/encode/text" target="_blank">encode</a> &amp; <a href="https://base64.guru/converter/decode/text" target="_blank">decode</a> ⦿ <strong>CSS</strong> <a href="http://howtocenterincss.com/#contentType=text&content.text.lines=2&horizontal=left&vertical=middle&browser.IE=none" target="_blank">centering</a>; <a href="https://catchmyfame.github.io/flexboxplayground/" target="_blank">flexbox</a>; <a href="https://csslisible.com" target="_blank">formatting</a>; <a href="https://cssgradient.io/" target="_blank">gradient</a>; <a href="https://css-tricks.com/the-shapes-of-css/" target="_blank">shape</a>; <a href="https://www.magicpattern.design/tools/css-backgrounds" target="_blank">pattern</a> ⦿ <a href="https://htmlreference.io" target="_blank"><strong>HTML</strong> references</a> ⦿ <a target="_blank" href="https://onecompiler.com/javascript"><strong>JavaScript</strong> compiler</a> ⦿ <a target="_blank" href="https://markdowntohtml.com"><strong>Markdown</strong> to HTML</a> ⦿ <strong>Docs <a href="https://css-tricks.com" target="_blank">CSS Tricks</a>, <a href="https://developer.mozilla.org/en-US/" target="_blank">MDN Web Docs</a>, <a href="https://www.w3schools.com/tags/ref_byfunc.asp" target="_blank">W3School</a>, <a href="https://unicode-table.com/en/" target="_blank">Unicode table</a></strong> ⦿ 
             </dd><br>
             <dd>
                 <strong>DDG built-in</strong> <a href="https://duckduckgo.com/?q=html%20beautifier&t=h_&ia=answer" target="_blank">HTML beautifier</a>; <a href="https://duckduckgo.com/?q=php+cheatsheet&t=osx&ia=cheatsheet" target="_blank">[LANGUAGE] cheatsheet</a>; <a href="https://duckduckgo.com/?q=base64%20hello%20world&t=h_&ia=answer" target="_blank">Base64 encode/decode</a>; <a href="https://duckduckgo.com/?q=url+escape+https%3A%2F%2Fcsslisible.com&t=h_&ia=answer" target="_blank">URL escape/decode</a> ⦿
             </dd>
             <p class="note">Language/misc</p>
             <dd>
-                <a target="_blank" href="https://www.pelock.com/products/hash-calculator">Hash calculator</a> ⦿ <a target="_blank" href="https://juhbol.github.io/LaTex-math-cheatsheet/">LaTeX Math</a> ⦿ <a target="_blank" href="https://mermaid.live/">mermaid</a> ⦿ <a target="_blank" href="https://www.sankeymatic.com/build/">SankeyMATIC</a> ⦿ <a target="_blank" href="https://wiki.xxiivv.com/site/uxntal.html">Tal</a> ⦿ <a target="_blank" href="https://100r.co/site/uxn.html">uxn ecosystem</a> ⦿ <a target="_blank" href="https://zsh-manual.netlify.app">Zsh</a> ⦿ <a target="_blank" href="https://zzzcode.ai/answer-question">ZZZ code AI</a> ⦿ <a target="_blank" href="https://e0x0e0.neocities.org/terminal-cheatsheet">Terminal cheatsheet</a> ⦿ <strong>CLI man pages</strong> <a target="_blank" href="https://linux.die.net/man/1/cowsay">cowsay</a>; <a target="_blank" href="https://linux.die.net/man/6/figlet">FIGlet</a>; <a target="_blank" href="https://linux.die.net/man/6/fortune">fortune</a>; <a target="_blank" href="https://docs.brew.sh/Manpage">homebrew</a>; <a target="_blank" href="https://www.unix.com/man-page/osx/1/iconutil/">iconutil</a>; <a target="_blank" href="https://github.com/xvxx/phetch">phetch</a>; <a target="_blank" href="https://ss64.com/osx/sips.html">sips</a> ⦿
+                <a target="_blank" href="https://www.pelock.com/products/hash-calculator">Hash calculator</a> ⦿ <a target="_blank" href="https://juhbol.github.io/LaTex-math-cheatsheet/">LaTeX Math</a> ⦿ <a target="_blank" href="https://mermaid.live/">mermaid</a> ⦿ <a target="_blank" href="https://www.sankeymatic.com/build/">SankeyMATIC</a> ⦿ <a target="_blank" href="https://wiki.xxiivv.com/site/uxntal.html">Tal</a> ⦿ <a target="_blank" href="https://100r.co/site/uxn.html">uxn ecosystem</a> ⦿ <a target="_blank" href="https://zsh-manual.netlify.app">Zsh</a> ⦿ <a target="_blank" href="https://zzzcode.ai/answer-question">ZZZ code AI</a> ⦿ <a target="_blank" href="https://e0x0e0.neocities.org/terminal-cheatsheet">Terminal cheatsheet</a> ⦿ <strong>CLI man pages</strong> <a target="_blank" href="https://linux.die.net/man/1/cowsay">cowsay</a>; <a target="_blank" href="https://linux.die.net/man/6/figlet">FIGlet</a>; <a target="_blank" href="https://linux.die.net/man/6/fortune">fortune</a>; <a target="_blank" href="https://docs.brew.sh/Manpage">homebrew</a>; <a target="_blank" href="https://www.unix.com/man-page/osx/1/iconutil/">iconutil</a>; <a target="_blank" href="https://github.com/xvxx/phetch">phetch</a>; <a target="_blank" href="https://ss64.com/osx/sips.html">sips</a> ⦿ 
             </dd>
 
             <p class="note"> Image processing </p>
             <dd>
-                EXIF <a href="https://exifinfo.org/" target="_blank">viewer</a> &amp; <a href="https://www.imagesmaller.com/exif-remover/" target="_blank">remover</a> ⦿ <a href="https://www.base64encoder.io/image-to-base64-converter/" target="_blank">Image to base64</a> ⦿ <a href="https://photomosh.com/" target="_blank">Photomosh</a> ⦿ <a href="https://www.photopea.com/" target="_blank">Photopea</a> ⦿ <a href="https://tinypng.com" target="_blank">PNG Panda</a> ⦿ <a href="https://rgb.to/" target="_blank">RGB to</a> ⦿
+                EXIF <a href="https://exifinfo.org/" target="_blank">viewer</a> &amp; <a href="https://www.imagesmaller.com/exif-remover/" target="_blank">remover</a> ⦿ <a href="https://www.base64encoder.io/image-to-base64-converter/" target="_blank">Image to base64</a> ⦿ <a href="https://photomosh.com/" target="_blank">Photomosh</a> ⦿ <a href="https://www.photopea.com/" target="_blank">Photopea</a> ⦿ <a href="https://tinypng.com" target="_blank">PNG Panda</a> ⦿ <a href="https://rgb.to/" target="_blank">RGB to</a> ⦿ 
             </dd>
-            <p class="note"> Piracy &amp; Bypass Paywall</p>
+            <p class="note"> Piracy </p>
             <dd>
-                <strong>Books</strong> <a href="https://annas-archive.org/search" target="_blank">Anna's Archive (Z-Library + LibGen + Sci-Hub)</a>; <a href="https://www.gutenberg.org/ebooks/search/" target="_blank">Project Gutenberg</a> ⦿ <strong>News</strong> <a href="https://12ft.io/" target="_blank">12ft Ladder</a>; <a href="https://github.com/qnoum/bypass-paywalls-chrome-clean-magnolia1234" target="_blank">Bypass paywall clean</a>; <a href="https://archive.org/web/" target="_blank">Wayback Machine</a> ⦿ <a href="https://help.utorrent.com/support/solutions/29000034387" target="_blank">µTorrent Web</a> ⦿ <a href="https://thepiratebay.systems" target="_blank">The Pirate Bay</a> ⦿
+                <strong>Shadow libraries</strong> <a href="https://annas-archive.org/search" target="_blank">Anna's Archive (Z-Library + LibGen + Sci-Hub)</a> ⦿ <a href="https://www.gutenberg.org/ebooks/search/" target="_blank">Project Gutenberg</a> ⦿ <a href="https://monoskop.org/Shadow_libraries" target="_blank">more on Monoskop</a> ⦿ <strong>Bypass paywall</strong> <a href="https://12ft.io/" target="_blank">12ft Ladder</a> ⦿ <a href="https://github.com/qnoum/bypass-paywalls-chrome-clean-magnolia1234" target="_blank">Bypass paywall clean</a> ⦿ <strong>Others</strong> <a href="https://archive.org/web/" target="_blank">Wayback Machine</a> ⦿ <a href="https://help.utorrent.com/support/solutions/29000034387" target="_blank">µTorrent Web</a> ⦿ <a href="https://thepiratebay.systems" target="_blank">The Pirate Bay</a> ⦿ <a href="https://shakil-shahadat.github.io/awesome-piracy/" target="_blank">more on Awesome Piracy list</a>
             </dd>
         </article>
 
         <!-- JUKEBOX -->
         
-        <article id="/jukebox.xyz">
-            <p><label class="link" for="toggle-jukebox">&lt;&lt; go back to browsing</label> </p>
-            <p>Welcome to the Jukebox. You can play this as background music when you navigate <code>/~147/</code></p>
-            <iframe name="jukebox" src="https://great.dj/embed/u1s4e7r/1" allow='autoplay' style="--max: calc(100vw - 5em); width: 350px; height: 350px; max-width: var(--max); max-height: var(--max); margin: auto; display: block; border: 0">
-            </iframe>
-            <br>
-            <strong>Choose any playlist/album below</strong>
-            <p>
-                <li><a href="https://great.dj/embed/u1s4e7r/1" target="jukebox"><strong>NOW playlist</strong></a> (default) - A frequently updated playlist of the songs I loop right now.
-                    <dd>
-                    
-                    <details>
-                        <summary class="note">Archive</summary>
-                        <a target="jukebox" href="https://great.dj/embed/s5i0h3/0" >17.2.2023</a>
-                        <a target="jukebox" href="https://www.youtube-nocookie.com/embed/gm5ihR7h9bs?autoplay=1" >21.2.2023</a>
-                        <a target="jukebox" href="https://bandcamp.com/EmbeddedPlayer/album=2849647393/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/track=3043387646/transparent=true/">23.4.2023</a>
-                        <a target="jukebox" href="https://judithnijland.nl/suitcase-of-songs-2/">27.4.2023</a>
-                        <a target="jukebox" href="https://great.dj/embed/now/1">28.4.2023</a>
-                        <a target="jukebox" href="https://great.dj/embed/now/2">1.5.2023 (Labor's Day)</a>
-                        <a target="jukebox" href="https://tomlehrersongs.com/albums/an-evening-wasted-with-tom-lehrer/">2.5.2023</a>
-                        <a target="jukebox" href="https://great.dj/embed/now/4">4.5.2023</a>
-                        <a target="jukebox" href="https://great.dj/embed/u1s4e7r/1">8.5.2023</a>
-                    </details>
-                    
-                    </dd>
-                </li>
-                <li><a href="https://great.dj/embed/lucien" target="jukebox">Lucien playlist</a></li>
-                <li><a href="https://great.dj/embed/pink_francoise" target="jukebox">Pink Francoise playlist</a></li>
+        <style>
+            .musick {
+                word-wrap: break-word
+            }
+            .musick a[target]::before {
+                content: attr(href);
+                font-size: 0.9em
+            }
+        </style>
+        
+        <article id="/jukebox/">
+            <div class="dir">
+                <a href="#/">..</a>
+                <p>Welcome to the <label for="toggle-jukebox" class="link">Jukebox</label>. This is likely the most visited spot on <code>/~147/</code> and the sole visitor here is of course myself. </p>
+                <p><a href="#null">I don't use Spotify</a>, so I usually stream music through <strong>Bandcamp</strong> and <strong>Great DJ</strong>, which are also the 2 services embedded on <code>/~147/</code>'s Jukebox. Both of these services offer full-length streaming without login, though the Youtube player on Great DJ may be able to identify you if you're logged in Google on the browser - see <a href="#/jukebox/disclaimer.xyz">this note</a> if you want to know more.</p>
+                <span class="note">[Left click] on a link will open it in the <label for="toggle-jukebox" class="link">Jukebox</label>. [Right-click > Open in new tab] a link will open it in a new tab. You can play this as background music when you navigate <code>/~147/</code>
+                <br><br>
+                Choose any playlist/album below</span>
+            </div>
+            <div class="dir">
+                <a href="https://great.dj/embed/u1s4e7r/8" target="jukebox">NOW playlist (default) - A frequently updated playlist of the songs I loop right now.</a>
+                <a class="note" href="#/jukebox/NOW-pl.xyz">▶ See the NOW playlists archive</a>
+                <a class="note" href="#/jukebox/NOW-alb.xyz">▶ See the NOW albums archive</a>
+                
+                <a href="https://great.dj/embed/lucien" target="jukebox">Lucien playlist</a>
+                <a href="https://great.dj/embed/pink_francoise" target="jukebox">Pink Francoise playlist</a>
+                <p class="note">A statement to save one's own ass</p>
+                <a href="#/jukebox/disclaimer.xyz">Disclaimer</a>
+            </div>
+            
+        </article>
+        
+        <article id="/jukebox/disclaimer.xyz">
+            <p class="dir">
+                <a href="#/jukebox/">..</a>
             </p>
+            
+        </article>
+        
+        <article id="/jukebox/NOW-pl.xyz">
+            <p class="dir">
+                <a href="#/jukebox/">..</a>
+            </p>
+            <p class="note">[Left click] on a link will open it in the <label for="toggle-jukebox" class="link">Jukebox</label>. [Right-click > Open in new tab] a link will open it in a new tab. </p>
+            <p>▶ Playlists / songs</p>
+            
+            <ul class="musick">
+                <li>27.5.2023 - Best Thing playlist (aka Julius 1.0): if you know you know lol<br>
+                    <a href="https://great.dj/embed/u1s4e7r/8" target="jukebox"></a>
+                </li>
+                <li>24.5.2023 - Morning playlist: Jungle, Saint Motel, James Supercave, and more<br>
+                    <a href="https://great.dj/embed/u1s4e7r/7" target="jukebox"></a>
+                    <ul class="note">
+                        <li>21.5.2023 first iteration<br>
+                            <a href="https://great.dj/embed/u1s4e7r/6" target="jukebox"></a>
+                        </li>
+                    </ul>
+                </li>
+                <li>18.5.2023 - Of Montreal, "Cherry Peel" (1997) and Connie Converse "How Sad, How Lovely" (1950s) megamix<br>
+                    <span class="note">Introducing: a lovesick playlist with ZERO Mitski songs.</span><br>
+                    <a href="https://great.dj/embed/u1s4e7r/5" target="jukebox"></a>
+                    <ul class="note">
+                        <li>13.5.2023 first iteration<br>
+                            <a href="https://great.dj/embed/u1s4e7r/4" target="jukebox"></a>
+                        </li>
+                    </ul>
+                </li>
+                <li>11.5.2023 - Peggy Lee, "Is That All There Is?" (1969), theatre mix<br>
+                    <a href="https://great.dj/embed/u1s4e7r/2" target="jukebox"></a>
+                </li>
+                <li>8.5.2023 - Pink Floyd, "Shine On You Crazy Diamond (I-IX)" (1975)<br>
+                    <a href="https://great.dj/embed/u1s4e7r/1" target="jukebox"></a>
+                </li>
+                <li>4.5.2023 - Mitski mix<br>
+                    <a href="https://great.dj/embed/now/4" target="jukebox"></a>
+                </li>
+                <li>1.5.2023 - Labor's Day special<br>
+                    <a href="https://great.dj/embed/now/2" target="jukebox"></a>
+                </li>
+                <li>28.4.2023 - ABBA mix<br>
+                    <a href="https://great.dj/embed/now/1" target="jukebox"></a>
+                </li>
+                <li>25.3.2023 - tsosis, "Soulmate 2.1" (2013)<br>
+                    <span class="note">Ty Bennie for recommending!</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=265922236/size=large/bgcol=333333/linkcol=e99708/minimal=true/track=221171924/" target="jukebox"></a>
+                </li>
+                <li>17.2.2023 - Remy Wolf live<br>
+                    <a href="https://great.dj/embed/s5i0h3/0" target="jukebox"></a>
+                </li>
+                <li>10.2.2023 - SPIRIT OF THE BEEHIVE, "THE SERVER IS IMMERSED" from "ENTERTAINMENT, DEATH" (2021)<br>
+                    <span class="note">Ty Thài for recommending! This song hits different when listened with the rest of the album, probly because it's the only one with a smidge of musical harmony lol????? Very advance garbage I love it 10/10 the riff was stuck in my head for weeks now.</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=1621680472/size=large/bgcol=333333/linkcol=f171a2/minimal=true/track=2339758232/" target="jukebox"></a>
+                </li>
+                <li>2022</li>
+                <li>31.12.2022 - LJ LephemStar, "Stir and Mix" from "Scratchin' Melodii OST" (2021)<br>
+                    <span class="note">Ty Bennie for recommending! I actually like this unironically &#60;&#47;3</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=3509764196/size=large/linkcol=f171a2/minimal=true/track=2187203500/" target="jukebox"></a>
+                </li>
+                <li>26.5.2022 - heroin party, "if i cleaned everything would you come back_variations on a theme" (2012)<br>
+                    <span class="note">Ty Phú for recommending! I used this song as background music on my Neocities page for a while. Reminds me of The Caretaker / William Basinski</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=1149121143/size=large/linkcol=de270f/minimal=true/track=2809744181/" target="jukebox"></a>
+                </li>
+            </ul>
+        </article>
+        
+        <article id="/jukebox/NOW-alb.xyz">
+            <p class="dir">
+                <a href="#/jukebox/">..</a>
+            </p>
+            <p class="note">[Left click] on a link will open it in the <label for="toggle-jukebox" class="link">Jukebox</label>. [Right-click > Open in new tab] a link will open it in a new tab. </p>
+            <p>▶ Albums / EPs + notes</p>
+            <ul class="musick">
+                <li>19.5.2023 - Jungle, "Loving In Stereo" (2021) <br>
+                    <span class="note">I don't <em>usually</em> enjoy pop, but this one is insanely beautifully produced. Their dance music videos are top notch... Their song absolutely deserved to be played at the World Cup. The lyrics are minimal but beautiful, reminds me a lot of Son Lux, which, <sub>if you know me you know that I think Son Lux is the epitome of music,,,</sub> Favorite track: Keep moving, Talk About It, All The Time.</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=880033932/size=large/linkcol=333333/minimal=true/track=4225969940/" target="jukebox"></a>
+                </li>
+                <li>2.5.2023 - Tom Lehrer, "An Evening (wasted) With Tom Lehrer" (1959). <br>
+                    <span class="note">Listening to this album in one go feels like witnessing a Bo Burnham special in 1959. Favorite track: Masochism Tango,,,, but maybe also Poisoning Pigeons in the Park. </span><br>
+                    <a href="https://tomlehrersongs.com/albums/an-evening-wasted-with-tom-lehrer/" target="jukebox"></a>
+                </li>
+                <li>27.4.2023 - Judith Nijland, "Acoustic Solutions 4" (2008)<br>
+                    <span class="note">This one is just a pretty nice jazz album bought from a local record shop in Australia. I lost the physical copy of this album years ago. Finally found that someone uploaded this to Youtube. Favorite track: It's Raining Men, Why Can't This Be Love (bc it's a Van Halen cover <3), Close To You.</span><br>
+                    <a href="https://great.dj/embed/wklh8z/1" target="jukebox"></a>
+                </li>
+                <li>30.3.2023 - Duster, "Stratosphere" (1998)<br>
+                    <span class="note">Favorite track: Moon Age.</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=1034731302/size=large/linkcol=333333/minimal=true/" target="jukebox"></a>
+                </li>
+                <li>18.3.2023 - The Gizmos, "Rock &amp; Roll Don't Come From New York!" (1979)<br>
+                    <span class="note">I love barely audible punk albums sung in heavy accents. Bonus point if the band is so esoteric that there's no written down lyrics of their songs anywhere, so you just have to do the mental gymnastic of figuring out what they're actually singing. Favorite track: this album is best listened as a whole and I love most of the songs, but if I absolutely have to choose: Rock &amp; Roll Don't Come From New York, Intensified, Mutagenic Lover, My Baby Loves Crime.</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=1945793854/size=large/linkcol=333333/minimal=true/" target="jukebox"></a>
+                </li>
+                <li>22.2.2023 - The Postal Service, "Give Up" (2003)<br>
+                    <span class="note"><a href="#/log/230222.xyz">Jokes aside</a>, I love so many things about this album: the chip tunes, the early 2000s sound, the composition, the existential dread in a world slowly commodified by technology &amp; late capitalism. Also are we not gonna talk about how this album was released in 2003 during the SARS outbreak which makes songs like "We Will Become Silhouettes" oddly relevant today with the COVID-19 pandemic. Favorite track: This album is best listened as a whole with no interruption. That said, my fave part is the first four: The District Sleeps Alone Tonight - <a href="#null">Such Great Heights</a> - Sleeping In - <a href="#null">Nothing Better</a>.</span><br>
+                    <a href="https://great.dj/embed/te403j/2" target="jukebox"></a>
+                </li>
+                <li>16.2.2023 - The Pom-Poms, "The Pom-Poms EP" (2018)<br>
+                    <span class="note">This dropped hard AF, don't let the first song fool you. An unexpected bop. Also please purchase it from Bandcamp it's like 2 USD. Favorite track: FULL CIRCLE for baiting me to listen to the rest, WATCH ME for being the fille fatale doomer thot anthem.</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=3925810230/size=large/linkcol=7137dc/minimal=true/" target="jukebox"></a>
+                </li>
+                <li>2022</li>
+                <li>15.12.2022 - Dazey and the Scouts, "Maggots" (2017)<br>
+                    <span class="note">,,,, H,Her,, her voi,,voice,,,,,, Hot girl summer's over yall make way for hysterical punk rock girl summer,, Favorite track: Wet, James Deen You Let Us Down.</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=1642956095/size=large/linkcol=f171a2/minimal=true/" target="jukebox"></a>
+                </li>
+                <li>12.12.2022 - Enon, "High Society" (2002)<br>
+                    <span class="note">Ty Bennie for recommending! Favorite track: Natural Disasters. The rhymes scratch my brain in a good way. <em>It's just a natural disaster that you've left behind. For the cuts of cake; for the steak and wine!</em></span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=3567133264/size=large/bgcol=333333/linkcol=0687f5/minimal=true/" target="jukebox"></a>
+                </li>
+                <li>3.10.2022 - Landlady, "Landlady" (2021)<br>
+                    <span class="note"><sub>Ok listen........</sub> I totally fell HEAD OVER HEELS for this album and streamed it a bazillion times before I realized that the drummer/percussionist is Ian Chang........ a.k.a drummer of Son Lux, a.k.a my favorite drummer from my favorite band.......... Man it makes so much sense now. Favorite track: <strong><em>all of them are absolute bangers</em></strong>, but especially Molly Pitcher (THE PERCUSSIONS!!!HJSKDF), Rule of Thumb, AM Radio and Bulldozer are the ones that could snatch my wig off in any weather.</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=1247193033/size=large/bgcol=333333/linkcol=0687f5/minimal=true/track=3598208968/" target="jukebox"></a>
+                </li>
+                <li>2.10.2022 - all dogs, "split tape w/ slouch" (2013)<br>
+                    <span class="note">Not to sound like a 13-year-old but I feel like this album read all my diaries. Love the simple guitar riffs. Favorite track: LOVE SONG.</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=460041229/size=large/linkcol=63b2cc/minimal=true/track=2180036846/" target="jukebox"></a>
+                </li>
+                <li>5.7.2022 - Connie Converse, "How Sad, How Lovely" (1950s)<br>
+                    <span class="note">I don't know if the facts (or the lack thereof) about Connie's life contributed to the way I feel about this album. Hell... it's not even her "album", just a compilation of unreleased songs recorded in her friend's kitchen before she mysteriously disappeared in the 50s. Whatever it is, it definitely grew on me and once it gets under my skin it doesn't come off. Favorite track: all of them <3 (I'm not even joking I know every song by heart and I can recite each of them backwards and forwards)</span><br>
+                    <a href="https://bandcamp.com/EmbeddedPlayer/album=2849647393/size=large/bgcol=333333/linkcol=e99708/minimal=true/" target="jukebox"></a>
+                </li>
+            </ul>
         </article>
         
         <!-- NOT FOUND -->
