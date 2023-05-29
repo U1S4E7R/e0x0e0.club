@@ -75,7 +75,7 @@
         }
 
         blockquote>.source {
-            display: block;
+            display: block !important;
             font-style: italic;
             font-size: 0.9em;
             text-align: center;
@@ -92,16 +92,12 @@
             opacity: 0.3;
         }
 
-        a:any-link {color: var(--fg);}
+        a:any-link {color: var(--fg); display: inline;}
         :is(a, .link):hover {background: #aaaaaa55;}
 
-        :is(a:any-link, label.link){
-            text-decoration: underline;
-        }
+        :is(a:any-link, label.link){text-decoration: underline;}
         
-        nav *:not(:hover) {
-            text-decoration: none;
-        }
+        nav *:not(:hover) {text-decoration: none;}
         
         hr {
             border: 0;
@@ -112,9 +108,7 @@
         input:not(.nt-check),
         article:not(:target) { display: none; }
 
-        :is(pre, code) {
-            font-family: var(--font);
-        }
+        :is(pre, code) {font-family: var(--font);}
 
         :not(pre)>code,
         pre:not([role="img"]) {
@@ -137,6 +131,8 @@
         
         /* CUSTOM CLASSES */
         .note {opacity: 0.5}
+        .show-href {word-wrap: break-word}
+        .show-href a[target]::before {content: attr(href); font-size: 0.9em}
 
         /* DIRECTORY VIEW */
         .dir>a {
@@ -249,15 +245,6 @@
     <input type="radio" name="font-size" id="font-M" checked>
     <input type="radio" name="font-size" id="font-S">
     <main>
-        <span id="peekaboo" style="z-index: 999; background: var(--bg); border-radius: 15px; border: 1px solid; box-shadow: 0 0 10px gray;">
-            <span id="seen">
-                <iframe name="jukebox" src="https://great.dj/embed/u1s4e7r/8" allow='autoplay' style="--max: calc(100vw - 5em); width: 355px; height: 355px; max-width: var(--max); max-height: var(--max); margin: auto; display: block; border-radius: 15px; border: 0;">
-                </iframe>
-                <label class="link" for="toggle-jukebox" title="close the jukebox" style="display: block; text-align: center; border-radius: 15px;">▶ collapse jukebox ◀</label>
-            </span>
-            <span id="hidden"> <label for="toggle-jukebox" class="" title="open the jukebox" style="display: block; padding: 1em 1.3em; border-radius: 15px; ">&#9835;</label> </span>
-        </span>
-
         <nav title="navigation bar">
             <a href="https://e0x0e0.club" style="font-size: 2em" title="go to e0x0e0 club">✷</a>
             <a href="#/" title="go to index">&#128880;</a>
@@ -286,8 +273,6 @@
                 <a href="#/scribble-guide.xyz">Read me</a>
                 <a href="#/log/">Web Logs</a>
                 <a href="#/staple/">Staples</a>
-                <!--<a href="#/ethos/">Ethos</a>
-                <a href="#/musick/">Music</a>-->
                 <p class="note">Elsewhere</p>
                 <a href="#/links/tools.xyz">Web Tools</a>
                 <a href="#/links/">Chain</a>
@@ -314,18 +299,20 @@
         hit any key to continue</pre>
             <p>ABOUT</p>
             
-            <p>Hi. I'm tệ, the webmastệr at e0x0e0.club. Call me tệ or 147. You are at my folder <code>/~147/</code> right now. It's my homepage on the internet, the place where I document my existence and cast it into the void.</p>
+            <p>Hi. I'm tệ, the webmastệr at e0x0e0.club. Call me tệ or 147. You are at my folder <code>/~147/</code> right now. This is my homepage on the internet, where I document my existence and cast it into the void.</p>
                         
-            <p>If you like the design, it was inspired by "DiggieDog", a Gopher client on Android. Yes, I browse Gopherspace frequently, but I'm not committed enough to have my own gopherhole. So... I dug myself a webhole here, right in the comfort of HTML.</p>
+            <p>If you like the design, it was inspired by "DiggieDog", a <a href="#/staple/gopher.xyz">Gopher</a> client on Android. Yes, I browse Gopherspace frequently, but I'm not committed enough to have my own gopherhole. So... I dug myself a webhole here, right in the comfort of HTML.</p>
             
             <p>FAQ</p>
             
             <p>1. License?</p>
             <dd> <code>/~147/</code> is a <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank">Public Domain</a> dedication. Everything under <code>/~147/</code> is yours to peruse, no strings attached. <a href="#/program/open-source.xyz">Our source code</a> is also publicly available on Github. </dd>
-            <p>2. Is this an ARG?</p>
+            <p>2. Cookies?</p>
+            <dd> <code>/~147/</code> will never send you any cookies. We don't use Google Analytics and there's not even a single line of script in our source code. However, <a href="#/jukebox/disclaimer.xyz">you might receive Youtube &amp; Bandcamp cookies from the Jukebox</a>.</dd>
+            <p>3. Is this an ARG?</p>
             <dd>Even though the navigation seems a bit mystery meat, this is not an ARG. It's my personal webpage.</dd>
-            <p>3. What is e0x0e0? </p>
-            <dd>e0x0e0 is an old pseudonym I had on Instagram, and also on Neocities for a while. Nowadays "e0x0e0" refers not to me but to the website e0x0e0.club. e0x0e0 is us, we are the club. I like to think of e0x0e0 as a collective, even though it's still mostly me and... like, a piece of Ket. But I will get the whole of Ket and some other people on board as well, someday.</dd>
+            <p>4. What is e0x0e0? </p>
+            <dd>e0x0e0 is an old pseudonym I had on Instagram, and also on Neocities for a while. Nowadays "e0x0e0" refers not to me but to the website <a href="https://e0x0e0.club/">e0x0e0.club</a>. e0x0e0 is us, we are the club. I like to think of e0x0e0 as a collective, even though it's still mostly me and... like, a piece of Ket. But I will get the whole of Ket and some other people on board as well, someday.</dd>
             
             <p>~147</p>
         </article>
@@ -358,6 +345,7 @@
                 <p class="note">Read me</p>
                 <a href="#/scribble-guide.xyz">How to read the scribbles</a>
                 <p class="note" role="img" aria-hidden="true">All entries</p>
+                <a href="#/staple/nocookie.xyz"><i class="lime"></i> There&#39;s no such thing as a &quot;no cookie&quot; Youtube link.</a>
                 <a href="#/staple/gopher.xyz"><i class="lime"></i> Gopher babbles with Bennie</a>
             </div>
             <pre role="img" aria-hidden="true" class="note" style="line-height: 1.1em">⠸⠉⠉⠉⠇ ⡎⠉⠉⠉⡆ ⢸⠉⠉⠉⡇ ⡏⠉⠉⠉⢹ ⠪⠋⠉⠭⠵  one
@@ -371,10 +359,24 @@
 </pre>
         </article>
         
+        <article id="/staple/nocookie.xyz" class="lime show-href">
+            <p>There&#39;s no such thing as a &quot;no cookie&quot; Youtube link.</p>
+            <p>Google sets a tracking cookie for YouTube videos for marketing and advertising purposes. Because YouTube tracking violates the European Union’s strict GDPR laws, Google was forced to offer a GDPR-compliant alternative which uses no data-collecting HTTP cookies.</p>
+            <blockquote>
+                <p style="margin: 1em">To use Privacy Enhanced Mode:
+                    <dd>1. Change the domain for the embed URL in your HTML from <code>https://www.youtube.com</code> to <code>https://www.youtube-nocookie.com</code>.</dd>
+                    </p>
+                <a class="source" target="_blank" href="https://support.google.com/youtube/answer/171780?amp;rd=1#zippy=%2Cturn-on-privacy-enhanced-mode">&nbsp;[1]</a>
+            </blockquote>
+            <p>This "privacy enhancing" feature merely "delays" the cookie. YouTube promises will not leave cookies in the browsers of users <strong>who have not yet clicked the &quot;play&quot; button to view a video</strong>. And yet, people found out that the nocookie feature continues to serve Flash cookies in background. <a target="_blank" href="https://www.cnet.com/news/privacy/youtubes-new-nocookie-feature-continues-to-serve-cookies/"> [2]</a></p>
+            <hr>
+            <p>Pingback: <a href="#/jukebox/disclaimer.xyz">Jukebox/disclaimer</a></p>
+        </article>
+        
         <article id="/staple/gopher.xyz" class="lime">
-            <p>13.04.2023. <span class="note">You're seeing the readable version of <a href="#/log/230413.xyz">log no.230413</a>.</span></p>
-            <p>This is a (instant messaging) convo I had with Bennie about Gopherspace. They took my Gopher infodump so that YOU don't have to. Everybody say thank you Bennie.</p>
-            <p class="note"><span >(jk everyone PLEASE ask me about Gopher/Gemini/old Web).</span> I never run out of things <strong>to say</strong> about Gopher, but I can't come up with anything decent <strong>to write</strong> about it (that hasn't already been written). I find myself re-explaining everything everytime I talk about it to someone new, that's why I'm trying to like... compile whatever I knew about Gopher through these IM conversations.</p>
+            <p>What the fuck is Gopher?? <span class="note">This is the readable (i.e screenreader-friendly and vietglish-free) version of <a href="#/log/230413.xyz">log no.230413</a>.</span></p>
+            <p>This is a (instant messaging) convo I had with Bennie about Gopherspace. They took my Gopher infodump so that YOU don't have to. Everybody say thank you Bennie. <span class="note">(jk everyone PLEASE ask me about Gopher/Gemini/old Web).</span></p>
+            <p > I never run out of things <strong>to say</strong> about Gopher, but I can't come up with anything decent <strong>to write</strong> about it (that hasn't already been written). I find myself re-explaining everything everytime I talk about it to someone new, that's why I'm trying to like... compile whatever I knew about Gopher through these IM conversations.</p>
             <p>---</p>
             <div class="chat">
                 <p time="00:11">Ok I'm just gonna send this without context first<br><img src="friends.png" style="width: 420px; max-width: 70vw;" alt="screenshot from a gopherhole. The screen reads as following: It's a fabric of friends woven in time from found strands. It's actively maintained and mended--visits, phone calls, fun times, care when needed. We figure our way through life together freely, voluntarily.
@@ -413,6 +415,8 @@
                 <p time="00:31">Lol I guess so</p>
 
             </div>
+            <hr>
+            <p>Pingback: <a href="#/about.xyz">About / FAQ</a></p>
         </article>
         
         <!-- LOGS -->
@@ -555,8 +559,6 @@
         
         <article id="/log/230413.xyz" class="lime">
             <p>13.04.2023. Babbled with Bennie about Gopher today. <span class="note">See <a href="#/staple/gopher.xyz">the readable version</a> of this entry.</span></p>
-            <!--<p>This is a (instant messaging) convo I had with Bennie about Gopherspace. They took my Gopher infodump so that YOU don't have to. Everybody say thank you Bennie.</p>
-            <p><span class="note">(jk everyone please ask me about Gopher/Gemini/old Web).</span> I never run out of things <strong>to talk</strong> about Gopher, but I can't come up with anything decent <strong>to write</strong> about it (that hasn't already been written). I find myself re-explaining everything everytime I talk about it to someone new, that's why I'm trying to like... compile whatever I knew about Gopher through these IM conversations.</p>-->
             <p>---</p>
             <style>
                 .chat > p {
@@ -660,7 +662,7 @@
             <p>21.2.2023</p>
             <p>The contant urge to put men into very vulnerable positions without necessarily debasing them nor glorifying abuse.</p>
             <p style="height: 5em"></p>
-            <p class="musick"><a href="https://knowyourmeme.com/photos/2085573-if-youre-20-30-and-your-main-circle-isnt-discussing" target="_blank"></a></p>
+            <p class="show-href"><a href="https://knowyourmeme.com/photos/2085573-if-youre-20-30-and-your-main-circle-isnt-discussing" target="_blank"></a></p>
         </article>
         
         <article id="/log/230204.xyz" class="yellow">
@@ -670,6 +672,8 @@
                 <p style="margin: 1em">Artists: use the ideas of other artists, this is anti-capitalist. The borrowing of ideas is the basis of creativity. Turn to the art directions of yesterday! In art, we often see the ideas of the past presented as new, which corresponds to the principles of the capitalist economy — the economy of planned obsolescence. We urge you not to chase imaginary novelty! Reuse ideas, concepts and forms created in the past, honestly and boldly.</p>
                 <a class="source" href="http://artfootprint.xyz/#reuse" target="_blank">Section: Zero Waste Art > Reuse</a>
             </blockquote>
+            <hr>
+            <p>Pingback: <a href="#/program/open-source.xyz">Open source</a></p>
         </article>
         
         <article id="/log/230131.xyz" class="lime">
@@ -745,6 +749,18 @@
             </blockquote>
         </article>
 
+        <article id="/log/210325.xyz" class="cyan">
+            <p>25.3.2021 @ 09:09</p>
+            <p>nói thật là t cũng chẳng nhớ hồi 2019 lúc t xoá ░░░ ░░░ ░░░, cho đến khi t lại một lần nữa rơi vào hoàn cảnh này, khủng hoảng trung chuyển giữa hai cái tôi và tự nhiên lại đi gặp ░░░ rồi nói về cái đó mặc dù t định chẳng nói ai cả. ░░░ không phản ứng với việc t không ổn. ░░░ kéo t về với cuộc đời và ░░░ không dạy đời. nếu không phải là vì ░░░ kéo t coi phim và giao lưu, nếu không phải là vì t đã dừng chân thả neo và có một gia đình tạm bợ ở chỗ ░░░░░░ và bình tĩnh lại mà sống thì t chẳng biết t đã làm trò gì. may là t không bao giờ biết. nhưng cũng chính vì vậy mà t cứ cảm thấy mắc nợ ░░░ trong tiềm thức. t rất là ghét mắc nợ. t còn chẳng nhớ t nợ cái gì, chỉ nhớ được là phải trả không thì sẽ rất kì.</p>
+            <p>t nợ ░░░ nhiều hơn là vài ba cái phim hay thăm hỏi, t nợ sự hiện diện của ░░░, vì đấy là cái đã giúp t. mọi người có thể chấp nhận cái vai mới của t, nhưng họ đã không cùng t trải qua cái giai đoạn ở giữa khi cái tôi của t còn đang lộn xộn chưa đâu vào đâu. ░░░ ░░░ ░░░ đã vỡ be bét từ lâu trước cái hôm đó rồi. các bạn của t không coi trọng quá trình. họ cho rằng t trải qua một giai đoạn trầm cảm. họ cho rằng chuyện gì tệ đã xảy ra và nó sẽ qua thôi, họ chờ lúc t bình thường trở lại. họ không hiểu đấy là quá trình t phải trải qua, họ không hiểu là t sẽ không bình thường trở lại. </p>
+            <p>------</p>
+            <p>t không cầm bút lên vẽ nổi, t cũng không nhấc điện thoại lên viết nổi. trừ khi khoác một trách nhiệm lên người và công việc được dí vào tay thì t chẳng tự mình làm gì. t cảm ơn công việc vì nó giữ cơ thể t hoạt động mỗi ngày. nếu t cảm thấy đau, đói, mệt, nhức mỏi, đấy là t được chữa. t uống thuốc nhưng nó không chữa được tâm bệnh. t vẫn muốn vứt đi những sáng tạo và vứt đi cả nhân dạng của mình. t muốn biến mất. những gì t muốn làm, t đều không ghi xuống và không bắt đầu. những gì t đã làm từ trước, t không thể tiếp tục hay hoàn thành chúng. có thể chúng còn không phải những gì t muốn làm, mà là những gì t <em>cần phải làm</em> để tiếp tục sống như con người trước. nếu không phải minh tệ t cũng không biết t là cái gì. </p>
+            <p>t cứ tự bảo rằng t sẽ vượt qua bản thân. rằng t sẽ tìm trợ giúp, rằng t sẽ lên tiếng. rồi t không muốn nữa. quan tâm cũng chẳng thể giúp được. à, có thể t không cần người giúp mà chỉ cần người đồng hành thôi. nhưng t cũng không muốn nữa luôn. thà rằng cứ để t chết xừ trong vai nạn nhân để cho mọi người khóc ngất vì thương tiếc cái hình ảnh đẹp đẽ giả dối của t rồi thì t sẽ tha thứ cho tất cả, rồi thì t sẽ là một người lương thiện.</p>
+            <p>tệ quá. minh tệ là trái cây sống đúng với tên của mình. t cũng ghét minh tệ. nó nói chuyện cứ như thần chết, nó nói chuyện cứ như thể ngồi ở tầng thứ 18 địa ngục. tâm thức của nó chỉ lởn vởn hạn hẹp trong những sự tiêu cực và nó ảnh hưởng đến những người xung quanh. à, t cũng muốn nói về những chuyện tích cực nhưng không phải theo cái kiểu giả trân của nó. chán lắm rồi. tất cả là tại t cứ quen sống double triple life hay bao nhiêu cái life không cần biết cho tới khi chúng nó bắt đầu mâu thuẫn xung đột gây lộn chém giết lẫn nhau. thế mà cuối cùng t cũng chẳng có gì. những sáng tạo của t không thuộc về t. ngay cả cách đi đứng ăn mặc nói năng, ngay cả thứ cơ bản nhất là ngôn ngữ của t nó cũng không thuộc về t. nhân dạng của t chỉ gồm những thứ nhặt nhạnh chắp vá, liên tục biến đổi để thích nghi, liên tục tái chế những đặc điểm của người khác như một cái thùng rác di động.</p>
+            <p>điều tệ nhất không phải là t sống như thế, tệ nhất là t nhận ra rồi mà vẫn muốn sống như thế. tệ nhất là t sẽ tiếp tục sống mà không chứa chấp nổi bản thân. nếu thế thì t thà. biết rồi đấy. có thật nhiều cách để sống một cuộc đời trọn vẹn và rốt cuộc là chả có cái nào đúng. t không muốn trở thành ai cả, và đáng lẽ ra nếu t &quot;không là ai&quot; thì t vẫn không kém giá trị hay kém phần con người. nhưng xã hội không nghĩ vậy. xã hội cần t phải là ai đó, nếu không thì t đã chết. xã hội không quan tâm đến quá trình và những cái vô định. t cứ nghĩ mãi như vậy. t mong mọi người không để ý t lơ là chuyện công việc, mọi người ở đây khá là tốt.</p>
+            <p>t từng nghĩ rằng t sẽ xây một hệ quy chiếu thật vững chắc, một chính kiến không ai lật đổ được. kiểu như thiết kế một con xe chống tai nạn. t sẽ phải chạy thử một loạt các mô phỏng thảm họa, từ đâm cột điện hay văng lật ngửa tới đâm đầu xuống nước và phát nổ bốc cháy. con xe càng chắc chắn, mức độ thử càng nặng. nhưng t vừa là người thiết kế vừa là kẻ chạy mô phỏng thảm họa vừa là con nộm trong xe, liên tục chứng kiến cái xe của t tan xác banh chành và tí nữa thì giết mình, rồi lại tiếp tục ngồi trong một con xe thử nghiệm mới. nhưng t hiểu mô phỏng có hoàn hảo cỡ mấy cũng không thể đoán hết được những tình huống có thể xảy ra. vì vậy dù có kỹ lưỡng cỡ nào thì vẫn có khả năng một ngày t gặp tai nạn và chết trong cái xe an toàn của mình. t chờ cái ngày đó xảy ra, một phần vì tò mò, một phần vì t phải rút kinh nghiệm từ đó và tiếp tục cải tiến cái xe. và cứ như vậy. cuộc sống cứ như một chuỗi ngày reversed card bản thân. ú nô. dài dòng thế này chỉ để nói là sao lúc nào t cũng đang phòng thủ. nếu biết sẽ chết trong một cái xe an toàn thì sao t không chết luôn trong một cái xe cà tàng cho rồi? nhưng như vậy không đúng. quan trọng không phải là kết quả, quan trọng là quá trình. t liên tục tân trang con xe không phải vì sự an toàn của mình mà chỉ vì t muốn làm cái hành động tân trang xe, sự an toàn chỉ là hệ quả đi kèm. </p>
+        </article>
+
         <article id="/log/2020/">
             <p class="note">All 2020 (to be updated)</p>
             <p class="dir">
@@ -752,7 +768,7 @@
                 <a href="#/log/201206.xyz"><i class="orange"></i><i class="magenta"></i> 6.12.2020 - Per espera, ad astra</a>
             </p>
         </article>
-
+        
         <article id="/log/201206.xyz">
             <style>
                 .pad-quote ~ blockquote, .pad-quote ~ *> blockquote {
@@ -1145,32 +1161,22 @@ Chain of fools (oh)</pre>
 
         <!-- JUKEBOX -->
         
-        <style>
-            .musick {
-                word-wrap: break-word
-            }
-            .musick a[target]::before {
-                content: attr(href);
-                font-size: 0.9em
-            }
-        </style>
-        
         <article id="/jukebox/">
             <div class="dir">
                 <a href="#/">..</a>
-                <p>Welcome to the <label for="toggle-jukebox" class="link">Jukebox</label>. This is likely the most visited spot on <code>/~147/</code> and the sole visitor here is of course myself. </p>
-                <p><a href="#null">I don't use Spotify</a>, so I usually stream music through <strong>Bandcamp</strong> and <strong>Great DJ</strong>, which are also the 2 services embedded on <code>/~147/</code>'s Jukebox. Both of these services offer full-length streaming without login, though the Youtube player on Great DJ may be able to identify you if you're logged in Google on the browser - see <a href="#/jukebox/disclaimer.xyz">this note</a> if you want to know more.</p>
-                <span class="note">[Left click] on a link will open it in the <label for="toggle-jukebox" class="link">Jukebox</label>. [Right-click > Open in new tab] a link will open it in a new tab. You can play this as background music when you navigate <code>/~147/</code>
+                <p>Welcome to the <label for="toggle-jukebox" class="link">Jukebox</label>. This is the most frequently visited &amp; updated spot on <code>/~147/</code>, the sole visitor being of course myself. I come here almost daily for streaming music and logging my musical finds / listening habit. </p>
+                <p>The Jukebox is powered by <strong>Bandcamp</strong> and <strong>Great DJ</strong>, which may include Youtube cookies - <a href="#/jukebox/disclaimer.xyz">see the disclaimer here</a>.</p>
+                <span class="note">[Left click] on a link will open it in the <label for="toggle-jukebox" class="link">Jukebox</label>. [Right-click > Open in new tab] a link will open it in a new tab.
                 <br><br>
                 Choose any playlist/album below</span>
             </div>
             <div class="dir">
-                <a href="https://great.dj/embed/u1s4e7r/8" target="jukebox">NOW playlist (default) - A frequently updated playlist of the songs I loop right now.</a>
-                <a class="note" href="#/jukebox/NOW-pl.xyz">▶ See the NOW playlists archive</a>
-                <a class="note" href="#/jukebox/NOW-alb.xyz">▶ See the NOW albums archive</a>
+                <a href="https://great.dj/embed/u1s4e7r/8" target="jukebox">▶ NOW playlist (default) - A frequently updated playlist of the songs I loop right now.</a>
+                <a class="note" href="#/jukebox/NOW-pl.xyz">See the NOW playlists archive</a>
+                <a class="note" href="#/jukebox/NOW-alb.xyz">See the NOW albums archive</a>
                 
-                <a href="https://great.dj/embed/lucien" target="jukebox">Lucien playlist</a>
-                <a href="https://great.dj/embed/pink_francoise" target="jukebox">Pink Francoise playlist</a>
+                <a href="https://great.dj/embed/lucien" target="jukebox">▶ Lucien playlist</a>
+                <a href="https://great.dj/embed/pink_francoise" target="jukebox">▶ Pink Francoise playlist</a>
                 <p class="note">A statement to save one's own ass</p>
                 <a href="#/jukebox/disclaimer.xyz">Disclaimer</a>
             </div>
@@ -1181,7 +1187,24 @@ Chain of fools (oh)</pre>
             <p class="dir">
                 <a href="#/jukebox/">..</a>
             </p>
+            <p class="note">Cookies disclaimer</p>
+            <p>The Jukebox on <code>/~147/</code> is powered by <strong>Bandcamp</strong> and <strong>Great DJ</strong>, which means you might receive Bandcamp and YouTube cookies (Great DJ is based on YouTube). I'm sure most people are cool with Bandcamp cookies, since <a target="_blank" href="https://bandcamp.com/privacy#cookies">they don't collect personal data</a>. Youtube cookies, on the other hand, <a href="#/staple/nocookie.xyz">pose a bigger concern to many people</a>. So if you're about to squeam...</p>
+
+            <p class="note">YouTube is malware! It's owned by Google and tracks its users!</p>
+            <dl style="margin-left: 3em">
+                I'm aware. I'm not a fan of Google trackers either, but in the case of YouTube, I'd say that the benefit outweighs the risk. I like YouTube's community of creators and its database of free, accessible media, so I'm not gonna stop using YouTube anytime now. What I cannot stand is actually the interface of YouTube[dot com], that's why I use the <strong>embed player</strong> instead of just linking to YouTube. What I'm doing here is effectively taking the YouTube <em>content</em> away from the YouTube <em>interface</em>, to make a point that although I love the content, I don't necessarily endorse the platform.
+            <p>For me, the truly most unbearable things about YouTube[dot com] are, among others:<span style="display: block; padding-left: 2em">A) the ads (especially mid-video),<br> B) the addictive UI (e.g endless scrolling, recommendation, etc) and<br> C) the gatekeeping (e.g region block, background playing block on mobile devices, etc).</span> These have been geting worse in the last few years thanks to YouTube's reinforcement. They are no longer "strings attached to a free service", they are red flags from an intrusive, manipulative, attention-grabbing, greed-mongering service owned by Silicon Valley lizards.</p>
+            <p>Fortunately, there are ways to work around or circumvent most of these problems using the embed player and/or the YouTube API. There are no ads in YouTube embeds (last time I checked), no distracting UI elements (when the player is small enough - here it is max 355px), and in a continuous playlist where one video plays after another, there's no time for recommendation. The background playing problem could be solved using the YouTube API. </p>
+            </dl>
+            <p class="note">Great! So why didn't you just write up your own player using the API? Why Great DJ?</p>
+            <dl style="margin-left: 3em">
+                <p>Using the API would mean writing JavaScript, and I intended to write <a href="#null">no JavaScript</a> for <code>/~147/</code>. Could I have written a vanilla HTML/CSS player? Why, of course, I gave it a try. You can see the demo <a href="https://e0x0e0.club/~147/misc/jukebox" target="_blank">here</a>.</p>
+                <p>I found out that without using JavaScript, the player barely works. I mean, it does work but it'd usually throw a few errors before doing what it's intended to. But then there are problems with videos that block embeds. Plus, I want to be able to use the jukebox as background music player, e.g on my phone, and there's no way to bypass the background playing block without using JavaScript.</p>
+                <p>So even though I hate having dependencies, I now rely on Great DJ to handle my YouTube embeds. I try to link Bandcamp instead of YouTube whenever possible.</p>
+            </dl>
             
+            <hr>
+            <p>Pingback: <a href="#/about.xyz">About / FAQ</a></p>
         </article>
         
         <article id="/jukebox/NOW-pl.xyz">
@@ -1189,9 +1212,9 @@ Chain of fools (oh)</pre>
                 <a href="#/jukebox/">..</a>
             </p>
             <p class="note">[Left click] on a link will open it in the <label for="toggle-jukebox" class="link">Jukebox</label>. [Right-click > Open in new tab] a link will open it in a new tab. </p>
-            <p>▶ Playlists / songs</p>
+            <p>▶ Playlists / songs log</p>
             
-            <ul class="musick">
+            <ul class="show-href">
                 <li>27.5.2023 - Best Thing playlist (aka Julius 1.0): if you know you know lol<br>
                     <a href="https://great.dj/embed/u1s4e7r/8" target="jukebox"></a>
                 </li>
@@ -1255,8 +1278,8 @@ Chain of fools (oh)</pre>
                 <a href="#/jukebox/">..</a>
             </p>
             <p class="note">[Left click] on a link will open it in the <label for="toggle-jukebox" class="link">Jukebox</label>. [Right-click > Open in new tab] a link will open it in a new tab. </p>
-            <p>▶ Albums / EPs + notes</p>
-            <ul class="musick">
+            <p>▶ Albums / EPs log + notes</p>
+            <ul class="show-href">
                 <li>19.5.2023 - Jungle, "Loving In Stereo" (2021) <br>
                     <span class="note">I don't <em>usually</em> enjoy pop, but this one is insanely beautifully produced. Their dance music videos are top notch... Their song absolutely deserved to be played at the World Cup. The lyrics are minimal but beautiful, reminds me a lot of Son Lux, which, <sub>if you know me you know that I think Son Lux is the epitome of music,,,</sub> Favorite track: Keep moving, Talk About It, All The Time.</span><br>
                     <a href="https://bandcamp.com/EmbeddedPlayer/album=880033932/size=large/linkcol=333333/minimal=true/track=4225969940/" target="jukebox"></a>
@@ -1266,7 +1289,7 @@ Chain of fools (oh)</pre>
                     <a href="https://tomlehrersongs.com/albums/an-evening-wasted-with-tom-lehrer/" target="jukebox"></a>
                 </li>
                 <li>27.4.2023 - Judith Nijland, "Acoustic Solutions 4" (2008)<br>
-                    <span class="note">This one is just a pretty nice jazz album bought from a local record shop in Australia. I lost the physical copy of this album years ago. Finally found that someone uploaded this to Youtube. Favorite track: It's Raining Men, Why Can't This Be Love (bc it's a Van Halen cover <3), Close To You.</span><br>
+                    <span class="note">This one is just a pretty nice jazz album bought from a local record shop in Australia. I lost the physical copy of this album years ago. Finally found that someone uploaded this to Youtube. Favorite track: It's Raining Men, Why Can't This Be Love (bc it's a Van Halen cover &lt;3), Close To You.</span><br>
                     <a href="https://great.dj/embed/wklh8z/1" target="jukebox"></a>
                 </li>
                 <li>30.3.2023 - Duster, "Stratosphere" (1998)<br>
@@ -1303,11 +1326,20 @@ Chain of fools (oh)</pre>
                     <a href="https://bandcamp.com/EmbeddedPlayer/album=460041229/size=large/linkcol=63b2cc/minimal=true/track=2180036846/" target="jukebox"></a>
                 </li>
                 <li>5.7.2022 - Connie Converse, "How Sad, How Lovely" (1950s)<br>
-                    <span class="note">I don't know if the facts (or the lack thereof) about Connie's life contributed to the way I feel about this album. Hell... it's not even her "album", just a compilation of unreleased songs recorded in her friend's kitchen before she mysteriously disappeared in the 50s. Whatever it is, it definitely grew on me and once it gets under my skin it doesn't come off. Favorite track: all of them <3 (I'm not even joking I know every song by heart and I can recite each of them backwards and forwards)</span><br>
+                    <span class="note">I don't know if the facts (or the lack thereof) about Connie's life contributed to the way I feel about this album. Hell... it's not even her "album", just a compilation of unreleased songs recorded in her friend's kitchen before she mysteriously disappeared in the 50s. Whatever it is, it definitely grew on me and once it gets under my skin it doesn't come off. Favorite track: all of them &lt;3 (I'm not even joking I know every song by heart and I can recite each of them backwards and forwards)</span><br>
                     <a href="https://bandcamp.com/EmbeddedPlayer/album=2849647393/size=large/bgcol=333333/linkcol=e99708/minimal=true/" target="jukebox"></a>
                 </li>
             </ul>
         </article>
+        
+        <!--<span id="peekaboo" style="z-index: 999; background: var(--bg); border-radius: 15px; border: 1px solid; box-shadow: 0 0 10px gray;">
+            <span id="seen">
+                <iframe name="jukebox" src="https://great.dj/embed/u1s4e7r/8" allow='autoplay' style="--max: calc(100vw - 5em); width: 355px; height: 355px; max-width: var(--max); max-height: var(--max); margin: auto; display: block; border-radius: 15px; border: 0;">
+                </iframe>
+                <label class="link" for="toggle-jukebox" title="close the jukebox" style="display: block; text-align: center; border-radius: 15px;">▶ collapse jukebox ◀</label>
+            </span>
+            <span id="hidden"> <label for="toggle-jukebox" class="" title="open the jukebox" style="display: block; padding: 1em 1.3em; border-radius: 15px; ">&#9835;</label> </span>
+        </span>-->
         
         <!-- NOT FOUND -->
         
